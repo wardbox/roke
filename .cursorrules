@@ -1,0 +1,16 @@
+// Wasp Import Rules
+- Import Wasp functions from 'wasp' package, not '@wasp'
+  ✓ import { Task } from 'wasp/entities'
+  ✓ import { type GetTasks } from 'wasp/server/operations'
+  ✓ import { getTasks, useQuery } from 'wasp/client/operations'
+  ✗ import { ... } from '@wasp/...'
+
+// Wasp Schema Rules
+- Add new entities (models) to 'schema.prisma', NOT 'main.wasp'
+
+// Wasp Dependencies
+- Do NOT add dependencies to 'main.wasp'
+- Install dependencies via 'npm install' instead
+
+// Wasp
+

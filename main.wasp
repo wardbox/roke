@@ -1,0 +1,124 @@
+app roke {
+  wasp: {
+    version: "^0.15.1"
+  },
+  title: "Roke",
+  auth: {
+    userEntity: User,
+    methods: {
+      email: {
+        fromField: {
+          name: "Roke",
+          email: "wizard@roke.dev"
+        },
+        emailVerification: {
+          clientRoute: EmailVerificationRoute,
+        },
+        passwordReset: {
+          clientRoute: PasswordResetRoute,
+        },
+        userSignupFields: import { getEmailUserFields } from "@src/auth/user-signup-fields",
+      }
+    },
+    onAuthSucceededRedirectTo: "/profile/:id",
+    onAuthFailedRedirectTo: "/login"
+  },
+  client: {
+    rootComponent: import Root from "@src/Root",
+    setupFn: import setupClient from "@src/setup"
+  },
+  emailSender: {
+    provider: Dummy,
+  }
+}
+
+//#region Routes
+route Landing { path: "/", to: Landing }
+route Example { path: "/example", to: Example }
+route Motion { path: "/motion", to: Motion }
+route Utils { path: "/utils", to: Utils }
+route Profile { path: "/profile/:id", to: ProfilePage }
+route LoginRoute { path: "/login", to: LoginPage }
+route SignupRoute { path: "/signup", to: SignupPage }
+route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
+route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
+route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
+//#endregion
+
+//#region Pages
+page Landing {
+  component: import Landing from "@src/pages/landing",
+}
+
+page Example {
+  component: import Example from "@src/pages/example/example",
+}
+
+page Motion {
+  component: import Motion from "@src/pages/motion",
+}
+
+page Utils {
+  component: import Utils from "@src/pages/utils",
+}
+
+page ProfilePage {
+  component: import Profile from "@src/pages/profile",
+  authRequired: true,
+}
+
+page LoginPage {
+  component: import { Login } from "@src/auth/auth",
+}
+
+page SignupPage {
+  component: import { Signup } from "@src/auth/auth",
+}
+
+page RequestPasswordResetPage {
+  component: import { RequestPasswordReset } from "@src/auth/auth",
+}
+
+page PasswordResetPage {
+  component: import { PasswordReset } from "@src/auth/auth",
+}
+
+page EmailVerificationPage {
+  component: import { EmailVerification } from "@src/auth/auth",
+}
+//#endregion
+
+//#region Notes
+action createNote {
+  fn: import { createNote } from "@src/pages/example/operations",
+  entities: [User, Note],
+}
+
+query getNotes {
+  fn: import { getNotes } from "@src/pages/example/operations",
+  entities: [User, Note],
+}
+
+action updateNote {
+  fn: import { updateNote } from "@src/pages/example/operations",
+  entities: [User, Note],
+}
+
+action deleteNote {
+  fn: import { deleteNote } from "@src/pages/example/operations",
+  entities: [User, Note],
+}
+//#endregion
+
+//#region Jobs
+job exampleJob {
+  executor: PgBoss,
+  perform: {
+    fn: import { exampleJob } from "@src/jobs/example-job",
+  },
+  entities: [User, Note],
+  schedule: {
+    cron: "*/15 * * * *"
+  }
+}
+//#endregion
