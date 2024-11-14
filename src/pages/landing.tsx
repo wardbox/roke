@@ -3,13 +3,14 @@ import { motion } from "motion/react"
 import { fadeIn, staggerContainer, staggerItem } from "../components/ui/motion"
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card"
 import { CodeBlock } from "../components/ui/code-block"
-import { 
-  FolderSimple, 
-  Lightning, 
-  Wrench, 
-  Books, 
+import {
+  FolderSimple,
+  Lightning,
+  Wrench,
+  Books,
   ArrowBendUpLeft,
-  Lightbulb
+  Lightbulb,
+  Mountains
 } from "@phosphor-icons/react"
 
 const ListSection = ({ icon: Icon, title, items }: { icon: any, title: string, items: string[] }) => (
@@ -43,7 +44,9 @@ export default function Landing() {
         className="space-y-4"
       >
         <h1 className="text-9xl sm:text-[10rem] lg:text-[12rem] flex gap-4">
-          <span className="medieval">{import.meta.env.REACT_APP_NAME}</span>
+          <span className="medieval">
+            {import.meta.env.REACT_APP_NAME}
+          </span>
           <span className="hidden sm:block text-base font-light text-muted-foreground tracking-normal -rotate-12 translate-y-12 text-pretty">
             <ArrowBendUpLeft className="inline-block mr-1" size={16} weight="bold" />
             Customize this title in <code>.env.client</code>!
@@ -68,16 +71,16 @@ export default function Landing() {
               <CardContent className="">
                 <div className="flex flex-col gap-12 text-lg">
                   <div className="space-y-4">
-                  <p className="font-medium">1. Set your app name in <code>.env.client</code></p>
-                  <CodeBlock
-                    code={`REACT_APP_NAME="App Name"`}
-                    variant="compact"
+                    <p className="font-medium">1. Set your app name in <code>.env.client</code></p>
+                    <CodeBlock
+                      code={`REACT_APP_NAME="App Name"`}
+                      variant="compact"
                     />
                   </div>
                   <div className="space-y-4">
                     <p className="font-medium">2. Start developing:</p>
-                    <CodeBlock 
-                    code={`wasp db start
+                    <CodeBlock
+                      code={`wasp db start
 wasp db migrate-dev
 wasp start`}
                       variant="compact"
@@ -85,7 +88,7 @@ wasp start`}
                   </div>
                   <p className="text-sm text-muted-foreground border-t pt-4 mt-4 text-pretty">
                     <Lightbulb size={16} weight="fill" className=" text-brand-primary inline-block mr-1" />
-                      Tip: After installing new shadcn components, run <code>npm run fix-shadcn</code> to fix import paths
+                    Tip: After installing new shadcn components, run <code>npm run fix-shadcn</code> to fix import paths
                   </p>
                 </div>
               </CardContent>
@@ -139,7 +142,7 @@ wasp start`}
         {/* Right column - Tools & Resources */}
         <div className="space-y-16">
           <div className="space-y-24">
-            <ListSection 
+            <ListSection
               icon={Lightning}
               title="Features"
               items={[
@@ -150,8 +153,8 @@ wasp start`}
                 "Toaster included"
               ]}
             />
-            
-            <ListSection 
+
+            <ListSection
               icon={Wrench}
               title="Development Tools"
               items={[
