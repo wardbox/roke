@@ -1,0 +1,20 @@
+.login input {
+  color: #000;
+  border-radius: var(--radius);
+}
+
+.login svg {
+  fill: #000;
+}
+
+.login button {
+  border: none;
+}
+
+.login span {
+  color: #000;
+}
+
+.login-text {
+  color: hsl(var(--foreground));
+}
