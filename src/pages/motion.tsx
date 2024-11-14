@@ -1,15 +1,20 @@
-import { motion } from "framer-motion"
-import { fadeIn, fadeInUp, staggerContainer, listItemVariant } from "../components/ui/motion"
-import { CodeBlock } from "../components/ui/code-block"
+import { motion, AnimatePresence } from "motion/react"
+import { ArrowsClockwise, Spinner } from "@phosphor-icons/react"
 import { Button } from "../components/ui/button"
-import { ArrowsClockwise } from "@phosphor-icons/react"
-import { useAnimationControls } from "motion/react"
+import { CodeBlock } from "../components/ui/code-block"
+import * as animations from "../components/ui/motion"
+import { useEffect } from "react"
+import { useState } from "react"
+import { ModeToggle } from "../components/mode-toggle"
+import TypingAnimation from "../components/ui/typing-animation"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
+import { fadeIn, slideInUp, staggerContainer, staggerItem, hoverScale, spinner } from "../components/ui/motion"
 
 function ReplayButton({ onClick }: { onClick: () => void }) {
   return (
-    <Button 
-      variant="outline" 
-      size="sm" 
+    <Button
+      variant="outline"
+      size="sm"
       onClick={onClick}
       className="absolute top-2 right-2"
     >
@@ -18,201 +23,357 @@ function ReplayButton({ onClick }: { onClick: () => void }) {
   )
 }
 
-export default function MotionExamples() {
-  const fadeControls = useAnimationControls()
-  const cardControls = useAnimationControls()
-  const staggerControls = useAnimationControls()
-  const listControls = useAnimationControls()
-  const motionDivControls = useAnimationControls()
-
-  const replayFade = async () => {
-    await fadeControls.start("initial")
-    fadeControls.start("animate")
-  }
-
-  const replayCard = async () => {
-    await cardControls.start("initial")
-    cardControls.start("animate")
-  }
-
-  const replayStagger = async () => {
-    await staggerControls.start("initial")
-    staggerControls.start("animate")
-  }
-
-  const replayMotionDiv = async () => {
-    await motionDivControls.start("initial")
-    motionDivControls.start("animate")
-  }
+function AnimationExample({
+  title,
+  description,
+  code,
+  children
+}: {
+  title: string
+  description: string
+  code: string
+  children: React.ReactNode
+}) {
+  const [key, setKey] = useState(0)
 
   return (
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <h3 className="text-xl font-semibold">{title}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
+      </div>
+      <div className="relative p-6 rounded-lg border bg-card">
+        <ReplayButton onClick={() => setKey(prev => prev + 1)} />
+        <div className="flex items-center justify-center min-h-[100px]" key={key}>
+          <AnimatePresence mode="wait">
+            {children}
+          </AnimatePresence>
+        </div>
+      </div>
+      <CodeBlock language="typescript" code={code} />
+    </div>
+  )
+}
+
+
+export default function MotionExamples() {
+  return (
     <motion.div
-      variants={staggerContainer}
+      variants={animations.staggerContainer}
       initial="initial"
       animate="animate"
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
     >
-      {/* Header Section */}
+      {/* Header */}
       <motion.div
-        variants={fadeInUp}
-        transition={{ duration: 0.4 }}
+        variants={animations.fadeIn}
         className="space-y-4 mb-16"
       >
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-          Motion Components
+          Animation Examples
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl">
-          Accessible animation components built on Framer Motion. These components automatically disable animations when reduced motion is enabled.
+          A collection of reusable animations built with Motion. Click the replay button to see each animation again.
         </p>
       </motion.div>
 
-      {/* Main Content */}
-      <div className="grid gap-12 lg:grid-cols-2">
-        {/* Basic Components Section */}
-        <motion.div variants={fadeIn} className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight">Basic Components</h2>
-            <p className="text-sm text-muted-foreground">
-              Motion-enabled components that respect user preferences. Use these as drop-in replacements for their HTML counterparts.
-            </p>
-          </div>
-
-          <div className="space-y-4">
+      {/* Basic Transitions */}
+      <div className="space-y-12">
+        <h2 className="text-3xl font-semibold">Basic Transitions</h2>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <AnimationExample
+            title="Fade In"
+            description="A simple fade in animation."
+            code={`const fadeIn = ${JSON.stringify(animations.fadeIn, null, 2)}`}
+          >
             <motion.div
-              animate={motionDivControls}
-              variants={listItemVariant}
-              className="p-4 rounded-lg border bg-card relative"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              variants={animations.fadeIn}
+              className="p-8 bg-muted rounded-lg"
             >
-              <ReplayButton onClick={replayMotionDiv} />
-              <code className="text-sm">{'<motion.div />'}</code>
-              <p className="text-sm text-muted-foreground mt-2">
-                The main container component. Use this for any div that needs animation capabilities.
-                Supports all Framer Motion props including hover and tap animations.
-              </p>
+              Fade In Content
             </motion.div>
+          </AnimationExample>
 
-            <div className="p-4 rounded-lg border bg-card relative">
-              <code className="text-sm">{'<MotionLi />'}</code>
-              <p className="text-sm text-muted-foreground mt-2">
-                Specialized component for list items. Perfect for animated lists and menus.
-              </p>
-              <ul className="mt-4 space-y-2">
-                <motion.li
-                  animate={listControls}
-                  variants={listItemVariant}
-                  className="p-2 rounded bg-muted"
-                  whileHover={{ x: 8 }}
-                >
-                  Hover to see the animation →
-                </motion.li>
-                <motion.li
-                  animate={listControls}
-                  variants={listItemVariant}
-                  className="p-2 rounded bg-muted"
-                  whileHover={{ x: 8 }}
-                >
-                  Great for navigation items →
-                </motion.li>
-              </ul>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Animation Variants Section */}
-        <motion.div variants={fadeIn} className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight">Animation Variants</h2>
-            <p className="text-sm text-muted-foreground">
-              Pre-built animations that can be customized with different durations and timing functions.
-              Click the refresh button to replay each animation.
-            </p>
-          </div>
-
-          <div className="space-y-4">
+          <AnimationExample
+            title="Slide In Up"
+            description="Content that slides up while fading in."
+            code={`const slideInUp = ${JSON.stringify(animations.slideInUp, null, 2)}`}
+          >
             <motion.div
-              animate={fadeControls}
-              variants={fadeIn}
-              className="p-4 rounded-lg border bg-card relative"
+              variants={animations.slideInUp}
+              className="p-8 bg-muted rounded-lg"
             >
-              <ReplayButton onClick={replayFade} />
-              <code className="text-sm">fadeIn</code>
-              <p className="text-sm text-muted-foreground mt-2">
-                A subtle fade-in animation with a small upward movement. Duration: 0.5s
-              </p>
+              Slide Up Content
             </motion.div>
-
-            <motion.div
-              animate={cardControls}
-              variants={fadeInUp}
-              className="p-4 rounded-lg border bg-card relative"
-            >
-              <ReplayButton onClick={replayCard} />
-              <code className="text-sm">fadeInUp</code>
-              <p className="text-sm text-muted-foreground mt-2">
-                A quick fade-in that slides up. Default duration: 0.2s. Can be customized with a transition prop.
-              </p>
-            </motion.div>
-
-            <div className="p-4 rounded-lg border bg-card relative">
-              <ReplayButton onClick={replayStagger} />
-              <code className="text-sm">staggerContainer</code>
-              <p className="text-sm text-muted-foreground mt-2">
-                Animates children sequentially with a 0.1s delay between each. Wrap this around other motion components.
-              </p>
-              <motion.div
-                animate={staggerControls}
-                variants={staggerContainer}
-                initial="initial"
-                className="mt-4 space-y-2"
-              >
-                <motion.div 
-                  variants={fadeInUp}
-                  className="p-2 rounded bg-muted"
-                >
-                  First child animates
-                </motion.div>
-                <motion.div 
-                  variants={fadeInUp}
-                  className="p-2 rounded bg-muted"
-                >
-                  Then this one
-                </motion.div>
-                <motion.div 
-                  variants={fadeInUp}
-                  className="p-2 rounded bg-muted"
-                >
-                  And finally this one
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+          </AnimationExample>
+        </div>
       </div>
 
-      {/* Usage Example Section */}
-      <motion.div variants={fadeIn} className="mt-16 space-y-4">
-        <h2 className="text-2xl font-semibold tracking-tight">Usage Example</h2>
-        <p className="text-sm text-muted-foreground">
-          Import the components and variants you need, then combine them to create animated layouts.
-          All animations automatically disable when the user has reduced motion enabled.
-        </p>
-        <CodeBlock 
-          language="typescript" 
-          code={`import { motion } from "framer-motion"
+      {/* List Animations */}
+      <motion.div variants={animations.fadeIn} className="space-y-12 mt-16">
+        <h2 className="text-3xl font-semibold">List Animations</h2>
+        <AnimationExample
+          title="Staggered List"
+          description="List items that animate in sequence."
+          code={`const staggerContainer = ${JSON.stringify(animations.staggerContainer, null, 2)}
+const staggerItem = ${JSON.stringify(animations.staggerItem, null, 2)}`}
+        >
+          <motion.ol
+            variants={animations.staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            className="space-y-2 w-full"
+          >
+            {[1, 2, 3].map((item) => (
+              <motion.li
+                key={item}
+                variants={animations.staggerItem}
+                className="p-4 bg-muted rounded-lg"
+              >
+                List Item {item}
+              </motion.li>
+            ))}
+          </motion.ol>
+        </AnimationExample>
+      </motion.div>
 
-export function MyComponent() {
+      {/* Theme Toggle */}
+      <motion.div variants={animations.fadeIn} className="space-y-12 mt-16">
+        <h2 className="text-3xl font-semibold">Theme Toggle</h2>
+        <AnimationExample
+          title="Theme Switch Animation"
+          description="Smooth transition between light and dark mode icons."
+          code={`const darkMode = ${JSON.stringify(animations.darkMode, null, 2)}
+const lightMode = ${JSON.stringify(animations.lightMode, null, 2)}`}
+        >
+          <ModeToggle iconSize="lg" />
+        </AnimationExample>
+      </motion.div>
+
+      {/* Hover Effects */}
+      <motion.div variants={animations.fadeIn} className="space-y-12 mt-16">
+        <h2 className="text-3xl font-semibold">Hover Effects</h2>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <AnimationExample
+            title="Scale"
+            description="Simple scale effect on hover and tap."
+            code={`const hoverScale = ${JSON.stringify(animations.hoverScale, null, 2)}`}
+          >
+            <motion.div
+              className="p-8 bg-muted rounded-lg cursor-pointer select-none"
+              variants={animations.hoverScale}
+              whileHover="whileHover"
+              whileTap="whileTap"
+            >
+              Hover Me
+            </motion.div>
+          </AnimationExample>
+
+          <AnimationExample
+            title="Tilt"
+            description="Playful tilt animation on hover."
+            code={`const hoverTilt = ${JSON.stringify(animations.hoverTilt, null, 2)}`}
+          >
+            <motion.div
+              className="p-8 bg-muted rounded-lg cursor-pointer select-none"
+              whileHover="whileHover"
+              variants={animations.hoverTilt}
+            >
+              Hover to Tilt
+            </motion.div>
+          </AnimationExample>
+        </div>
+      </motion.div>
+
+      {/* Loading Spinner */}
+      <motion.div variants={animations.fadeIn} className="space-y-12 mt-16">
+        <h2 className="text-3xl font-semibold">Loading Animations</h2>
+        <AnimationExample
+          title="Spinner"
+          description="Smooth spinning animation that slows to stop."
+          code={`const spinner = ${JSON.stringify(animations.spinner, null, 2)}`}
+        >
+          <motion.div
+            variants={animations.spinner}
+            animate="animate"
+          >
+            <Spinner size={64} weight="bold" />
+          </motion.div>
+        </AnimationExample>
+      </motion.div>
+
+      {/* Text Animation */}
+      <motion.div variants={animations.fadeIn} className="space-y-12 mt-16">
+        <h2 className="text-3xl font-semibold">Text Animation</h2>
+        <AnimationExample
+          title="Letter by Letter"
+          description="Reveals text one character at a time."
+          code={`const textContainer = ${JSON.stringify(animations.textContainer, null, 2)}
+const textChild = ${JSON.stringify(animations.textChild, null, 2)}`}
+        >
+          <TypingAnimation
+            texts={[
+              "Hello! I'm a web page typing to you!",
+              "I hope you're having a great day!",
+              "Da boi prevails."
+            ]}
+            typingSpeed={{ min: Math.random() * (0.09 - 0.05) + 0.05, max: Math.random() * (0.09 - 0.05) + 0.09 }}
+            pauseBetweenTexts={Math.random() * (2 - 1) + 1}
+            className="text-4xl font-bold"
+          />
+        </AnimationExample>
+      </motion.div>
+
+      {/* Usage Guide */}
+      <motion.div variants={animations.fadeIn} className="mt-24 space-y-4">
+        <h2 className="text-2xl font-semibold tracking-tight">Usage Guide</h2>
+        <p className="text-sm text-muted-foreground">
+          Import animations from the motion file and use them with Motion components.
+        </p>
+
+        <Tabs defaultValue="example" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="code">Code</TabsTrigger>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="code" className="mt-4">
+            <CodeBlock
+              language="typescript"
+              code={`import { motion, AnimatePresence } from "motion/react"
+import { fadeIn, slideInUp, staggerContainer, staggerItem, 
+         hoverScale, spinner } from "../components/ui/motion"
+
+export function ProductGrid({ products, isLoading }) {
   return (
-    <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-8">
-      <motion.div variants={fadeInUp}>
-        This will animate with a fade-up effect
+        <div className="max-w-7xl mx-auto px-4 py-12">
+      <motion.div
+        variants={fadeIn}
+        initial="initial"
+        animate="animate"
+        className="mb-8"
+      >
+        <h1 className="text-4xl font-bold">Our Products</h1>
+        <p className="text-muted-foreground">Find something you'll love.</p>
+      </motion.div>
+
+      {isLoading && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            variants={spinner}
+            animate="animate"
+            className="flex justify-center py-12"
+          >
+            <Spinner size={64} weight="bold" />
+          </motion.div>
+        </AnimatePresence>
+      )}
+
+      {!isLoading && (
+      <AnimatePresence mode="wait">
+        <motion.div
+          variants={staggerContainer}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {products.map((product) => (
+              <motion.div
+                key={product.id}
+                variants={staggerItem}
+                className="group relative rounded-lg overflow-hidden bg-card"
+              >
+                <div className="w-full h-64 bg-muted rounded-lg"></div>
+                <div className="p-4">
+                  <h3 className="font-semibold">{product.name}</h3>
+                  <p className="text-muted-foreground">{product.price}</p>
+                </div>
+              </motion.div>
+            ))}
+        </motion.div>
+        </AnimatePresence>
+      )}
+    </div>
+  )
+}`}
+            />
+          </TabsContent>
+
+          <TabsContent value="preview" className="mt-4">
+            <PreviewExample />
+          </TabsContent>
+        </Tabs>
       </motion.div>
     </motion.div>
   )
-}`} 
-        />
+}
+
+
+const products = [
+  { id: 1, name: "Product 1", price: "$10", image: "https://via.placeholder.com/300" },
+  { id: 2, name: "Product 2", price: "$20", image: "https://via.placeholder.com/300" },
+  { id: 3, name: "Product 3", price: "$30", image: "https://via.placeholder.com/300" }
+]
+
+function PreviewExample() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <motion.div
+        variants={fadeIn}
+        initial="initial"
+        animate="animate"
+        className="mb-8"
+      >
+        <h1 className="text-4xl font-bold">Our Products</h1>
+        <p className="text-muted-foreground">Find something you'll love.</p>
       </motion.div>
-    </motion.div>
-  )
+
+      {isLoading && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            variants={spinner}
+            animate="animate"
+            className="flex justify-center py-12"
+          >
+            <Spinner size={64} weight="bold" />
+          </motion.div>
+        </AnimatePresence>
+      )}
+
+      {!isLoading && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {products.map((product) => (
+              <motion.div
+                key={product.id}
+                variants={staggerItem}
+                className="group relative rounded-lg overflow-hidden bg-card"
+              >
+                <div className="w-full h-64 bg-muted rounded-lg"></div>
+                <div className="p-4">
+                  <h3 className="font-semibold">{product.name}</h3>
+                  <p className="text-muted-foreground">{product.price}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      )}
+    </div>
+  );
 }

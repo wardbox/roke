@@ -4,8 +4,8 @@ import { Trash } from "@phosphor-icons/react";
 import { deleteNote, updateNote } from "wasp/client/operations";
 import { HttpError } from "wasp/server";
 import { Button } from "../../components/ui/button";
-import { motion } from "framer-motion";
-import { fadeIn, fadeInUp, staggerContainer } from "../../components/ui/motion";
+import { motion } from "motion/react";
+import { fadeIn, staggerContainer } from "../../components/ui/motion";
 import { Skeleton } from "../../components/ui/skeleton";
 import { Textarea } from "../../components/ui/textarea";
 import { useToast } from "../../hooks/use-toast";
@@ -94,7 +94,7 @@ export function NoteList(
       {notes.map((note) => (
         <motion.div
           key={note.id}
-          variants={fadeInUp}
+          variants={fadeIn}
           layout="position"
           transition={{ layout: { duration: 0.2 } }}
           className="p-6 rounded-lg border hover:bg-muted/50 transition-colors group relative leading-8"

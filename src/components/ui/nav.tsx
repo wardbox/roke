@@ -53,7 +53,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
             {logo ? (
               <img src={logo} alt="Logo" className="h-6 w-6" />
             ) : (
-              <Layout size={24} weight="fill" />
+              <Layout size={24} />
             )}
             <span className="font-bold">{import.meta.env.REACT_APP_NAME}</span>
           </Link>
@@ -98,7 +98,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
         </div>
 
         <div className="flex items-center space-x-4">
-          <ModeToggle />
+          <ModeToggle iconSize="md" />
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
@@ -112,7 +112,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
                   <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen} modal={false}>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" size="icon" aria-label="User menu">
-                        <UserIcon size={24} weight="fill" />
+                        <UserIcon size={24} />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -137,7 +137,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
                   <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen} modal={false}>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" size="icon">
-                        <UserIcon size={24} weight="fill" />
+                        <UserIcon size={24} />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -179,7 +179,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
                   )}
                   onClick={handleNavigation}
                 >
-                  <HouseSimple size={24} weight="fill" />
+                  <HouseSimple size={24} />
                   <span>Home</span>
                 </Link>
 
@@ -191,7 +191,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
                   )}
                   onClick={handleNavigation}
                 >
-                  <Info size={24} weight="fill" />
+                  <Info size={24} />
                   <span>Example</span>
                 </Link>
 
@@ -242,7 +242,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(({ logo, user, userLoading, 
                             )}
                             onClick={handleNavigation}
                           >
-                            <UserIcon size={24} weight="fill" />
+                            <UserIcon size={24} />
                             <span>Profile</span>
                           </Link>
                         </Button>

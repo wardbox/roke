@@ -1,37 +1,46 @@
-import { MoonStars, Sun } from "@phosphor-icons/react"
+  import { MoonStars, Sun } from "@phosphor-icons/react"
+  import { Button } from "./ui/button"
+  import { AnimatePresence } from "motion/react"
+  import { darkMode, lightMode } from "./ui/motion"
+  import { useTheme } from "./theme-provider"
+  import { motion } from "motion/react"
 
-import { Button } from "./ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu"
-import { useTheme } from "./theme-provider"
+  export function ModeToggle({ iconSize = "sm" }: { iconSize?: "sm" | "md" | "lg" | "xl" }) {
+    const { theme, setTheme } = useTheme()
 
-export function ModeToggle() {
-  const { setTheme } = useTheme()
-
-  return (
-    <DropdownMenu modal={false}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun size={24} weight="fill" className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonStars size={24} weight="fill" className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
+    return (
+      <Button 
+        variant="outline"
+        size="icon"
+        iconSize={iconSize}
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      >
+        <AnimatePresence>
+          {theme === "dark" ? (
+            <motion.div
+              key="dark"
+              className="absolute"
+              variants={darkMode}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <MoonStars />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="light"
+              className="absolute"
+              variants={lightMode}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Sun />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    )
+  }

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { fadeIn, staggerContainer } from "../../components/ui/motion"
 import { NoteForm } from "./note-form"
 import { useQuery, getNotes } from "wasp/client/operations"

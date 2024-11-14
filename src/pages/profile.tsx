@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { fadeIn } from "../components/ui/motion"
 import { useAuth } from "wasp/client/auth"
 

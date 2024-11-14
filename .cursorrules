@@ -14,3 +14,9 @@
 
 // Wasp
 
+// Framer Motion
+- Use 'motion/react' instead of 'framer-motion', this is the new opensourced version of Framer Motion.
+
+// CSS
+- Use Tailwind CSS for styling.
+- Do not use inline styles.

@@ -1,6 +1,6 @@
 import React from "react"
-import { motion } from "framer-motion"
-import { fadeIn, fadeInUp, staggerContainer, listItemVariant } from "../components/ui/motion"
+import { motion } from "motion/react"
+import { fadeIn, staggerContainer, staggerItem } from "../components/ui/motion"
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card"
 import { CodeBlock } from "../components/ui/code-block"
 import { 
@@ -16,17 +16,17 @@ const ListSection = ({ icon: Icon, title, items }: { icon: any, title: string, i
   <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-8">
     <div className="flex items-center gap-3 mb-8">
       <Icon size={20} weight="bold" className="text-brand-accent" />
-      <motion.div variants={fadeInUp} className="text-2xl font-medium tracking-tight">
+      <motion.div variants={fadeIn} className="text-2xl font-medium tracking-tight">
         {title}
       </motion.div>
     </div>
-    <ul className="space-y-4 text-foreground/90 text-lg">
+    <motion.ul variants={staggerContainer} initial="hidden" animate="show" className="space-y-4 text-foreground/90 text-lg">
       {items.map((item, i) => (
-        <motion.li key={i} variants={listItemVariant}>
+        <motion.li key={i} variants={staggerItem}>
           {item}
         </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   </motion.div>
 )
 
@@ -56,7 +56,7 @@ export default function Landing() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
         <div className="lg:col-span-2 space-y-16">
           {/* Quick Start */}
-          <motion.div variants={fadeInUp}>
+          <motion.div variants={fadeIn}>
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-4">
@@ -102,7 +102,7 @@ wasp start`}
               animate="animate"
               className="space-y-12"
             >
-              <motion.div variants={fadeInUp}>
+              <motion.div variants={fadeIn}>
                 <Card className="h-full">
                   <CardHeader className="pb-6">
                     <div className="flex items-center gap-3">
@@ -163,7 +163,7 @@ wasp start`}
             <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-8">
               <div className="flex items-center gap-3 mb-8">
                 <Books size={20} weight="bold" className="text-brand-accent" />
-                <motion.div variants={fadeInUp} className="text-2xl font-medium tracking-tight">
+                <motion.div variants={fadeIn} className="text-2xl font-medium tracking-tight">
                   Resources
                 </motion.div>
               </div>
@@ -174,7 +174,7 @@ wasp start`}
                   { href: "https://tailwindcss.com/docs/installation", text: "Tailwind CSS →" },
                   { href: "https://www.framer.com/motion/", text: "Framer Motion →" }
                 ].map((link, i) => (
-                  <motion.li key={i} variants={listItemVariant}>
+                  <motion.li key={i} variants={fadeIn}>
                     <a href={link.href} target="_blank" className="text-lg text-foreground/90 hover:text-foreground transition-colors">
                       {link.text}
                     </a>

@@ -31,8 +31,8 @@ import {
 import { Input } from '../components/ui/input'
 import { Button } from '../components/ui/button'
 import { CodeBlock } from '../components/ui/code-block'
-import { motion } from "framer-motion"
-import { fadeIn, fadeInUp, staggerContainer } from "../components/ui/motion"
+import { motion } from "motion/react"
+import { fadeIn, staggerContainer } from "../components/ui/motion"
 
 type NavItem = {
   id: string
@@ -113,7 +113,7 @@ export default function UtilsDemo() {
         className="max-w-5xl w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
       >
         <motion.div
-          variants={fadeInUp}
+          variants={fadeIn}
           transition={{ duration: 0.4 }}
           className="space-y-4 mb-16"
         >

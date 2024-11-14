@@ -8,8 +8,8 @@ import { Nav } from './components/ui/nav'
 import rokeLogo from './static/roke-logomark.svg'
 import { useAuth } from 'wasp/client/auth'
 import { Footer } from './components/ui/footer'
-import { MotionConfig } from "framer-motion"
-import { useReducedMotion } from "framer-motion"
+import { MotionConfig, useReducedMotion } from "motion/react"
+import { ScrollToTop } from './components/ui/scroll-to-top'
 
 export default function Root() {
   const { data: user, isLoading } = useAuth()
@@ -26,7 +26,8 @@ export default function Root() {
             <Outlet />
           </main>
           <Toaster />
-          <footer className="flex justify-center p-3 border-t z-50">
+          <ScrollToTop />
+          <footer className="flex justify-center p-3 border-t z-60">
             <Footer />
           </footer>
         </div>
