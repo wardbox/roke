@@ -185,7 +185,7 @@ wasp start`}
                 rel='noopener noreferrer'
               >
                 <motion.img
-                  whileHover='hover'
+                  whileHover={{ scale: 1.1 }}
                   variants={staggerItem}
                   src={waspLogo}
                   alt='wasp'
@@ -198,7 +198,7 @@ wasp start`}
                 rel='noopener noreferrer'
               >
                 <motion.img
-                  whileHover='hover'
+                  whileHover={{ scale: 1.1 }}
                   variants={staggerItem}
                   src={motionLogo}
                   alt='motion'
@@ -211,7 +211,7 @@ wasp start`}
                 rel='noopener noreferrer'
               >
                 <motion.img
-                  whileHover='hover'
+                  whileHover={{ scale: 1.1 }}
                   variants={staggerItem}
                   src={tailwindLogo}
                   alt='tailwind'
@@ -225,7 +225,7 @@ wasp start`}
                 rel='noopener noreferrer'
               >
                 <motion.img
-                  whileHover='hover'
+                  whileHover={{ scale: 1.1 }}
                   variants={staggerItem}
                   src={shadcnuiLogo}
                   alt='shadcn/ui'
