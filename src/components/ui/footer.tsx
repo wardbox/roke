@@ -55,7 +55,7 @@ export function Footer() {
           <div className='flex items-center space-x-3'>
             <h2 className='flex items-center gap-2 text-lg font-semibold'>
               <Mountains size={20} weight='fill' />
-              {import.meta.env.REACT_APP_NAME}
+              {import.meta.env.REACT_APP_NAME || 'Roke'}
             </h2>
             <span className='hidden text-muted-foreground md:inline'>|</span>
             <p className='hidden text-sm text-muted-foreground md:block'>
@@ -89,7 +89,8 @@ export function Footer() {
         {/* Copyright */}
         <div className='mt-8 md:mt-0'>
           <p className='text-xs text-muted-foreground'>
-            &copy; {new Date().getFullYear()} {import.meta.env.REACT_APP_NAME}
+            &copy; {new Date().getFullYear()}{' '}
+            {import.meta.env.REACT_APP_NAME || 'Roke'}
           </p>
         </div>
       </div>

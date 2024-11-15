@@ -101,7 +101,9 @@ export function RequestPasswordReset() {
 export function PasswordReset() {
   return (
     <Layout>
-      <ResetPasswordForm logo={rokeLogo} appearance={authAppearance} />
+      <div className='login login-text'>
+        <ResetPasswordForm logo={rokeLogo} appearance={authAppearance} />
+      </div>
       <br />
       <span className='login-text text-sm font-medium'>
         If everything is okay,{' '}

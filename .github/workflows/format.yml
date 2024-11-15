@@ -1,7 +1,7 @@
 name: Format and Lint
 on:
   pull_request:
-    branches: [main]
+    branches: [main, deploy]
 jobs:
   format-and-lint:
     runs-on: ubuntu-latest

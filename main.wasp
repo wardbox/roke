@@ -3,19 +3,24 @@ app roke {
     version: "^0.15.1"
   },
   title: "Roke",
+  head: [
+    "<script defer data-domain='example.com' src='https://plausible.io/js/script.js'></script>",
+  ],
   auth: {
     userEntity: User,
     methods: {
       email: {
         fromField: {
-          name: "Roke",
+          name: "roke.dev",
           email: "wizard@roke.dev"
         },
         emailVerification: {
           clientRoute: EmailVerificationRoute,
+          getEmailContentFn: import { getVerificationEmailContent } from "@src/auth/email",
         },
         passwordReset: {
           clientRoute: PasswordResetRoute,
+          getEmailContentFn: import { getPasswordResetEmailContent } from "@src/auth/email",
         },
         userSignupFields: import { getEmailUserFields } from "@src/auth/user-signup-fields",
       }
@@ -123,7 +128,7 @@ job exampleJob {
   },
   entities: [User, Note],
   schedule: {
-    cron: "*/15 * * * *"
+    cron: "0 0 * * 0"
   }
 }
 //#endregion

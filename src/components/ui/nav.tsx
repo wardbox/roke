@@ -65,7 +65,9 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
         <div className='flex items-center space-x-4 lg:space-x-6'>
           <Link to='/' className='flex items-center space-x-2'>
             <Mountains size={24} />
-            <span className='font-bold'>{import.meta.env.REACT_APP_NAME}</span>
+            <span className='font-bold'>
+              {import.meta.env.REACT_APP_NAME || 'Roke'}
+            </span>
           </Link>
           <div className='hidden items-center space-x-4 text-muted-foreground md:flex lg:space-x-6'>
             <Link
