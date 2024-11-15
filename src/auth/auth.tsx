@@ -7,9 +7,9 @@ import {
 } from 'wasp/client/auth'
 import { Link } from 'react-router-dom'
 import './auth.css'
-import rokeLogo from '../static/roke-logomark.svg'
 
 import type { CustomizationOptions } from 'wasp/client/auth'
+import { Mountains } from '@phosphor-icons/react'
 
 export const authAppearance: CustomizationOptions['appearance'] = {
   colors: {
@@ -30,8 +30,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export function Login() {
   return (
     <Layout>
+      <Mountains size={100} weight='thin' />
       <div className='login'>
-        <LoginForm logo={rokeLogo} appearance={authAppearance} />
+        <LoginForm appearance={authAppearance} />
       </div>
       <br />
       <span className='login-text text-sm font-medium'>
@@ -56,8 +57,9 @@ export function Login() {
 export function Signup() {
   return (
     <Layout>
+      <Mountains size={100} weight='thin' />
       <div className='login login-text'>
-        <SignupForm logo={rokeLogo} appearance={authAppearance} />
+        <SignupForm appearance={authAppearance} />
       </div>
       <br />
       <span className='login-text text-sm font-medium'>
@@ -74,8 +76,9 @@ export function Signup() {
 export function EmailVerification() {
   return (
     <Layout>
+      <Mountains size={100} weight='thin' />
       <div className='login'>
-        <VerifyEmailForm logo={rokeLogo} appearance={authAppearance} />
+        <VerifyEmailForm appearance={authAppearance} />
       </div>
       <br />
       <span className='login-text text-sm font-medium'>
@@ -91,8 +94,9 @@ export function EmailVerification() {
 export function RequestPasswordReset() {
   return (
     <Layout>
+      <Mountains size={100} weight='thin' />
       <div className='login login-text'>
-        <ForgotPasswordForm logo={rokeLogo} appearance={authAppearance} />
+        <ForgotPasswordForm appearance={authAppearance} />
       </div>
     </Layout>
   )
@@ -101,8 +105,9 @@ export function RequestPasswordReset() {
 export function PasswordReset() {
   return (
     <Layout>
+      <Mountains size={100} weight='thin' />
       <div className='login login-text'>
-        <ResetPasswordForm logo={rokeLogo} appearance={authAppearance} />
+        <ResetPasswordForm appearance={authAppearance} />
       </div>
       <br />
       <span className='login-text text-sm font-medium'>
