@@ -15,6 +15,8 @@ import motionLogo from '../static/motion.png'
 import tailwindLogo from '../static/tailwind.svg'
 import shadcnuiLogo from '../static/shadcnui.png'
 import type { Icon } from '@phosphor-icons/react'
+import { Button } from '../components/ui/button'
+import { GithubLogo } from '@phosphor-icons/react'
 type ListItem = string | { href: string; text: string }
 
 const ListSection = ({
@@ -84,18 +86,40 @@ export default function Landing() {
             Customize this title in <code>.env.client</code>!
           </span>
         </h1>
-        <p className='max-w-2xl text-2xl font-extralight leading-relaxed text-foreground/90 sm:text-3xl'>
-          A{' '}
-          <a
-            href='https://wasp-lang.dev'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='underline'
+        <div className='flex flex-col gap-6 sm:flex-row sm:items-center'>
+          <p className='max-w-2xl text-2xl font-extralight leading-relaxed text-foreground/90 sm:text-3xl'>
+            A{' '}
+            <a
+              href='https://wasp-lang.dev'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='underline'
+            >
+              Wasp
+            </a>{' '}
+            starter with sensible defaults
+          </p>
+          <Button
+            variant='outline'
+            size='lg'
+            className='group w-fit'
+            asChild
           >
-            Wasp
-          </a>{' '}
-          starter with sensible defaults
-        </p>
+            <a
+              href='https://github.com/wardbox/roke'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center gap-2'
+            >
+              <GithubLogo
+                size={20}
+                weight='fill'
+                className='transition-transform group-hover:-rotate-12'
+              />
+              View on GitHub
+            </a>
+          </Button>
+        </div>
       </motion.div>
       <div className='grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-16'>
         <div className='space-y-32 lg:col-span-2'>
@@ -145,7 +169,7 @@ wasp start`}
           {/* Powered by */}
           <div className='flex w-full flex-col items-center'>
             <motion.div variants={fadeIn}>
-              <h2 className='mb-16 text-4xl font-thin tracking-tight'>
+              <h2 className='mb-16 text-4xl font-thin tracking-tight text-balance text-center sm:text-start'>
                 powered and inspired by
               </h2>
             </motion.div>
