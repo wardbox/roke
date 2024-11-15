@@ -1,6 +1,10 @@
-import { type ExampleJob } from "wasp/server/jobs"
+import { JSONObject } from 'wasp/server/_types'
+import { type ExampleJob } from 'wasp/server/jobs'
 
-export const exampleJob: ExampleJob<{}, void> = async (_args, context) => {
+export const exampleJob: ExampleJob<JSONObject, void> = async (
+  _args,
+  context,
+) => {
   console.log("I'm going to make a note!")
   const randomlyGeneratedId = crypto.randomUUID()
 
@@ -10,13 +14,13 @@ export const exampleJob: ExampleJob<{}, void> = async (_args, context) => {
     try {
       await context.entities.Note.create({
         data: {
-        content: `I was created by a cron job that runs every 5 minutes, my id is ${randomlyGeneratedId}. I hope you're having a beautiful day.`,
-        user: {
-          connect: {
-            id: user.id,
+          content: `I was created by a cron job that runs every 15 minutes, my id is ${randomlyGeneratedId}. I hope you're having a beautiful day.`,
+          user: {
+            connect: {
+              id: user.id,
+            },
           },
         },
-      },
       })
       console.log(`Note created for ${user.email}`)
     } catch (error) {

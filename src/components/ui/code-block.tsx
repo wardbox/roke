@@ -6,6 +6,7 @@ import 'prismjs/themes/prism-tomorrow.css'
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-json'
 import { Button } from './button'
 
 interface CodeBlockProps {
@@ -14,18 +15,16 @@ interface CodeBlockProps {
   className?: string
   variant?: 'default' | 'compact'
 }
-
-export function CodeBlock({ 
-  language = 'bash', 
-  code, 
+export function CodeBlock({
+  language = 'bash',
+  code,
   className,
-  variant = 'default' 
 }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false)
-
   useEffect(() => {
     Prism.highlightAll()
   }, [code])
+
+  const [copied, setCopied] = useState(false)
 
   const onCopy = () => {
     navigator.clipboard.writeText(code)
@@ -34,44 +33,34 @@ export function CodeBlock({
   }
 
   return (
-    <div className={cn(
-      "relative rounded-lg bg-muted overflow-hidden",
-      "border border-border",
-      variant === 'compact' && "text-sm",
-      className
-    )}>
-      <div className={cn(
-        "flex items-center justify-between bg-accent",
-        variant === 'default' ? "px-4 py-2" : "px-2 py-1"
-      )}>
-        <span className="text-xs text-muted-foreground">
+    <div
+      className={cn(
+        'relative overflow-hidden rounded-lg bg-muted',
+        'border border-border',
+        className,
+      )}
+    >
+      <div className={cn('flex items-center justify-between bg-accent')}>
+        <span className='px-4 font-mono text-xs text-muted-foreground'>
           {language}
         </span>
         <Button
           onClick={onCopy}
-          variant="ghost"
-          size="icon"
-          aria-label="Copy code"
-          className={cn(
-            "rounded-md hover:bg-muted transition-colors",
-            variant === 'default' ? "p-1" : "p-0.5"
-          )}
+          variant='ghost'
+          size='icon'
+          aria-label='Copy code'
+          className='rounded-md px-4 transition-colors hover:bg-muted'
         >
           {copied ? (
-            <Check className="h-3 w-3 text-green-500" />
+            <Check size={16} className='text-success' />
           ) : (
-            <Copy className="h-3 w-3 text-muted-foreground" />
+            <Copy size={16} className='text-muted-foreground' />
           )}
         </Button>
       </div>
-      <pre className={cn(
-        "overflow-x-auto",
-        variant === 'default' ? "p-4" : "p-2"
-      )}>
-        <code className={`language-${language} ${variant === 'compact' ? "text-xs" : "text-sm"}`}>
-          {code}
-        </code>
+      <pre className='overflow-x-auto'>
+        <code className={`language-${language}`}>{code}</code>
       </pre>
     </div>
   )
-} 
+}

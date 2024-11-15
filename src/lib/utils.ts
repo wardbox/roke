@@ -1,51 +1,51 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+import { format, formatDistanceToNow, isValid } from 'date-fns'
+import slugify from 'slugify'
+import ms from 'ms'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const formatDate = (date: Date, options?: Intl.DateTimeFormatOptions): string => {
-  const defaultOptions: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }
-  return new Intl.DateTimeFormat('en-US', options || defaultOptions).format(date)
+// Time and Date using date-fns
+export const timeSince = (date: Date): string => {
+  if (!isValid(date)) return 'Invalid date'
+  return formatDistanceToNow(date, { addSuffix: true })
 }
 
-export const formatCurrency = (amount: number, currency: string = 'USD'): string => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-  }).format(amount)
+export const formatDate = (date: Date, formatStr: string = 'PPP'): string => {
+  if (!isValid(date)) return 'Invalid date'
+  return format(date, formatStr)
 }
 
-export const truncateText = (text: string, maxLength: number): string => {
-  if (text.length <= maxLength) return text
-  return `${text.slice(0, maxLength)}...`
+// Using ms for human-readable time conversions
+export const humanizeMs = (milliseconds: number): string => {
+  return ms(milliseconds, { long: true })
 }
 
-export const debounce = <T extends (...args: any[]) => any>(
-  func: T,
-  wait: number
-): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout
-
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
-  }
+// Using slugify for URL-friendly strings
+export const generateSlug = (text: string): string => {
+  return slugify(text, {
+    lower: true,
+    strict: true,
+    trim: true,
+  })
 }
 
-export const copyToClipboard = async (text: string): Promise<boolean> => {
-  try {
-    await navigator.clipboard.writeText(text)
-    return true
-  } catch (err) {
-    console.error('Failed to copy text: ', err)
-    return false
-  }
+// Keep the essential custom utilities that don't have good library alternatives
+export const extractInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .map(part => part[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
+}
+
+export const formatCompactNumber = (num: number): string => {
+  const formatter = Intl.NumberFormat('en', { notation: 'compact' })
+  return formatter.format(num)
 }
 
 export const storage = {
@@ -71,18 +71,17 @@ export const storage = {
     } catch (err) {
       console.error('Error removing from localStorage', err)
     }
+  },
+}
+
+export const copyToClipboard = async (text: string): Promise<boolean> => {
+  try {
+    await navigator.clipboard.writeText(text)
+    return true
+  } catch (err) {
+    console.error('Failed to copy text: ', err)
+    return false
   }
-}
-
-export const generateRandomString = (length: number = 8): string => {
-  return Math.random()
-    .toString(36)
-    .substring(2, length + 2)
-}
-
-export const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
 }
 
 export const getErrorMessage = (error: unknown): string => {
@@ -91,9 +90,4 @@ export const getErrorMessage = (error: unknown): string => {
   return 'An unknown error occurred'
 }
 
-export const sleep = (ms: number): Promise<void> => 
-  new Promise(resolve => setTimeout(resolve, ms))
-
-export const pluralize = (count: number, singular: string, plural?: string): string => {
-  return `${count} ${count === 1 ? singular : (plural || `${singular}s`)}`
-}
+// ... keep other essential custom utilities that don't have good library alternatives
