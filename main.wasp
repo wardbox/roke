@@ -5,13 +5,11 @@ app roke {
   title: "Roke: A Full-Stack Wasp Starter with Modern UI Components",
   head: [
     "<meta name='description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
-    
     "<meta property='og:url' content='https://roke.dev'>",
     "<meta property='og:type' content='website'>",
     "<meta property='og:title' content='Roke: A Full-Stack Wasp Starter with Modern UI Components'>",
     "<meta property='og:description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
     "<meta property='og:image' content='https://roke.dev/roke.png'>",
-    
     "<meta name='twitter:card' content='summary_large_image'>",
     "<meta property='twitter:domain' content='roke.dev'>",
     "<meta property='twitter:url' content='https://roke.dev'>",
@@ -47,7 +45,7 @@ app roke {
     setupFn: import setupClient from "@src/setup"
   },
   emailSender: {
-    provider: Dummy,
+    provider: Mailgun,
   }
 }
 

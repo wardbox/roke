@@ -1,0 +1,28 @@
+name: 'Wasp Deploy'
+on:
+  workflow_call:
+    inputs:
+      fly-token:
+        description: 'Deploy with Wasp to Fly.io'
+        required: true
+        type: string
+  push:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Install Wasp
+        shell: bash
+        run: curl -sSL https://get.wasp-lang.dev/installer.sh | sh
+      - name: Install Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy
+        shell: bash
+        run: |
+          wasp deploy fly deploy --org roke
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_TOKEN }}
