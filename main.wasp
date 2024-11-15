@@ -2,8 +2,20 @@ app roke {
   wasp: {
     version: "^0.15.1"
   },
-  title: "Roke",
+  title: "Roke: A Full-Stack Wasp Starter with Modern UI Components",
   head: [
+    "<meta name='description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
+    "<meta property='og:url' content='https://roke.dev'>",
+    "<meta property='og:type' content='website'>",
+    "<meta property='og:title' content='Roke: A Full-Stack Wasp Starter with Modern UI Components'>",
+    "<meta property='og:description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
+    "<meta property='og:image' content='https://roke.dev/roke.png'>",
+    "<meta name='twitter:card' content='summary_large_image'>",
+    "<meta property='twitter:domain' content='roke.dev'>",
+    "<meta property='twitter:url' content='https://roke.dev'>",
+    "<meta name='twitter:title' content='Roke: A Full-Stack Wasp Starter with Modern UI Components'>",
+    "<meta name='twitter:description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
+    "<meta name='twitter:image' content='https://roke.dev/roke.png'>",
     "<script defer data-domain='roke.dev' src='https://plausible.io/js/script.js'></script>",
   ],
   auth: {

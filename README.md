@@ -1,36 +1,81 @@
 # Roke
 
-<img height="128px" src="./src/static/roke-logomark.svg" />
-<br />
-A <a href="https://wasp-lang.dev">Wasp</a> starter with sensible defaults
+<div>
+  <img height="128px" src="./src/static/roke.png" alt="Roke Logo" />
+
+  <p>
+    A Full-Stack Wasp Starter with Modern UI Components
+  </p>
+
+  <p>
+    <a href="https://roke.dev">Documentation</a>
+    ·
+    <a href="https://github.com/wardbox/roke/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/wardbox/roke/issues">Request Feature</a>
+  </p>
+</div>
 
 ## Overview
 
-Roke is a comprehensive starter template for full stack Wasp applications,
-featuring a modern UI toolkit built with Tailwind CSS, shadcn/ui components, and
-Motion animations. This must-have starter template provides a solid foundation
-for building full-stack web applications with best practices built-in.
+Roke provides a comprehensive foundation for your Wasp projects by combining
+modern UI tools and best practices. Built with shadcn/ui components, Motion
+animations, and TypeScript support, it helps developers create beautiful,
+interactive web applications efficiently.
 
-## Key Features
+## Quick Start
 
-- 🎨 Dark/Light mode
-- 📚 Common components on top of shadcn/ui
-- 🔐 Pre-built authentication flows with customizable styling
-- 🎭 Animation examples using Motion
-- 📱 Responsive layout with mobile-first design
-- 🧩 Modular component architecture
-- 🛠️ TypeScript support throughout
+Click "Use this template" button at the top of the repository
 
-## Components & Utilities
+```bash
+# Start the development server
+wasp db start
+wasp db migrate-dev
+wasp start
+```
 
-- Modern navigation with responsive mobile menu
+Visit [roke.dev](https://roke.dev) for comprehensive documentation.
+
+## Features
+
+- 🎨 Elegant Dark/Light mode theming
+- 📚 Ready-to-use shadcn/ui components
+- 🔐 Secure authentication flows with customizable styling
+- 🎭 Smooth animations powered by Motion
+- 📱 Responsive, mobile-first design
+- 🧩 Clean, modular architecture
+- 🛠️ Full TypeScript support
+
+## Included Components
+
+- Responsive navigation with mobile menu
 - Form components with validation
-- Toast notifications
-- Code block component with syntax highlighting
-- Commonly used utility functions (date formatting, text truncation, etc.)
-- Theme provider with system preference detection
-- Customizable authentication pages
+- Toast notifications system
+- Syntax-highlighted code blocks
+- Helpful utility functions
+  - Date formatting
+  - Text manipulation
+  - Theme management
+  - And more...
 
-## Documentation
+## Contributing
 
-The template includes docs for both motion components and included utils.
+We welcome contributions! Whether it's:
+
+- 🐛 Bug fixes
+- ✨ New features
+- 📝 Documentation improvements
+- 💡 Suggestions
+
+Feel free to open an issue or submit a pull request.
+
+## Learn More
+
+- [Documentation](https://roke.dev)
+- [Wasp Documentation](https://wasp-lang.dev)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Motion](https://motion.dev)
+
+## License
+
+MIT License - feel free to use this in your own projects!
