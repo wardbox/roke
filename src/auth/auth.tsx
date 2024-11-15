@@ -56,7 +56,7 @@ export function Login() {
 export function Signup() {
   return (
     <Layout>
-      <div className='login'>
+      <div className='login login-text'>
         <SignupForm logo={rokeLogo} appearance={authAppearance} />
       </div>
       <br />
@@ -91,7 +91,7 @@ export function EmailVerification() {
 export function RequestPasswordReset() {
   return (
     <Layout>
-      <div className='login'>
+      <div className='login login-text'>
         <ForgotPasswordForm logo={rokeLogo} appearance={authAppearance} />
       </div>
     </Layout>
