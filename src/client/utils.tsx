@@ -322,6 +322,7 @@ formatCompactNumber(987654) // "988K"`}
                       Test it out! Paste here:
                     </p>
                     <Input
+                      type='text'
                       placeholder='Paste the copied text here...'
                       className='max-w-sm'
                     />
