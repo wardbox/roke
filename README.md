@@ -14,6 +14,8 @@
     ·
     <a href="https://github.com/wardbox/roke/issues">Request Feature</a>
   </p>
+    ![format](https://github.com/wardbox/roke/actions/workflows/format.yml/badge.svg)
+    ![deploy](https://github.com/wardbox/roke/actions/workflows/deploy.yml/badge.svg?branch=deploy)
 </div>
 
 ## Overview
