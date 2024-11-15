@@ -14,9 +14,7 @@
     ·
     <a href="https://github.com/wardbox/roke/issues">Request Feature</a>
   </p>
-    ![format](https://github.com/wardbox/roke/actions/workflows/format.yml/badge.svg)
-    ![deploy](https://github.com/wardbox/roke/actions/workflows/deploy.yml/badge.svg?branch=deploy)
-</div>
+</div>  
 
 ## Overview
 
@@ -36,8 +34,9 @@ wasp db migrate-dev
 wasp start
 ```
 
-Visit [roke.dev](https://roke.dev) for comprehensive documentation.
-
+Visit [roke.dev](https://roke.dev) for comprehensive documentation.  
+![Format & Lint pipeline status](https://github.com/wardbox/roke/actions/workflows/format.yml/badge.svg)  
+![Deployment pipeline status](https://github.com/wardbox/roke/actions/workflows/deploy.yml/badge.svg?branch=deploy)  
 ## Features
 
 - 🎨 Elegant Dark/Light mode theming
