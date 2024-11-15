@@ -33,7 +33,7 @@ app roke {
     setupFn: import setupClient from "@src/setup"
   },
   emailSender: {
-    provider: Dummy,
+    provider: Mailgun,
   }
 }
 
