@@ -8,14 +8,16 @@ app roke {
     methods: {
       email: {
         fromField: {
-          name: "Roke",
+          name: "roke.dev",
           email: "wizard@roke.dev"
         },
         emailVerification: {
           clientRoute: EmailVerificationRoute,
+          getEmailContentFn: import { getVerificationEmailContent } from "@src/auth/email",
         },
         passwordReset: {
           clientRoute: PasswordResetRoute,
+          getEmailContentFn: import { getPasswordResetEmailContent } from "@src/auth/email",
         },
         userSignupFields: import { getEmailUserFields } from "@src/auth/user-signup-fields",
       }
@@ -123,7 +125,7 @@ job exampleJob {
   },
   entities: [User, Note],
   schedule: {
-    cron: "*/15 * * * *"
+    cron: "0 0 * * 0"
   }
 }
 //#endregion

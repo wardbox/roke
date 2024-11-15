@@ -72,7 +72,7 @@ export default function Landing() {
     >
       <motion.div variants={fadeIn} className='space-y-4'>
         <h1 className='flex gap-4 text-9xl sm:text-[10rem] lg:text-[12rem]'>
-          <span className='medieval'>{import.meta.env.REACT_APP_NAME}</span>
+          <span className='medieval'>{import.meta.env.REACT_APP_NAME || 'Roke'}</span>
           <span className='hidden translate-y-12 -rotate-12 text-pretty text-base font-light tracking-normal text-muted-foreground sm:block'>
             <ArrowBendUpLeft
               className='mr-1 inline-block'
