@@ -44,4 +44,3 @@ jobs:
           commit_message: 'style: apply formatting and linting changes'
           branch: ${{ github.head_ref }}
           commit_options: '--no-verify'
-          file_pattern: '*.{js,jsx,ts,tsx,css,md,json}'
