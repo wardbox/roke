@@ -20,7 +20,7 @@ app roke {
         userSignupFields: import { getEmailUserFields } from "@src/auth/user-signup-fields",
       }
     },
-    onAuthSucceededRedirectTo: "/profile/:id",
+    onAuthSucceededRedirectTo: "/note-example",
     onAuthFailedRedirectTo: "/login"
   },
   client: {
@@ -34,7 +34,8 @@ app roke {
 
 //#region Routes
 route Landing { path: "/", to: Landing }
-route Example { path: "/example", to: Example }
+route Guide { path: "/guide", to: Guide }
+route NoteExample { path: "/note-example", to: NoteExample }
 route Motion { path: "/motion", to: Motion }
 route Utils { path: "/utils", to: Utils }
 route Profile { path: "/profile/:id", to: ProfilePage }
@@ -47,23 +48,27 @@ route EmailVerificationRoute { path: "/email-verification", to: EmailVerificatio
 
 //#region Pages
 page Landing {
-  component: import Landing from "@src/pages/landing",
+  component: import Landing from "@src/client/landing",
 }
 
-page Example {
-  component: import Example from "@src/pages/example/example",
+page Guide {
+  component: import Guide from "@src/client/guide",
+}
+
+page NoteExample {
+  component: import NoteExample from "@src/client/example/note-example",
 }
 
 page Motion {
-  component: import Motion from "@src/pages/motion",
+  component: import Motion from "@src/client/motion",
 }
 
 page Utils {
-  component: import Utils from "@src/pages/utils",
+  component: import Utils from "@src/client/utils",
 }
 
 page ProfilePage {
-  component: import Profile from "@src/pages/profile",
+  component: import Profile from "@src/client/profile",
   authRequired: true,
 }
 
@@ -90,22 +95,22 @@ page EmailVerificationPage {
 
 //#region Notes
 action createNote {
-  fn: import { createNote } from "@src/pages/example/operations",
+  fn: import { createNote } from "@src/client/example/operations",
   entities: [User, Note],
 }
 
 query getNotes {
-  fn: import { getNotes } from "@src/pages/example/operations",
+  fn: import { getNotes } from "@src/client/example/operations",
   entities: [User, Note],
 }
 
 action updateNote {
-  fn: import { updateNote } from "@src/pages/example/operations",
+  fn: import { updateNote } from "@src/client/example/operations",
   entities: [User, Note],
 }
 
 action deleteNote {
-  fn: import { deleteNote } from "@src/pages/example/operations",
+  fn: import { deleteNote } from "@src/client/example/operations",
   entities: [User, Note],
 }
 //#endregion

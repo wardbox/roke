@@ -2,86 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add this to prevent layout shift from scrollbar */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Optional: If you want to style the scrollbar to be less obtrusive */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    --success: 106 47% 64%;
+    --success-foreground: 0 0% 18%;
+    --warning: 37 85% 72%;
+    --warning-foreground: 0 0% 18%;
+    --info: 276 41% 61%;
+    --info-foreground: 0 0% 18%;
+    --destructive: 0 82% 68%;
+    --destructive-foreground: 0 0% 18%;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 42 100% 97%;
+    --foreground: 0 0% 19%;
+    --card: 42 100% 97%;
+    --card-foreground: 0 0% 19%;
+    --popover: 42 100% 97%;
+    --popover-foreground: 0 0% 19%;
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 42 100% 75%;
     --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
+    --muted: 42 100% 75%;
+    --muted-foreground: 0 0% 30%;
+    --accent: 42 100% 75%;
     --accent-foreground: 0 0% 9%;
-    --success: 132 84.2% 60.2%;
-    --success-foreground: 0 0% 22%;
-    --warning: 47 84.2% 60.2%;
-    --warning-foreground: 0 0% 22%;
-    --info: 210 84.2% 60.2%;
-    --info-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-    --brand-primary: 203 42% 61%;
-    --brand-primary-foreground: 0 0% 0%;
-    --brand-accent: 288 98% 50%;
-    --brand-accent-foreground: 0 0% 100%;
+    --ring: 0 0% 19%;
+    --brand-primary: 215 41% 68%;
+    --brand-primary-foreground: 0 0% 18%;
+    --brand-accent: 26 82% 68%;
+    --brand-accent-foreground: 0 0% 18%;
     --radius: 0.125rem;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
+    --background: 0 0% 12%;
+    --foreground: 42 100% 97%;
+    --card: 0 0% 19%;
+    --card-foreground: 42 100% 97%;
+    --popover: 0 0% 19%;
+    --popover-foreground: 42 100% 97%;
+    --primary: 42 100% 97%;
     --primary-foreground: 0 0% 9%;
     --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 42 100% 97%;
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
     --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --accent-foreground: 42 100% 97%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   
   html {
@@ -103,37 +103,5 @@
 
   code:not(pre code) {
     @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
-  }
-}
-
-/* Override Prism theme colors to match your theme */
-@layer components {
-  pre[class*="language-"] {
-    @apply bg-transparent m-0;
-  }
-  
-  code[class*="language-"] {
-    @apply text-sm bg-transparent;
-  }
-
-  .token.comment,
-  .token.prolog,
-  .token.doctype,
-  .token.cdata {
-    @apply text-muted-foreground;
-  }
-
-  .token.function,
-  .token.keyword,
-  .token.operator {
-    @apply text-primary;
-  }
-
-  .token.string {
-    @apply text-green-500 dark:text-green-400;
-  }
-
-  .token.number {
-    @apply text-orange-500 dark:text-orange-400;
   }
 }

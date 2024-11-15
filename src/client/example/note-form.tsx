@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
- 
+import { useAuth } from "wasp/client/auth"
 import { Button } from "../../components/ui/button"
 import {
   Form,
@@ -13,10 +13,10 @@ import {
   FormMessage,
 } from "../../components/ui/form"
 import { Textarea } from "../../components/ui/textarea"
-
 import { useToast } from "../../hooks/use-toast"
 import { createNote } from "wasp/client/operations"
 import { HttpError } from "wasp/server"
+import { Link } from "react-router-dom"
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -25,8 +25,9 @@ const formSchema = z.object({
     message: "Note must be less than 1000 characters.",
   }),
 })
- 
+
 export function NoteForm() {
+  const { data: user } = useAuth()
   const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,12 +35,13 @@ export function NoteForm() {
       content: "",
     },
   })
- 
+
   const content = form.watch("content") || ""
-  
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await createNote({ content: values.content })
+      form.reset()
       toast({
         title: "Note created",
         variant: "success",
@@ -59,9 +61,10 @@ export function NoteForm() {
       }
     }
   }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-[300px] sm:max-w-none">
         <FormField
           control={form.control}
           name="content"
@@ -69,9 +72,10 @@ export function NoteForm() {
             <FormItem>
               <FormLabel className="flex items-center gap-2 text-lg">Content</FormLabel>
               <FormControl>
-                <Textarea 
-                  placeholder="What's on your mind?" 
-                  {...field} 
+                <Textarea
+                  placeholder={user ? "What's on your mind?" : "Please sign in to create notes..."}
+                  {...field}
+                  disabled={!user}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
                       form.handleSubmit(onSubmit)();
@@ -81,7 +85,13 @@ export function NoteForm() {
               </FormControl>
               <div className="flex justify-between items-center">
                 <FormDescription>
-                  Craft a beautiful little note. Press <kbd className="px-1 py-0.5 bg-muted rounded-md">⌘</kbd>+<kbd className="px-1 py-0.5 bg-muted rounded-md">Enter</kbd> to submit
+                  {user ? (
+                    <>
+                      Craft a beautiful little note. Press <kbd className="px-1 py-0.5 bg-muted rounded-md">⌘</kbd>+<kbd className="px-1 py-0.5 bg-muted rounded-md">Enter</kbd> to submit
+                    </>
+                  ) : (
+                    "Log in to start creating notes"
+                  )}
                 </FormDescription>
                 <span className="text-sm text-muted-foreground">
                   {content.length}/1000
@@ -91,7 +101,13 @@ export function NoteForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        {user ? (
+          <Button type="submit">Submit</Button>
+        ) : (
+          <Button asChild>
+            <Link to="/login">Log in to submit</Link>
+          </Button>
+        )}
       </form>
     </Form>
   )

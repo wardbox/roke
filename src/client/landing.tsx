@@ -10,21 +10,43 @@ import {
   Books,
   ArrowBendUpLeft,
   Lightbulb,
-  Mountains
 } from "@phosphor-icons/react"
+import daBoi from "../static/da-boi.webp"
+import motionLogo from "../static/motion.png"
+import tailwindLogo from "../static/tailwind.svg"
 
-const ListSection = ({ icon: Icon, title, items }: { icon: any, title: string, items: string[] }) => (
+type ListItem = string | { href: string; text: string };
+
+const ListSection = ({
+  icon: Icon,
+  title,
+  items
+}: {
+  icon: any;
+  title: string;
+  items: ListItem[];
+}) => (
   <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-8">
     <div className="flex items-center gap-3 mb-8">
-      <Icon size={20} weight="bold" className="text-brand-accent" />
+      <Icon size={32} weight="fill" className="text-brand-accent" />
       <motion.div variants={fadeIn} className="text-2xl font-medium tracking-tight">
         {title}
       </motion.div>
     </div>
     <motion.ul variants={staggerContainer} initial="hidden" animate="show" className="space-y-4 text-foreground/90 text-lg">
       {items.map((item, i) => (
-        <motion.li key={i} variants={staggerItem}>
-          {item}
+        <motion.li key={i} variants={staggerItem} whileHover={{ x: 5 }}>
+          {typeof item === 'string' ? (
+            item
+          ) : (
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.text}
+            </a>
+          )}
         </motion.li>
       ))}
     </motion.ul>
@@ -37,7 +59,7 @@ export default function Landing() {
       variants={staggerContainer}
       initial="initial"
       animate="animate"
-      className="flex flex-col space-y-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"
+      className="space-y-24"
     >
       <motion.div
         variants={fadeIn}
@@ -48,7 +70,7 @@ export default function Landing() {
             {import.meta.env.REACT_APP_NAME}
           </span>
           <span className="hidden sm:block text-base font-light text-muted-foreground tracking-normal -rotate-12 translate-y-12 text-pretty">
-            <ArrowBendUpLeft className="inline-block mr-1" size={16} weight="bold" />
+            <ArrowBendUpLeft className="inline-block mr-1" size={16} weight="fill" />
             Customize this title in <code>.env.client</code>!
           </span>
         </h1>
@@ -57,7 +79,7 @@ export default function Landing() {
         </p>
       </motion.div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
-        <div className="lg:col-span-2 space-y-16">
+        <div className="lg:col-span-2 space-y-32">
           {/* Quick Start */}
           <motion.div variants={fadeIn}>
             <Card>
@@ -94,6 +116,22 @@ wasp start`}
               </CardContent>
             </Card>
           </motion.div>
+          {/* Powered by */}
+          <div className="flex flex-col">
+            <motion.div variants={fadeIn}>
+              <h2 className="text-5xl font-medium tracking-tight mb-16">Powered by</h2>
+            </motion.div>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="show"
+              className="flex gap-8 justify-center"
+            >
+              <motion.img variants={staggerItem} src={daBoi} alt="da boi" width={100} />
+              <motion.img variants={staggerItem} src={motionLogo} alt="motion" width={100} />
+              <motion.img variants={staggerItem} src={tailwindLogo} alt="tailwind" width={100} className="text-foreground" />
+            </motion.div>
+          </div>
           {/* Core Features */}
           <div className="space-y-16">
             <motion.div variants={fadeIn}>
@@ -109,7 +147,7 @@ wasp start`}
                 <Card className="h-full">
                   <CardHeader className="pb-6">
                     <div className="flex items-center gap-3">
-                      <FolderSimple size={24} className="text-brand-primary" />
+                      <FolderSimple size={32} weight="fill" className="text-brand-primary" />
                       <CardTitle className="text-3xl font-medium tracking-tight">
                         Project Structure
                       </CardTitle>
@@ -118,18 +156,17 @@ wasp start`}
                   <CardContent>
                     <CodeBlock
                       code={`src/
-├── auth/                 # Auth UI and configuration
+├── auth/                 # Authentication components and config
 ├── components/
-│   ├── ui/              # shadcn/ui + custom common components
+│   ├── ui/              # shadcn/ui + custom components
 ├── lib/                 # Utility functions
-│   └── utils.ts
-├── pages/              # Pages that you route to
-│   ├── landing.tsx
-│   ├── profile.tsx
-│   └── example/
-│       └── example.tsx
-│       └── operations.ts # Operations for this page
-└── Root.tsx           # App root component with nav and footer`}
+│   └── utils.ts         # Common utilities
+├── client/              # Application pages
+│   ├── landing.tsx     # Landing page
+│   └── example/        # Example features
+│       ├── example.tsx
+      └── operations.ts
+└── Root.tsx           # App root with navigation`}
                       variant="compact"
                     />
                   </CardContent>
@@ -147,47 +184,27 @@ wasp start`}
               title="Features"
               items={[
                 "Wired up for shadcn/ui",
-                "Theme switcher",
+                "Theme toggle and Toaster included",
                 "Mobile first design",
-                "Common motion components",
-                "Toaster included"
-              ]}
-            />
-
-            <ListSection
-              icon={Wrench}
-              title="Development Tools"
-              items={[
-                "shadcn/ui",
-                "Framer Motion",
-                "Tailwind CSS"
+                "Common use case motion variants",
+                "Utility functions"
               ]}
             />
             <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-8">
-              <div className="flex items-center gap-3 mb-8">
-                <Books size={20} weight="bold" className="text-brand-accent" />
-                <motion.div variants={fadeIn} className="text-2xl font-medium tracking-tight">
-                  Resources
-                </motion.div>
-              </div>
-              <ul className="space-y-4">
-                {[
+              <ListSection
+                icon={Books}
+                title="Resources"
+                items={[
                   { href: "https://wasp-lang.dev/docs", text: "Wasp →" },
                   { href: "https://ui.shadcn.com/docs", text: "shadcn/ui →" },
                   { href: "https://tailwindcss.com/docs/installation", text: "Tailwind CSS →" },
-                  { href: "https://www.framer.com/motion/", text: "Framer Motion →" }
-                ].map((link, i) => (
-                  <motion.li key={i} variants={fadeIn}>
-                    <a href={link.href} target="_blank" className="text-lg text-foreground/90 hover:text-foreground transition-colors">
-                      {link.text}
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
+                  { href: "https://www.framer.com/motion/", text: "Motion →" }
+                ]}
+              />
             </motion.div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.div >
   )
 }

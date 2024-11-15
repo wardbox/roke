@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Check, Copy } from 'lucide-react'
 import { cn } from '../../lib/utils'
-import Prism from 'prismjs'
-import 'prismjs/themes/prism-tomorrow.css'
-import 'prismjs/components/prism-bash'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-javascript'
+import hljs from 'highlight.js/lib/core'
+import bash from 'highlight.js/lib/languages/bash'
+import json from 'highlight.js/lib/languages/json'
+import typescript from 'highlight.js/lib/languages/typescript'
+import javascript from 'highlight.js/lib/languages/javascript'
+import 'highlight.js/styles/base16/gruvbox-dark-medium.css'
 import { Button } from './button'
 
 interface CodeBlockProps {
@@ -15,17 +16,21 @@ interface CodeBlockProps {
   variant?: 'default' | 'compact'
 }
 
-export function CodeBlock({ 
-  language = 'bash', 
-  code, 
+// Register languages
+hljs.registerLanguage('bash', bash)
+hljs.registerLanguage('typescript', typescript)
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('json', json)
+export function CodeBlock({
+  language = 'bash',
+  code,
   className,
-  variant = 'default' 
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    Prism.highlightAll()
-  }, [code])
+    hljs.highlightAll()
+  }, [code, language])
 
   const onCopy = () => {
     navigator.clipboard.writeText(code)
@@ -37,14 +42,12 @@ export function CodeBlock({
     <div className={cn(
       "relative rounded-lg bg-muted overflow-hidden",
       "border border-border",
-      variant === 'compact' && "text-sm",
       className
     )}>
       <div className={cn(
         "flex items-center justify-between bg-accent",
-        variant === 'default' ? "px-4 py-2" : "px-2 py-1"
       )}>
-        <span className="text-xs text-muted-foreground">
+        <span className="text-xs text-muted-foreground font-mono px-4">
           {language}
         </span>
         <Button
@@ -52,26 +55,22 @@ export function CodeBlock({
           variant="ghost"
           size="icon"
           aria-label="Copy code"
-          className={cn(
-            "rounded-md hover:bg-muted transition-colors",
-            variant === 'default' ? "p-1" : "p-0.5"
-          )}
+          className="rounded-md hover:bg-muted transition-colors px-4"
         >
           {copied ? (
-            <Check className="h-3 w-3 text-green-500" />
+            <Check size={16} className="text-success" />
           ) : (
-            <Copy className="h-3 w-3 text-muted-foreground" />
+            <Copy size={16} className="text-muted-foreground" />
           )}
         </Button>
       </div>
-      <pre className={cn(
-        "overflow-x-auto",
-        variant === 'default' ? "p-4" : "p-2"
-      )}>
-        <code className={`language-${language} ${variant === 'compact' ? "text-xs" : "text-sm"}`}>
+      <pre className="overflow-x-auto">
+        <code
+          className={`language-${language}`}
+        >
           {code}
         </code>
       </pre>
-    </div>
+    </div >
   )
 } 

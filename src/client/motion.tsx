@@ -3,12 +3,9 @@ import { ArrowsClockwise, Spinner } from "@phosphor-icons/react"
 import { Button } from "../components/ui/button"
 import { CodeBlock } from "../components/ui/code-block"
 import * as animations from "../components/ui/motion"
-import { useEffect } from "react"
 import { useState } from "react"
 import { ModeToggle } from "../components/mode-toggle"
 import TypingAnimation from "../components/ui/typing-animation"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
-import { fadeIn, slideInUp, staggerContainer, staggerItem, hoverScale, spinner } from "../components/ui/motion"
 
 function ReplayButton({ onClick }: { onClick: () => void }) {
   return (
@@ -56,25 +53,79 @@ function AnimationExample({
 }
 
 
-export default function MotionExamples() {
+export default function Motion() {
   return (
     <motion.div
       variants={animations.staggerContainer}
       initial="initial"
       animate="animate"
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
+      className="space-y-16"
     >
-      {/* Header */}
-      <motion.div
-        variants={animations.fadeIn}
-        className="space-y-4 mb-16"
-      >
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+      {/* Introduction */}
+      <motion.div variants={animations.fadeIn} className="space-y-4 mb-16">
+        <h1 className="text-7xl sm:text-9xl medieval">
           Animation Examples
         </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl">
-          A collection of reusable animations built with Motion. Click the replay button to see each animation again.
+        <div className="text-pretty leading-8 max-w-4xl">
+          <p className="text-base sm:text-lg text-muted-foreground text-pretty">
+            Motion animations are powered by variants - predefined animation states that components can transition between.
+            You can find all our animation variants in <code>src/components/ui/motion.tsx</code>. You can also reference the official Motion docs <a href="https://motion.dev/docs/docs" target="_blank">here</a> for more information.
+          </p>
+          <div className="mt-6 space-y-4">
+            <p className="text-muted-foreground">A basic example of how variants work:</p>
+            <CodeBlock
+              language="typescript"
+              code={`// Define your variants
+const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 }
+}
+
+// Use them in your component
+<motion.div
+  variants={fadeIn}
+  initial="initial"
+  animate="animate"
+  exit="exit"
+/>`}
+            />
+            <ul className="text-sm text-muted-foreground space-y-2 list-disc list-inside">
+              <li><code>initial</code> - The starting state of the animation</li>
+              <li><code>animate</code> - The state to animate to</li>
+              <li><code>exit</code> - The state to animate to when the component is removed</li>
+              <li>Variants can be nested and will propagate to children components</li>
+            </ul>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Transition Presets */}
+      <motion.div variants={animations.fadeIn} className="space-y-12 mt-16">
+        <h2 className="text-3xl font-semibold">Transition Presets</h2>
+        <p className="text-muted-foreground mb-8">
+          We have five transition presets that can be applied to any animation to give it a consistent feel:
         </p>
+        <div className="grid gap-8 lg:grid-cols-2">
+          {Object.entries(animations.transitions).map(([name, transition]) => (
+            <AnimationExample
+              key={name}
+              title={name.charAt(0).toUpperCase() + name.slice(1)}
+              description={`A ${name} transition preset.`}
+              code={JSON.stringify(transition, null, 2)}
+            >
+              <motion.div
+                className="p-8 bg-muted rounded-lg cursor-pointer"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                whileHover={{ scale: 1.1 }}
+                transition={transition}
+              >
+                Click to replay
+              </motion.div>
+            </AnimationExample>
+          ))}
+        </div>
       </motion.div>
 
       {/* Basic Transitions */}
@@ -146,7 +197,7 @@ const staggerItem = ${JSON.stringify(animations.staggerItem, null, 2)}`}
           code={`const darkMode = ${JSON.stringify(animations.darkMode, null, 2)}
 const lightMode = ${JSON.stringify(animations.lightMode, null, 2)}`}
         >
-          <ModeToggle iconSize="lg" />
+          <ModeToggle iconSize="xl" />
         </AnimationExample>
       </motion.div>
 
@@ -223,157 +274,6 @@ const textChild = ${JSON.stringify(animations.textChild, null, 2)}`}
           />
         </AnimationExample>
       </motion.div>
-
-      {/* Usage Guide */}
-      <motion.div variants={animations.fadeIn} className="mt-24 space-y-4">
-        <h2 className="text-2xl font-semibold tracking-tight">Usage Guide</h2>
-        <p className="text-sm text-muted-foreground">
-          Import animations from the motion file and use them with Motion components.
-        </p>
-
-        <Tabs defaultValue="example" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="code">Code</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="code" className="mt-4">
-            <CodeBlock
-              language="typescript"
-              code={`import { motion, AnimatePresence } from "motion/react"
-import { fadeIn, slideInUp, staggerContainer, staggerItem, 
-         hoverScale, spinner } from "../components/ui/motion"
-
-export function ProductGrid({ products, isLoading }) {
-  return (
-        <div className="max-w-7xl mx-auto px-4 py-12">
-      <motion.div
-        variants={fadeIn}
-        initial="initial"
-        animate="animate"
-        className="mb-8"
-      >
-        <h1 className="text-4xl font-bold">Our Products</h1>
-        <p className="text-muted-foreground">Find something you'll love.</p>
-      </motion.div>
-
-      {isLoading && (
-        <AnimatePresence mode="wait">
-          <motion.div
-            variants={spinner}
-            animate="animate"
-            className="flex justify-center py-12"
-          >
-            <Spinner size={64} weight="bold" />
-          </motion.div>
-        </AnimatePresence>
-      )}
-
-      {!isLoading && (
-      <AnimatePresence mode="wait">
-        <motion.div
-          variants={staggerContainer}
-            initial="hidden"
-            animate="show"
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {products.map((product) => (
-              <motion.div
-                key={product.id}
-                variants={staggerItem}
-                className="group relative rounded-lg overflow-hidden bg-card"
-              >
-                <div className="w-full h-64 bg-muted rounded-lg"></div>
-                <div className="p-4">
-                  <h3 className="font-semibold">{product.name}</h3>
-                  <p className="text-muted-foreground">{product.price}</p>
-                </div>
-              </motion.div>
-            ))}
-        </motion.div>
-        </AnimatePresence>
-      )}
-    </div>
-  )
-}`}
-            />
-          </TabsContent>
-
-          <TabsContent value="preview" className="mt-4">
-            <PreviewExample />
-          </TabsContent>
-        </Tabs>
-      </motion.div>
     </motion.div>
   )
-}
-
-
-const products = [
-  { id: 1, name: "Product 1", price: "$10", image: "https://via.placeholder.com/300" },
-  { id: 2, name: "Product 2", price: "$20", image: "https://via.placeholder.com/300" },
-  { id: 3, name: "Product 3", price: "$30", image: "https://via.placeholder.com/300" }
-]
-
-function PreviewExample() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <motion.div
-        variants={fadeIn}
-        initial="initial"
-        animate="animate"
-        className="mb-8"
-      >
-        <h1 className="text-4xl font-bold">Our Products</h1>
-        <p className="text-muted-foreground">Find something you'll love.</p>
-      </motion.div>
-
-      {isLoading && (
-        <AnimatePresence mode="wait">
-          <motion.div
-            variants={spinner}
-            animate="animate"
-            className="flex justify-center py-12"
-          >
-            <Spinner size={64} weight="bold" />
-          </motion.div>
-        </AnimatePresence>
-      )}
-
-      {!isLoading && (
-        <AnimatePresence mode="wait">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="show"
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {products.map((product) => (
-              <motion.div
-                key={product.id}
-                variants={staggerItem}
-                className="group relative rounded-lg overflow-hidden bg-card"
-              >
-                <div className="w-full h-64 bg-muted rounded-lg"></div>
-                <div className="p-4">
-                  <h3 className="font-semibold">{product.name}</h3>
-                  <p className="text-muted-foreground">{product.price}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      )}
-    </div>
-  );
 }

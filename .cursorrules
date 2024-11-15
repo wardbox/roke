@@ -13,6 +13,7 @@
 - Install dependencies via 'npm install' instead
 
 // Wasp
+- Always use typescript for Wasp code.
 
 // Framer Motion
 - Use 'motion/react' instead of 'framer-motion', this is the new opensourced version of Framer Motion.
