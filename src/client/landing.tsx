@@ -99,12 +99,7 @@ export default function Landing() {
             </a>{' '}
             starter with sensible defaults
           </p>
-          <Button
-            variant='outline'
-            size='lg'
-            className='group w-fit'
-            asChild
-          >
+          <Button variant='outline' size='lg' className='group w-fit' asChild>
             <a
               href='https://github.com/wardbox/roke'
               target='_blank'
@@ -169,7 +164,7 @@ wasp start`}
           {/* Powered by */}
           <div className='flex w-full flex-col items-center'>
             <motion.div variants={fadeIn}>
-              <h2 className='mb-16 text-4xl font-thin tracking-tight text-balance text-center sm:text-start'>
+              <h2 className='mb-16 text-balance text-center text-4xl font-thin tracking-tight sm:text-start'>
                 powered and inspired by
               </h2>
             </motion.div>
