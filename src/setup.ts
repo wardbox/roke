@@ -1,4 +1,4 @@
-import { configureQueryClient } from "wasp/client/operations";
+import { configureQueryClient } from 'wasp/client/operations'
 
 export async function setupClient(): Promise<void> {
   configureQueryClient({
@@ -10,7 +10,7 @@ export async function setupClient(): Promise<void> {
         staleTime: 1000 * 60, // 1 minute
       },
     },
-  });
+  })
 }
 
-export default setupClient;
+export default setupClient

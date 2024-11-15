@@ -83,11 +83,11 @@ html {
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
-  
+
   html {
-    @apply antialiased scroll-smooth;
+    @apply scroll-smooth antialiased;
   }
-  
+
   body {
     font-family: 'Public Sans Variable', sans-serif;
     @apply bg-background text-foreground;

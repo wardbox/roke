@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Check, Copy } from 'lucide-react'
 import { cn } from '../../lib/utils'
-import hljs from 'highlight.js/lib/core'
-import bash from 'highlight.js/lib/languages/bash'
-import json from 'highlight.js/lib/languages/json'
-import typescript from 'highlight.js/lib/languages/typescript'
-import javascript from 'highlight.js/lib/languages/javascript'
-import 'highlight.js/styles/base16/gruvbox-dark-medium.css'
+import Prism from 'prismjs'
+import 'prismjs/themes/prism-tomorrow.css'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-typescript'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-json'
 import { Button } from './button'
 
 interface CodeBlockProps {
@@ -15,22 +15,16 @@ interface CodeBlockProps {
   className?: string
   variant?: 'default' | 'compact'
 }
-
-// Register languages
-hljs.registerLanguage('bash', bash)
-hljs.registerLanguage('typescript', typescript)
-hljs.registerLanguage('javascript', javascript)
-hljs.registerLanguage('json', json)
 export function CodeBlock({
   language = 'bash',
   code,
   className,
 }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false)
-
   useEffect(() => {
-    hljs.highlightAll()
-  }, [code, language])
+    Prism.highlightAll()
+  }, [code])
+
+  const [copied, setCopied] = useState(false)
 
   const onCopy = () => {
     navigator.clipboard.writeText(code)
@@ -39,38 +33,34 @@ export function CodeBlock({
   }
 
   return (
-    <div className={cn(
-      "relative rounded-lg bg-muted overflow-hidden",
-      "border border-border",
-      className
-    )}>
-      <div className={cn(
-        "flex items-center justify-between bg-accent",
-      )}>
-        <span className="text-xs text-muted-foreground font-mono px-4">
+    <div
+      className={cn(
+        'relative overflow-hidden rounded-lg bg-muted',
+        'border border-border',
+        className,
+      )}
+    >
+      <div className={cn('flex items-center justify-between bg-accent')}>
+        <span className='px-4 font-mono text-xs text-muted-foreground'>
           {language}
         </span>
         <Button
           onClick={onCopy}
-          variant="ghost"
-          size="icon"
-          aria-label="Copy code"
-          className="rounded-md hover:bg-muted transition-colors px-4"
+          variant='ghost'
+          size='icon'
+          aria-label='Copy code'
+          className='rounded-md px-4 transition-colors hover:bg-muted'
         >
           {copied ? (
-            <Check size={16} className="text-success" />
+            <Check size={16} className='text-success' />
           ) : (
-            <Copy size={16} className="text-muted-foreground" />
+            <Copy size={16} className='text-muted-foreground' />
           )}
         </Button>
       </div>
-      <pre className="overflow-x-auto">
-        <code
-          className={`language-${language}`}
-        >
-          {code}
-        </code>
+      <pre className='overflow-x-auto'>
+        <code className={`language-${language}`}>{code}</code>
       </pre>
-    </div >
+    </div>
   )
-} 
+}

@@ -8,9 +8,8 @@ A <a href="https://wasp-lang.dev">Wasp</a> starter with sensible defaults
 
 Roke is a comprehensive starter template for full stack Wasp applications,
 featuring a modern UI toolkit built with Tailwind CSS, shadcn/ui components, and
-Framer Motion animations. The template provides you a solid foundation for
-building full-stack web applications with best practices and commonly used
-patterns.
+Motion animations. This must-have starter template provides a solid foundation
+for building full-stack web applications with best practices built-in.
 
 ## Key Features
 

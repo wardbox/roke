@@ -1,5 +1,5 @@
-import { resolveProjectPath } from "wasp/dev";
-import { defineConfig, searchForWorkspaceRoot } from "vite";
+import { resolveProjectPath } from 'wasp/dev'
+import { defineConfig, searchForWorkspaceRoot } from 'vite'
 
 export default defineConfig({
   server: {
@@ -11,8 +11,8 @@ export default defineConfig({
         searchForWorkspaceRoot(process.cwd()),
         // Allow serving files from the node_modules/@fontsource directory
         // (using Wasp's helper to resolve project path)
-        resolveProjectPath("./node_modules/@fontsource-variable"),
+        resolveProjectPath('./node_modules/@fontsource-variable'),
       ],
     },
   },
-});
+})
