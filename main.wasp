@@ -3,6 +3,9 @@ app roke {
     version: "^0.15.1"
   },
   title: "Roke",
+  head: [
+    "<script defer data-domain='roke.dev' src='https://plausible.io/js/script.js'></script>",
+  ],
   auth: {
     userEntity: User,
     methods: {
