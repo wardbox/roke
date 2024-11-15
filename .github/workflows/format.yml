@@ -33,11 +33,6 @@ jobs:
       - name: Lint and fix
         run: npm run lint:fix
 
-      - name: Debug Changes
-        run: |
-          git status
-          git diff
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
