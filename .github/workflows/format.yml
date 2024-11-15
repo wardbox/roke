@@ -5,6 +5,10 @@ on:
 jobs:
   format-and-lint:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -29,17 +33,24 @@ jobs:
       - name: Lint and fix
         run: npm run lint:fix
 
-      - name: Check for changes
-        id: git-check
+      - name: Debug Changes
         run: |
-          echo "::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)"
+          git status
+          git diff src/client/landing.tsx
+          echo "Checking for changes in landing.tsx..."
+          git diff --name-only
 
       - name: Commit changes
-        if: steps.git-check.outputs.modified == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'style: apply formatting and linting changes'
           branch: ${{ github.head_ref }}
           commit_options: '--no-verify'
-          file_pattern: '**/*.{js,jsx,ts,tsx,css,md,json}'
-          status_options: '--untracked-files=no'
+          file_pattern: |
+            **/*.js
+            **/*.jsx
+            **/*.ts
+            **/*.tsx
+            **/*.css
+            **/*.md
+            **/*.json
