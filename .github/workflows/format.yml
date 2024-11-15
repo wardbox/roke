@@ -36,9 +36,7 @@ jobs:
       - name: Debug Changes
         run: |
           git status
-          git diff src/client/landing.tsx
-          echo "Checking for changes in landing.tsx..."
-          git diff --name-only
+          git diff
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -46,11 +44,4 @@ jobs:
           commit_message: 'style: apply formatting and linting changes'
           branch: ${{ github.head_ref }}
           commit_options: '--no-verify'
-          file_pattern: |
-            **/*.js
-            **/*.jsx
-            **/*.ts
-            **/*.tsx
-            **/*.css
-            **/*.md
-            **/*.json
+          file_pattern: '*.{js,jsx,ts,tsx,css,md,json}'
