@@ -89,7 +89,8 @@ export function Footer() {
         {/* Copyright */}
         <div className='mt-8 md:mt-0'>
           <p className='text-xs text-muted-foreground'>
-            &copy; {new Date().getFullYear()} {import.meta.env.REACT_APP_NAME || 'Roke'}
+            &copy; {new Date().getFullYear()}{' '}
+            {import.meta.env.REACT_APP_NAME || 'Roke'}
           </p>
         </div>
       </div>

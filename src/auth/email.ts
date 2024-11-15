@@ -1,14 +1,13 @@
 import {
   GetPasswordResetEmailContentFn,
   GetVerificationEmailContentFn,
-} from "wasp/server/auth";
+} from 'wasp/server/auth'
 
 export const getVerificationEmailContent: GetVerificationEmailContentFn = ({
   verificationLink,
 }) => ({
-  subject: "Welcome to Roke - Verify Your Email",
-  text:
-    `Welcome to Roke! Please verify your email by clicking this link: ${verificationLink}`,
+  subject: 'Welcome to Roke - Verify Your Email',
+  text: `Welcome to Roke! Please verify your email by clicking this link: ${verificationLink}`,
   html: `
     <!DOCTYPE html>
     <html>
@@ -56,12 +55,12 @@ export const getVerificationEmailContent: GetVerificationEmailContentFn = ({
       </body>
     </html>
   `,
-});
+})
 
 export const getPasswordResetEmailContent: GetPasswordResetEmailContentFn = ({
   passwordResetLink,
 }) => ({
-  subject: "Reset Your Roke Password",
+  subject: 'Reset Your Roke Password',
   text: `Reset your Roke password by clicking this link: ${passwordResetLink}`,
   html: `
     <!DOCTYPE html>
@@ -110,4 +109,4 @@ export const getPasswordResetEmailContent: GetPasswordResetEmailContentFn = ({
       </body>
     </html>
   `,
-});
+})
