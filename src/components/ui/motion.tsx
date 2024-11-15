@@ -192,10 +192,6 @@ export const staggerItem = {
     opacity: 0,
     transition: defaultTransition,
   },
-  hover: {
-    scale: 1.2,
-    transition: defaultTransition,
-  },
 }
 
 // Scroll To Top
