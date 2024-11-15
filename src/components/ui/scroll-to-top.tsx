@@ -29,7 +29,7 @@ export function ScrollToTop() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className='z-100 fixed bottom-6 right-6 hidden md:block'
+          className='z-100 fixed bottom-24 right-6 hidden md:block'
           variants={scrollToTopVariant}
           initial='initial'
           animate='animate'
