@@ -4,7 +4,7 @@ app roke {
   },
   title: "Roke",
   head: [
-    "<script defer data-domain='example.com' src='https://plausible.io/js/script.js'></script>",
+    "<script defer data-domain='roke.dev' src='https://plausible.io/js/script.js'></script>",
   ],
   auth: {
     userEntity: User,
