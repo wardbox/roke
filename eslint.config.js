@@ -16,27 +16,40 @@ export default [
       '.cursorrules',
     ],
   },
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-  ...tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
   {
+    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    linterOptions: {
+      reportUnusedDisableDirectives: false,
+      noInlineConfig: false,
+    },
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node },
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
     plugins: {
-      reactHooks: pluginReactHooks,
+      '@typescript-eslint': tseslint.plugin,
+      react: pluginReact,
+      'react-hooks': pluginReactHooks,
     },
-  },
-  eslintConfigPrettier,
-  {
     rules: {
+      ...tseslint.configs.recommended.rules,
+      ...pluginReact.configs.recommended.rules,
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
       'react/react-in-jsx-scope': 'off',
-      'no-unused-vars': 'error',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
-  },
-  {
     settings: {
       react: {
         version: 'detect',
       },
     },
   },
+  eslintConfigPrettier,
 ]
