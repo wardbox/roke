@@ -62,6 +62,7 @@ route SignupRoute { path: "/signup", to: SignupPage }
 route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
 route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
 route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
+route NotFoundRoute { path: "*", to: NotFoundPage }
 //#endregion
 
 //#region Pages
@@ -108,6 +109,10 @@ page PasswordResetPage {
 
 page EmailVerificationPage {
   component: import { EmailVerification } from "@src/auth/auth",
+}
+
+page NotFoundPage {
+  component: import NotFound from "@src/client/404",
 }
 //#endregion
 

@@ -62,7 +62,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
         )}
         {...props}
       >
-        <div className='flex items-center space-x-4 lg:space-x-6'>
+        <div className='flex items-center space-x-4 lg:space-x-8'>
           <Link to='/' className='flex items-center space-x-2'>
             <Mountains size={24} />
             <span className='font-bold'>
