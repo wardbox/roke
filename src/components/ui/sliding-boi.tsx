@@ -4,29 +4,26 @@ import daBoi from '../../static/da-boi.webp'
 export function SlidingBoi() {
   const { scrollYProgress } = useScroll()
 
-  // Add a very light spring effect to the scroll progress
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 35, // Keep low stiffness for floaty movement
-    damping: 15, // Keep low damping for bounce
-    mass: 0.8, // Keep higher mass for inertia
-    restDelta: 0.0001, // Keep small restDelta for smooth finish
-    restSpeed: 0.5, // Increased for faster initial response
+    stiffness: 35,
+    damping: 15,
+    mass: 0.8,
+    restDelta: 0.0001,
+    restSpeed: 0.5,
   })
 
-  // Transform scroll progress to y position
   const translateY = useTransform(
     smoothProgress,
-    [0.5, 1], // Much wider range for earlier trigger
+    [0.5, 1],
     [200, -90],
     {
       ease: x => x,
     },
   )
 
-  // Also make rotation springy but gentler
   const rotate = useTransform(
     smoothProgress,
-    [0.75, 1], // Match the translateY range
+    [0.75, 1],
     [8, 0],
     {
       ease: x => x,
@@ -41,11 +38,11 @@ export function SlidingBoi() {
         rotate,
       }}
       animate={{
-        y: [0, -3, 3, 0], // Gentler floating motion
-        rotate: [0, -2, 2, 0], // Subtler rotation
+        y: [0, -3, 3, 0],
+        rotate: [0, -2, 2, 0],
       }}
       transition={{
-        duration: 4, // Longer duration for floatier feel
+        duration: 4,
         ease: 'easeInOut',
         repeat: Infinity,
       }}
