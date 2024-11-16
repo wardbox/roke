@@ -29,8 +29,8 @@ export default function Root() {
           </main>
           <Toaster />
           <ScrollToTop />
-          <footer className='z-60 border-t'>
-            <div className='mx-auto max-w-7xl'>
+          <footer className='relative z-50 border-t border-input bg-background'>
+            <div className='relative z-50 mx-auto max-w-7xl'>
               <Footer />
             </div>
           </footer>
