@@ -55,7 +55,7 @@ html {
     --accent: 42 100% 75%;
     --accent-foreground: 0 0% 9%;
     --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
+    --input: 0 0% 85%;
     --ring: 0 0% 19%;
     --brand-primary: 215 41% 68%;
     --brand-primary-foreground: 0 0% 18%;
@@ -80,7 +80,7 @@ html {
     --accent: 0 0% 14.9%;
     --accent-foreground: 42 100% 97%;
     --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
+    --input: 0 0% 20%;
     --ring: 0 0% 83.1%;
   }
 

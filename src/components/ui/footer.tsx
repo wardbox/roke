@@ -47,21 +47,19 @@ const navigation = {
 
 export function Footer() {
   return (
-    <motion.footer
-      variants={fadeIn}
-      initial='initial'
-      animate='animate'
-      className='pb-16 md:pb-4'
-    >
+    <motion.footer variants={fadeIn} initial='initial' animate='animate'>
       <div className='px-6 py-4'>
         {/* Mobile Layout */}
-        <div className='flex flex-col space-y-4 md:hidden'>
+        <div className='flex flex-col space-y-2 md:hidden'>
           {/* Logo & Social */}
           <div className='flex items-center justify-between'>
-            <h2 className='flex items-center gap-2 text-lg font-semibold'>
+            <div className='flex items-center gap-2'>
               <Mountains size={20} weight='fill' />
-              {import.meta.env.REACT_APP_NAME || 'Roke'}
-            </h2>
+              <span className='text-sm text-muted-foreground'>
+                &copy; {new Date().getFullYear()}{' '}
+                {import.meta.env.REACT_APP_NAME || 'Roke'}
+              </span>
+            </div>
             <div className='flex gap-4'>
               {navigation.social.map(item => (
                 <a
@@ -82,24 +80,20 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <nav className='flex flex-wrap gap-x-4 gap-y-2' aria-label='Footer'>
-            {navigation.main.map(item => (
-              <ScrollToTopLink
-                key={item.name}
-                to={item.href}
-                className='text-sm text-muted-foreground transition-colors hover:text-foreground'
-              >
-                {item.name}
-              </ScrollToTopLink>
-            ))}
-          </nav>
-
-          {/* Copyright */}
-          <p className='text-xs text-muted-foreground'>
-            &copy; {new Date().getFullYear()}{' '}
-            {import.meta.env.REACT_APP_NAME || 'Roke'}
-          </p>
+          {/* Navigation - Horizontal Scrolling */}
+          <div className='overflow-x-auto'>
+            <nav className='flex min-w-max gap-4 py-1' aria-label='Footer'>
+              {navigation.main.map(item => (
+                <ScrollToTopLink
+                  key={item.name}
+                  to={item.href}
+                  className='whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground'
+                >
+                  {item.name}
+                </ScrollToTopLink>
+              ))}
+            </nav>
+          </div>
         </div>
 
         {/* Desktop Layout */}

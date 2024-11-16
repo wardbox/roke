@@ -15,11 +15,13 @@ const pascalCase = pageName
   .join('')
 
 // Check and create page file
-const pagePath = path.join(process.cwd(), 'src', 'pages', `${kebabCase}.tsx`)
+const pagePath = path.join(process.cwd(), 'src', 'client', `${kebabCase}.tsx`)
 let pageCreated = false
+let pageExists = false
 
 if (fs.existsSync(pagePath)) {
   console.log(`ℹ️ Page file already exists: ${pagePath}`)
+  pageExists = true
 } else {
   try {
     const pageTemplate = `import { motion } from "motion/react"
@@ -52,7 +54,7 @@ export default function ${pascalCase}() {
   }
 }
 
-// Update main.wasp
+// Update main.wasp only if page doesn't exist
 const mainWaspPath = path.join(process.cwd(), 'main.wasp')
 let waspUpdated = false
 
@@ -67,28 +69,31 @@ try {
   const hasRoute = mainWaspContent.includes(routeEntry)
   const hasPage = mainWaspContent.includes(pageEntry)
 
-  if (hasRoute && hasPage) {
+  if (hasRoute || hasPage) {
     console.log(`ℹ️ Route and page entries already exist in main.wasp`)
-  } else if (!hasRoute && !hasPage) {
+    pageExists = true
+  } else if (!pageExists) {
+    // Find the email verification entries and add new entries after them
     const updatedMainWasp = mainWaspContent
-      .replace(/\/\/#region Routes\n/, `//#region Routes\n${routeEntry}\n`)
-      .replace(/\/\/#region Pages\n/, `//#region Pages\n${pageEntry}\n`)
+      .replace(
+        /route EmailVerificationRoute.*?to: EmailVerificationPage.*?\n/s,
+        `$&\n${routeEntry}\n`,
+      )
+      .replace(
+        /page EmailVerificationPage.*?from "@src\/auth\/auth".*?\n\}/s,
+        `$&\n\n${pageEntry}`,
+      )
 
     fs.writeFileSync(mainWaspPath, updatedMainWasp)
     waspUpdated = true
     console.log(`✅ Updated main.wasp with route and page entries`)
-  } else {
-    console.error(
-      `❌ Inconsistent state in main.wasp: route exists: ${hasRoute}, page exists: ${hasPage}`,
-    )
-    process.exit(1)
   }
 } catch (error) {
   console.error(`❌ Failed to update main.wasp: ${error}`)
   process.exit(1)
 }
 
-// Update nav.tsx
+// Update nav.tsx only if page doesn't exist
 const navPath = path.join(process.cwd(), 'src', 'components', 'ui', 'nav.tsx')
 let navUpdated = false
 
@@ -96,68 +101,71 @@ try {
   const navContent = fs.readFileSync(navPath, 'utf8')
 
   // Check if navigation items already exist
-  const hasDesktopNav = navContent.includes(`to="/${kebabCase}"`)
+  const hasNav = navContent.includes(`to="/${kebabCase}"`)
 
-  if (hasDesktopNav) {
+  if (hasNav) {
     console.log(`ℹ️ Navigation items already exist in nav.tsx`)
   } else {
-    // Add nav link to the desktop menu (in the hidden md:flex section)
-    const desktopNavItem = `          <Link
-            to="/${kebabCase}"
-            className={cn(
-              "flex items-center space-x-2 text-md font-medium transition-colors hover:text-primary",
-              location.pathname === "/${kebabCase}" && "text-primary"
-            )}
-          >
-            <span>${pageName}</span>
-          </Link>`
+    // Add nav link to the desktop menu
+    const desktopNavItem = `            <Link
+              to="/${kebabCase}"
+              className={cn(
+                'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
+                location.pathname === '/${kebabCase}' && 'text-primary',
+              )}
+            >
+              <span>${pageName}</span>
+            </Link>`
 
-    // Add nav link to the mobile menu (in the Sheet content)
-    const mobileNavItem = `              <Link
-                to="/${kebabCase}"
-                className={cn(
-                  "flex items-center space-x-2 text-md font-medium transition-colors hover:text-primary",
-                  location.pathname === "/${kebabCase}" && "text-primary"
-                )}
-                onClick={handleNavigation}
-              >
-                <Button size="icon">
-                  <Layout size={24} />
-                </Button>
-                <span className="text-3xl">${pageName}</span>
-              </Link>`
+    // Add nav link to the mobile menu
+    const mobileNavItem = `                <Link
+                  to="/${kebabCase}"
+                  className={cn(
+                    'text-md flex items-center space-x-4 font-medium transition-colors hover:text-primary',
+                    location.pathname === '/${kebabCase}' && 'text-primary',
+                  )}
+                  onClick={handleNavigation}
+                >
+                  <Button size='icon' className='rounded-full' iconSize='lg'>
+                    <Placeholder size={24} weight='fill' />
+                  </Button>
+                  <span className='text-3xl'>${pageName}</span>
+                </Link>`
 
-    // First, add the desktop nav item in the hidden md:flex section
+    // Update desktop nav - insert after Utils link
     let updatedContent = navContent.replace(
-      /(className="hidden md:flex items-center[^>]+>)([\s\S]*?)(<\/div>)/m,
-      (match, start, content, end) => {
-        const lastLink = content.split('</Link>').slice(-2)[0] + '</Link>'
-        return (
-          start +
-          content.replace(lastLink, lastLink + '\n' + desktopNavItem) +
-          end
-        )
-      },
+      /(to='\/utils'[\s\S]*?<span>Utils<\/span>\s*<\/Link>)/,
+      `$1\n${desktopNavItem}`,
     )
 
-    // Then, add the mobile nav item in the Sheet content
+    // Update mobile nav - insert after Utils link in mobile section
     updatedContent = updatedContent.replace(
-      /(to="\/utils"[^>]+>[\s\S]+?<span className="text-3xl">Utils<\/span>\s*<\/Link>)/,
-      match => `${match}\n${mobileNavItem}`,
+      /(to='\/utils'[\s\S]*?<span className='text-3xl'>Utils<\/span>\s*<\/Link>)/,
+      `$1\n${mobileNavItem}`,
     )
 
-    fs.writeFileSync(navPath, updatedContent)
-    navUpdated = true
-    console.log(`✅ Updated nav.tsx with navigation items`)
+    // Debug: Check if content was actually modified
+    if (updatedContent === navContent) {
+      console.log(
+        "\n⚠️ Warning: No changes were made to nav.tsx. Regex patterns didn't match.",
+      )
+      console.log(
+        "Please check if the nav.tsx structure matches what we're looking for.",
+      )
+    } else {
+      fs.writeFileSync(navPath, updatedContent)
+      navUpdated = true
+      console.log(`✅ Updated nav.tsx with navigation items`)
+    }
   }
 } catch (error) {
   console.error(`❌ Failed to update nav.tsx: ${error}`)
   process.exit(1)
 }
 
-// Final status
+// Final status - updated logic
 if (!pageCreated && !waspUpdated && !navUpdated) {
-  console.log(`ℹ️ All components for "${pageName}" already exist`)
+  console.log(`\nℹ️ All components for "${pageName}" already exist`)
 } else {
   console.log(`\n✨ Successfully set up page: ${pageName}`)
   if (pageCreated) console.log(`   - Created src/client/${kebabCase}.tsx`)

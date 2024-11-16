@@ -1,7 +1,8 @@
 import './Root.css'
-import 'prismjs/themes/prism-tomorrow.css'
 import { Outlet } from 'react-router-dom'
+// Supports weights 100-900
 import '@fontsource-variable/grenze-gotisch'
+// Supports weights 100-900
 import '@fontsource-variable/public-sans'
 import { ThemeProvider } from './components/theme-provider'
 import { Toaster } from './components/ui/toaster'

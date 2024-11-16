@@ -6,7 +6,16 @@ import { CodeBlock } from '../components/ui/code-block'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import type { Icon } from '@phosphor-icons/react'
 
-import { FolderSimple, Lightbulb, Gear, Code } from '@phosphor-icons/react'
+import {
+  FolderSimple,
+  Lightbulb,
+  Gear,
+  Code,
+  GithubLogo,
+  Confetti,
+  Headphones,
+} from '@phosphor-icons/react'
+import { Button } from '../components/ui/button'
 
 const GuideSection = ({
   icon: Icon,
@@ -68,14 +77,27 @@ export default function Guide() {
         >
           <Card>
             <CardContent className='pt-6'>
-              <ol className='space-y-4'>
-                <motion.li variants={staggerItem} className='space-y-2'>
+              <motion.ol
+                variants={staggerContainer}
+                initial='hidden'
+                animate='show'
+                className='space-y-12'
+              >
+                <motion.li
+                  variants={staggerItem}
+                  className='flex flex-col gap-2'
+                >
                   <p className='font-medium'>1. Create a new repository</p>
                   <p className='text-sm text-muted-foreground'>
-                    Use this template to create a new repository on GitHub.
-                    Click the &quot;Use this template&quot; button at the top of
-                    the repository.
+                    Use this template to create a new repository on GitHub. Call
+                    it whatever you like!
                   </p>
+                  <a href='https://github.com/wardbox/roke/generate'>
+                    <Button variant='outline'>
+                      <GithubLogo size={16} />
+                      Use this template
+                    </Button>
+                  </a>
                 </motion.li>
                 <motion.li variants={staggerItem} className='space-y-2'>
                   <p className='font-medium'>
@@ -110,7 +132,30 @@ wasp start`}
                     variant='compact'
                   />
                 </motion.li>
-              </ol>
+                <motion.li variants={staggerItem} className='space-y-2'>
+                  <p className='font-medium'>5. That&apos;s it.</p>
+                  <div className='flex items-center gap-2'>
+                    <p className='text-sm text-muted-foreground'>
+                      You&apos;re all set! Start by exploring the functionality
+                      of your new app, or rip out the example features and start
+                      building your own.
+                    </p>
+                    <motion.div
+                      variants={staggerItem}
+                      whileHover={{
+                        rotate: [0, 12, -12, 12, -12, 0, 0, 0],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 0.7,
+                        type: 'tween',
+                      }}
+                    >
+                      <Confetti size={32} className='text-brand-accent' />
+                    </motion.div>
+                  </div>
+                </motion.li>
+              </motion.ol>
             </CardContent>
           </Card>
         </GuideSection>
@@ -125,6 +170,7 @@ wasp start`}
             <TabsList>
               <TabsTrigger value='env'>Environment Variables</TabsTrigger>
               <TabsTrigger value='theme'>Theme</TabsTrigger>
+              <TabsTrigger value='fonts'>Fonts</TabsTrigger>
               <TabsTrigger value='auth'>Authentication</TabsTrigger>
             </TabsList>
             <TabsContent value='env' className='space-y-4'>
@@ -201,6 +247,71 @@ wasp start`}
                 </CardContent>
               </Card>
             </TabsContent>
+            <TabsContent value='fonts' className='space-y-4'>
+              <Card>
+                <CardContent className='pt-6'>
+                  <div className='space-y-4'>
+                    <p className='text-sm text-muted-foreground'>
+                      Fonts from Fontsource can be easily added to your project.
+                      Here&apos;s an example using the Inter font:
+                    </p>
+                    <motion.div variants={staggerItem} className='space-y-2'>
+                      <p className='font-medium'>1. Install the font package</p>
+                      <CodeBlock
+                        language='bash'
+                        code={`# For variable fonts (recommended)
+npm install @fontsource-variable/inter
+
+# Or for static fonts
+npm install @fontsource/inter`}
+                        variant='compact'
+                      />
+                    </motion.div>
+                    <motion.div variants={staggerItem} className='space-y-2'>
+                      <p className='font-medium'>
+                        2. Import the font in your Root.tsx
+                      </p>
+                      <CodeBlock
+                        language='typescript'
+                        code={`// For variable fonts
+import '@fontsource-variable/inter'
+
+// Or for static fonts
+import '@fontsource/inter'`}
+                        variant='compact'
+                      />
+                    </motion.div>
+                    <motion.div variants={staggerItem} className='space-y-2'>
+                      <p className='font-medium'>3. Add to your CSS</p>
+                      <p className='text-sm text-muted-foreground'>
+                        Update your tailwind.config.js to use the font:
+                      </p>
+                      <CodeBlock
+                        language='javascript'
+                        code={`module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter Variable', 'sans-serif'],
+        // Or for static fonts:
+        // sans: ['Inter', 'sans-serif'],
+      },
+    },
+  },
+}`}
+                        variant='compact'
+                      />
+                    </motion.div>
+                    <p className='text-sm text-muted-foreground'>
+                      Note: The vite.config.ts is already configured to serve
+                      fonts from the @fontsource-variable directory. If you need
+                      to use static fonts, uncomment the @fontsource line in
+                      vite.config.ts.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
             <TabsContent value='auth' className='space-y-4'>
               <Card>
                 <CardContent className='pt-6'>
@@ -234,17 +345,41 @@ wasp start`}
 },`}
                       variant='compact'
                     />
-                    <p className='text-sm'>
+                    <p className='flex items-center text-sm'>
                       You can add various social providers thanks to{' '}
                       <a
                         href='https://wasp-lang.dev/docs/auth/social-auth/overview'
                         target='_blank'
                         rel='noreferrer'
-                        className='underline'
+                        className='ml-1 underline'
                       >
                         Wasp&apos;s social auth
                       </a>
-                      .
+                      . It&apos;s stupid simple - which is our jam.
+                      <motion.div
+                        animate={{
+                          rotate: [0, 8, 0, -8, 0],
+                          x: [0, 3.5, 0, -3.5, 0],
+                          y: [0, -3.5, 0, -3.5, 0],
+                          rotateX: [10, 15, -10, -15, 10],
+                        }}
+                        transition={{
+                          duration: 1.2,
+                          ease: [0.45, 0.05, 0.15, 0.95],
+                          repeat: Infinity,
+                        }}
+                        style={{
+                          perspective: '800px',
+                          transformStyle: 'preserve-3d',
+                        }}
+                        className='mx-3 inline-block'
+                      >
+                        <Headphones
+                          size={32}
+                          weight='fill'
+                          className='text-brand-accent'
+                        />
+                      </motion.div>
                     </p>
                   </div>
                 </CardContent>
@@ -284,13 +419,18 @@ wasp start`}
         {/* Development Tips */}
         <GuideSection
           icon={Lightbulb}
-          title='Development Tips'
-          description='Best practices and helpful tips for development.'
+          title='Automations'
+          description='Save time with our built-in scripts.'
         >
           <Card>
             <CardContent className='space-y-12 pt-6'>
               <motion.div variants={staggerItem} className='space-y-2'>
                 <h3 className='font-medium'>Adding new shadcn/ui components</h3>
+                <p className='text-sm text-muted-foreground'>
+                  Since Wasp doesn&apos;t support @ aliases yet, when we add
+                  shadcn/ui components, we need to fix the import paths. This
+                  script will do that for you.
+                </p>
                 <CodeBlock
                   language='bash'
                   code={`npx shadcn-ui@latest add button
@@ -302,7 +442,12 @@ npm run fix-shadcn  # Fix import paths`}
                 <h3 className='font-medium'>Creating a new page</h3>
                 <p className='text-sm text-muted-foreground'>
                   Create a new page including a route, component, and add to the
-                  nav automatically.
+                  nav automatically. The page will be created in{' '}
+                  <code>src/pages/</code> and will have a basic component with
+                  the name of the page. Routes are added to{' '}
+                  <code>main.wasp</code> and navigation items are added to{' '}
+                  <code>src/components/ui/nav.tsx</code>. If you have a page
+                  with the same name, we won&apos;t overwrite it.
                 </p>
                 <CodeBlock
                   language='bash'

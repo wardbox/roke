@@ -13,6 +13,7 @@ export default [
       '**/build/**',
       '**/out/**',
       '.wasp/**',
+      '.cursorrules',
     ],
   },
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
