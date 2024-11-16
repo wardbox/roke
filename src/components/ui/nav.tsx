@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { cn } from '../../lib/utils'
+import { cn, usePrefetch } from '../../lib/utils'
 import { Link } from 'wasp/client/router'
 import {
   BookOpen,
@@ -48,6 +48,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
     const [open, setOpen] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const location = useLocation()
+    const prefetch = usePrefetch()
 
     const handleNavigation = () => {
       setOpen(false)
@@ -63,7 +64,11 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
         {...props}
       >
         <div className='flex items-center space-x-4 lg:space-x-8'>
-          <Link to='/' className='flex items-center space-x-2'>
+          <Link
+            to='/'
+            className='flex items-center space-x-2'
+            onMouseEnter={() => prefetch('/', undefined, { assets: true })}
+          >
             <Mountains size={24} />
             <span className='font-bold'>
               {import.meta.env.REACT_APP_NAME || 'Roke'}
@@ -76,6 +81,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
                 location.pathname === '/' && 'text-primary',
               )}
+              onMouseEnter={() => prefetch('/', undefined, { assets: true })}
             >
               <span>Home</span>
             </Link>
@@ -85,6 +91,9 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
                 location.pathname === '/guide' && 'text-primary',
               )}
+              onMouseEnter={() =>
+                prefetch('/guide', undefined, { assets: true })
+              }
             >
               <span>Guide</span>
             </Link>
@@ -94,6 +103,9 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
                 location.pathname === '/note-example' && 'text-primary',
               )}
+              onMouseEnter={() =>
+                prefetch('/note-example', undefined, { assets: true })
+              }
             >
               <span>Notes</span>
             </Link>
@@ -103,6 +115,12 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
                 location.pathname === '/motion' && 'text-primary',
               )}
+              onMouseEnter={() =>
+                prefetch('/motion', undefined, {
+                  assets: true,
+                  delay: 50,
+                })
+              }
             >
               <span>Motion</span>
             </Link>
@@ -112,6 +130,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
                 location.pathname === '/utils' && 'text-primary',
               )}
+              onMouseEnter={() => prefetch('/utils')}
             >
               <span>Utils</span>
             </Link>
@@ -144,13 +163,16 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>
-                      <Link to='/profile/:id' params={{ id: user.id }}>
-                        <DropdownMenuItem
-                          onClick={() => setDropdownOpen(false)}
-                          className='cursor-pointer'
-                        >
-                          Profile
-                        </DropdownMenuItem>
+                      <Link
+                        to='/profile/:id'
+                        params={{ id: user.id }}
+                        onMouseEnter={() =>
+                          prefetch('/profile/:id', { id: user.id })
+                        }
+                        onClick={() => setDropdownOpen(false)}
+                        className='cursor-pointer'
+                      >
+                        <DropdownMenuItem>Profile</DropdownMenuItem>
                       </Link>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
@@ -176,7 +198,14 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>
-                      <Link to='/login'>
+                      <Link
+                        to='/login'
+                        onMouseEnter={() =>
+                          prefetch('/login', undefined, {
+                            assets: true,
+                          })
+                        }
+                      >
                         <DropdownMenuItem
                           onClick={() => setDropdownOpen(false)}
                           className='cursor-pointer'
@@ -184,7 +213,14 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                           Log in
                         </DropdownMenuItem>
                       </Link>
-                      <Link to='/signup'>
+                      <Link
+                        to='/signup'
+                        onMouseEnter={() =>
+                          prefetch('/signup', undefined, {
+                            assets: true,
+                          })
+                        }
+                      >
                         <DropdownMenuItem
                           onClick={() => setDropdownOpen(false)}
                           className='cursor-pointer'
@@ -259,6 +295,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                     location.pathname === '/motion' && 'text-primary',
                   )}
                   onClick={handleNavigation}
+                  onMouseEnter={() => prefetch('/motion')}
                 >
                   <Button size='icon' className='rounded-full' iconSize='lg'>
                     <PersonSimpleRun size={24} weight='fill' />
@@ -272,6 +309,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                     location.pathname === '/utils' && 'text-primary',
                   )}
                   onClick={handleNavigation}
+                  onMouseEnter={() => prefetch('/utils')}
                 >
                   <Button size='icon' className='rounded-full' iconSize='lg'>
                     <Toolbox size={24} weight='fill' />
@@ -303,6 +341,9 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                               'text-primary',
                           )}
                           onClick={handleNavigation}
+                          onMouseEnter={() =>
+                            prefetch('/profile/:id', { id: user.id })
+                          }
                         >
                           <Button
                             size='icon'
@@ -330,6 +371,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                           to='/login'
                           className='text-md flex cursor-pointer items-center space-x-4 font-medium transition-all'
                           onClick={handleNavigation}
+                          onMouseEnter={() => prefetch('/login')}
                         >
                           <Button>
                             <span className='text-lg'>Log in</span>
@@ -339,6 +381,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                           to='/signup'
                           className='text-md flex items-center space-x-4 font-medium'
                           onClick={handleNavigation}
+                          onMouseEnter={() => prefetch('/signup')}
                         >
                           <Button>
                             <span className='text-lg'>Sign up</span>

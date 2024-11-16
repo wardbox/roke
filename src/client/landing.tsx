@@ -17,7 +17,7 @@ import { PrismaLogo } from '../static/prisma-logo'
 import type { Icon } from '@phosphor-icons/react'
 import { Button } from '../components/ui/button'
 import { GithubLogo } from '@phosphor-icons/react'
-
+import { SlidingBoi } from '../components/ui/sliding-boi'
 type ListItem = string | { href: string; text: string }
 
 const ListSection = ({
@@ -393,6 +393,7 @@ wasp start`}
           </CardContent>
         </Card>
       </motion.div>
+      <SlidingBoi />
     </motion.div>
   )
 }

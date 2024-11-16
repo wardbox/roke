@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { fadeIn } from './motion'
 import { Mountains, GithubLogo, TwitterLogo } from '@phosphor-icons/react'
+import { usePrefetch } from '../../lib/utils'
 
 const ScrollToTopLink = ({
   to,
@@ -15,9 +16,15 @@ const ScrollToTopLink = ({
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+  const prefetch = usePrefetch()
 
   return (
-    <Link to={to} className={className} onClick={handleClick}>
+    <Link
+      to={to}
+      className={className}
+      onClick={handleClick}
+      onMouseEnter={() => prefetch(to, undefined, { assets: true })}
+    >
       {children}
     </Link>
   )
@@ -47,7 +54,12 @@ const navigation = {
 
 export function Footer() {
   return (
-    <motion.footer variants={fadeIn} initial='initial' animate='animate'>
+    <motion.div
+      variants={fadeIn}
+      initial='initial'
+      animate='animate'
+      className='relative z-50 mx-auto max-w-7xl'
+    >
       <div className='px-6 py-4'>
         {/* Mobile Layout */}
         <div className='flex flex-col space-y-2 md:hidden'>
@@ -161,7 +173,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </motion.footer>
+    </motion.div>
   )
 }
 
