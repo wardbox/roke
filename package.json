@@ -1,5 +1,5 @@
 {
-  "name": "shadcn",
+  "name": "roke",
   "type": "module",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
@@ -89,6 +89,7 @@
     "create-page": "tsx scripts/create-page.ts",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,css,md,json}\""
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
+    "check": "npm run format && npm run lint:fix"
   }
 }
