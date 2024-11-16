@@ -12,23 +12,13 @@ export function SlidingBoi() {
     restSpeed: 0.5,
   })
 
-  const translateY = useTransform(
-    smoothProgress,
-    [0.5, 1],
-    [200, -90],
-    {
-      ease: x => x,
-    },
-  )
+  const translateY = useTransform(smoothProgress, [0.5, 1], [200, -90], {
+    ease: x => x,
+  })
 
-  const rotate = useTransform(
-    smoothProgress,
-    [0.75, 1],
-    [8, 0],
-    {
-      ease: x => x,
-    },
-  )
+  const rotate = useTransform(smoothProgress, [0.75, 1], [8, 0], {
+    ease: x => x,
+  })
 
   return (
     <motion.div
