@@ -12,6 +12,7 @@ export default defineConfig({
         // Allow serving files from the node_modules/@fontsource directory
         // (using Wasp's helper to resolve project path)
         resolveProjectPath('./node_modules/@fontsource-variable'),
+        // resolveProjectPath('./node_modules/@fontsource'), // If you use a non-variable font
       ],
     },
   },
