@@ -6,6 +6,7 @@ import * as animations from '../components/ui/motion'
 import { useState } from 'react'
 import { ModeToggle } from '../components/mode-toggle'
 import TypingAnimation from '../components/ui/typing-animation'
+import { useMotion } from '../components/motion-provider'
 
 function ReplayButton({ onClick }: { onClick: () => void }) {
   return (
@@ -54,67 +55,53 @@ function AnimationExample({
 }
 
 export default function Motion() {
+  const { transition, key } = useMotion()
+
   return (
     <motion.div
+      key={key}
       variants={animations.staggerContainer}
-      initial='initial'
-      animate='animate'
+      initial='hidden'
+      animate='show'
+      exit='exit'
+      transition={transition}
       className='space-y-16'
     >
       {/* Introduction */}
       <motion.div variants={animations.fadeIn} className='mb-16 space-y-4'>
-        <h1 className='medieval text-7xl sm:text-9xl'>Animation Examples</h1>
+        <h1 className='medieval text-7xl sm:text-9xl'>Animation System</h1>
         <div className='max-w-4xl text-pretty leading-8'>
           <p className='text-pretty text-base text-muted-foreground sm:text-lg'>
-            Motion animations are powered by variants - predefined animation
-            states that components can transition between. You can find all our
-            animation variants in <code>src/components/ui/motion.tsx</code>. You
-            can also reference the official Motion docs{' '}
-            <a
-              href='https://motion.dev/docs/docs'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              here
-            </a>{' '}
-            for more information.
+            Our animation system is built on top of Motion, providing a
+            consistent way to animate components across your app. You can use
+            our pre-built transitions and variants, or create your own.
           </p>
           <div className='mt-6 space-y-4'>
             <p className='text-muted-foreground'>
-              A basic example of how variants work:
+              Configure your app-wide transition in Root.tsx:
             </p>
             <CodeBlock
               language='typescript'
-              code={`// Define your variants
-const fadeIn = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 }
-}
+              code={`// Root.tsx
+import { MotionConfig } from 'motion/react'
+import { transitions } from './components/ui/motion'
 
-// Use them in your component
-<motion.div
-  variants={fadeIn}
-  initial="initial"
-  animate="animate"
-  exit="exit"
-/>`}
+export default function Root() {
+  return (
+    <MotionConfig 
+      reducedMotion='user'
+      transition={transitions.snappy}
+    >
+      <ThemeProvider>
+        <MotionProvider>
+          <App />
+          {process.env.NODE_ENV === 'development' && <TransitionPlayground />}
+        </MotionProvider>
+      </ThemeProvider>
+    </MotionConfig>
+  )
+}`}
             />
-            <ul className='list-inside list-disc space-y-2 text-sm text-muted-foreground'>
-              <li>
-                <code>initial</code> - The starting state of the animation
-              </li>
-              <li>
-                <code>animate</code> - The state to animate to
-              </li>
-              <li>
-                <code>exit</code> - The state to animate to when the component
-                is removed
-              </li>
-              <li>
-                Variants can be nested and will propagate to children components
-              </li>
-            </ul>
           </div>
         </div>
       </motion.div>
@@ -123,8 +110,8 @@ const fadeIn = {
       <motion.div variants={animations.fadeIn} className='mt-16 space-y-12'>
         <h2 className='text-3xl font-semibold'>Transition Presets</h2>
         <p className='mb-8 text-muted-foreground'>
-          We have five transition presets that can be applied to any animation
-          to give it a consistent feel:
+          We provide several transition presets that you can use throughout your
+          app:
         </p>
         <div className='grid gap-8 lg:grid-cols-2'>
           {Object.entries(animations.transitions).map(([name, transition]) => (
@@ -132,7 +119,13 @@ const fadeIn = {
               key={name}
               title={name.charAt(0).toUpperCase() + name.slice(1)}
               description={`A ${name} transition preset.`}
-              code={JSON.stringify(transition, null, 2)}
+              code={`// Use in MotionConfig for app-wide default
+<MotionConfig transition={transitions.${name}}>
+  <App />
+</MotionConfig>
+
+// Or use directly in components
+<motion.div transition={transitions.${name}} />`}
             >
               <motion.div
                 className='cursor-pointer rounded-lg bg-muted p-8'
@@ -293,6 +286,27 @@ const textChild = ${JSON.stringify(animations.textChild, null, 2)}`}
             className='text-4xl font-bold'
           />
         </AnimationExample>
+      </motion.div>
+
+      {/* Development Tools */}
+      <motion.div variants={animations.fadeIn} className='mt-16 space-y-12'>
+        <h2 className='text-3xl font-semibold'>Development Tools</h2>
+        <p className='mb-8 text-muted-foreground'>
+          The Transition Playground is available in development mode to help you
+          find the perfect animation values:
+        </p>
+        <CodeBlock
+          language='typescript'
+          code={`// Only show playground in development
+{process.env.NODE_ENV === 'development' && <TransitionPlayground />}
+
+// For production, remove the playground and use your configured transitions
+<MotionConfig transition={transitions.snappy}>
+  <MotionProvider>
+    <App />
+  </MotionProvider>
+</MotionConfig>`}
+        />
       </motion.div>
     </motion.div>
   )

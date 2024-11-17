@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'motion/react'
-import { fadeIn, staggerContainer, staggerItem } from '../components/ui/motion'
+import { staggerContainer, staggerItem } from '../components/ui/motion'
 import { Card, CardContent } from '../components/ui/card'
 import { CodeBlock } from '../components/ui/code-block'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
@@ -16,6 +16,7 @@ import {
   Headphones,
 } from '@phosphor-icons/react'
 import { Button } from '../components/ui/button'
+import { useMotion } from '../components/motion-provider'
 
 const GuideSection = ({
   icon: Icon,
@@ -27,40 +28,67 @@ const GuideSection = ({
   title: string
   description: string
   children: React.ReactNode
-}) => (
-  <motion.div
-    variants={staggerContainer}
-    initial='initial'
-    animate='animate'
-    className='space-y-6'
-  >
-    <div className='flex items-center gap-3'>
-      <Icon size={32} weight='fill' className='text-brand-accent' />
-      <motion.h2
-        variants={fadeIn}
-        className='text-2xl font-semibold tracking-tight'
-      >
-        {title}
-      </motion.h2>
-    </div>
-    <motion.p variants={fadeIn} className='text-muted-foreground'>
-      {description}
-    </motion.p>
-    <motion.div variants={staggerContainer} className='space-y-4'>
-      {children}
-    </motion.div>
-  </motion.div>
-)
+}) => {
+  const { transition, key } = useMotion()
 
-export default function Guide() {
   return (
     <motion.div
+      key={key}
       variants={staggerContainer}
-      initial='initial'
-      animate='animate'
+      initial='hidden'
+      animate='show'
+      exit='exit'
+      transition={transition}
+      className='space-y-6'
+    >
+      <div className='flex items-center gap-3'>
+        <Icon size={32} weight='fill' className='text-brand-accent' />
+        <motion.h2
+          variants={staggerItem}
+          transition={transition}
+          className='text-2xl font-semibold tracking-tight'
+        >
+          {title}
+        </motion.h2>
+      </div>
+      <motion.p
+        variants={staggerItem}
+        transition={transition}
+        className='text-muted-foreground'
+      >
+        {description}
+      </motion.p>
+      <motion.div
+        variants={staggerContainer}
+        initial='hidden'
+        animate='show'
+        transition={transition}
+        className='space-y-4'
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export default function Guide() {
+  const { transition, key } = useMotion()
+
+  return (
+    <motion.div
+      key={key}
+      variants={staggerContainer}
+      initial='hidden'
+      animate='show'
+      exit='exit'
+      transition={transition}
       className='space-y-16'
     >
-      <motion.div variants={fadeIn} className='mb-16 space-y-4'>
+      <motion.div
+        variants={staggerItem}
+        transition={transition}
+        className='mb-16 space-y-4'
+      >
         <h1 className='medieval text-7xl sm:text-9xl'>Getting Started</h1>
         <p className='max-w-2xl text-lg text-muted-foreground'>
           A comprehensive guide to setting up and customizing your Roke
@@ -166,12 +194,20 @@ wasp start`}
           title='Configuration'
           description="Customize your application's settings and behavior."
         >
-          <Tabs defaultValue='env' className='w-full'>
+          <Tabs defaultValue='env'>
             <TabsList>
-              <TabsTrigger value='env'>Environment Variables</TabsTrigger>
-              <TabsTrigger value='theme'>Theme</TabsTrigger>
-              <TabsTrigger value='fonts'>Fonts</TabsTrigger>
-              <TabsTrigger value='auth'>Authentication</TabsTrigger>
+              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='env'>
+                env vars
+              </TabsTrigger>
+              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='theme'>
+                theme
+              </TabsTrigger>
+              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='fonts'>
+                fonts
+              </TabsTrigger>
+              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='auth'>
+                auth
+              </TabsTrigger>
             </TabsList>
             <TabsContent value='env' className='space-y-4'>
               <Card>
@@ -501,6 +537,169 @@ npm run fix-shadcn  # Fix import paths`}
                   <li>Set breakpoints in your source files</li>
                 </ul>
               </motion.div>
+            </CardContent>
+          </Card>
+        </GuideSection>
+
+        {/* Motion System */}
+        <GuideSection
+          icon={Gear}
+          title='Motion System'
+          description='Configure and use the animation system throughout your app.'
+        >
+          <Card>
+            <CardContent className='space-y-12 pt-6'>
+              <motion.div variants={staggerItem} className='space-y-2'>
+                <h3 className='font-medium'>1. Configure your transitions</h3>
+                <p className='text-sm text-muted-foreground'>
+                  Define your transitions in <code>src/config/motion.ts</code>.
+                  You can create different presets for different parts of your
+                  app:
+                </p>
+                <CodeBlock
+                  language='typescript'
+                  code={`// src/config/motion.ts
+export const motionConfig = {
+  default: {
+    type: 'spring',
+    stiffness: 200,
+    damping: 8,
+    mass: 0.2,
+    opacity: {
+      type: 'tween',
+      duration: 0.2,
+      ease: 'easeInOut',
+    }
+  },
+  // Custom presets for specific use cases
+  heroSection: {
+    type: 'spring',
+    stiffness: 300,
+    damping: 15,
+    mass: 0.5,
+    // ...
+  }
+}`}
+                  variant='compact'
+                />
+              </motion.div>
+
+              <motion.div variants={staggerItem} className='space-y-2'>
+                <h3 className='font-medium'>2. Use the default transition</h3>
+                <p className='text-sm text-muted-foreground'>
+                  Components can use the global transition through the{' '}
+                  <code>useMotion</code> hook:
+                </p>
+                <CodeBlock
+                  language='typescript'
+                  code={`import { motion } from 'motion/react'
+import { fadeIn } from '../components/ui/motion'
+import { useMotion } from '../components/motion-provider'
+
+export function MyComponent() {
+  const { transition } = useMotion()
+
+  return (
+    <motion.div
+      variants={fadeIn}
+      initial="initial"
+      animate="animate"
+      transition={transition}
+    >
+      Content
+    </motion.div>
+  )
+}`}
+                  variant='compact'
+                />
+              </motion.div>
+
+              <motion.div variants={staggerItem} className='space-y-2'>
+                <h3 className='font-medium'>3. Use custom presets</h3>
+                <p className='text-sm text-muted-foreground'>
+                  Or use specific presets for different parts of your app:
+                </p>
+                <CodeBlock
+                  language='typescript'
+                  code={`import { motion } from 'motion/react'
+import { fadeIn } from '../components/ui/motion'
+import { motionConfig } from '../config/motion'
+
+export function HeroSection() {
+  return (
+    <motion.div
+      variants={fadeIn}
+      initial="initial"
+      animate="animate"
+      transition={motionConfig.heroSection}
+    >
+      Hero Content
+    </motion.div>
+  )
+}`}
+                  variant='compact'
+                />
+              </motion.div>
+
+              <motion.div variants={staggerItem} className='space-y-2'>
+                <h3 className='font-medium'>4. Production Setup</h3>
+                <p className='text-sm text-muted-foreground'>
+                  The transition playground is intended as a development tool
+                  for motion debugging, but you could leave it in if you want!
+                  If you want to remove it, you&apos;ll want to:
+                </p>
+                <CodeBlock
+                  language='typescript'
+                  code={`// 1. Remove the playground from Root.tsx
+// Remove this line:
+import { TransitionPlayground } from './components/transition-playground'
+
+// Remove this line:
+<TransitionPlayground />
+
+// 2. Configure your default transition in Root.tsx
+<MotionConfig 
+  reducedMotion='user'
+  transition={transitions.snappy} // or any preset from motion.tsx
+>
+  <ThemeProvider>
+    <MotionProvider>
+      {/* ... */}
+    </MotionProvider>
+  </ThemeProvider>
+</MotionConfig>
+
+// 3. Use transitions from motion.tsx in your components
+import { transitions } from './components/ui/motion'
+
+// Use a preset directly
+<motion.div transition={transitions.bouncy}>
+  Content
+</motion.div>
+
+// Or use the global transition through useMotion
+const { transition } = useMotion()
+<motion.div transition={transition}>
+  Content
+</motion.div>`}
+                  variant='compact'
+                />
+              </motion.div>
+
+              <div className='mt-8 border-t pt-8'>
+                <p className='text-pretty text-sm text-muted-foreground'>
+                  <Lightbulb
+                    size={16}
+                    weight='fill'
+                    className='mr-1 inline-block text-brand-primary'
+                  />
+                  Tip: You can create different transition presets for different
+                  parts of your app in <code>motion.tsx</code>. The playground
+                  is great for finding the perfect values, which you can then
+                  save as presets! You could also expand it to cover more
+                  settings.
+                </p>
+              </div>
             </CardContent>
           </Card>
         </GuideSection>

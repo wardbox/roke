@@ -21,3 +21,6 @@
 // CSS
 - Use Tailwind CSS for styling.
 - Do not use inline styles.
+
+// General
+- Use single quotes
