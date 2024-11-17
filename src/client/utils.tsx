@@ -151,9 +151,7 @@ export default function Utils() {
           transition={{ duration: 0.4 }}
           className='mb-16 space-y-4'
         >
-          <h1 className='text-4xl font-bold tracking-tight sm:text-5xl'>
-            Utility Functions
-          </h1>
+          <h1 className='medieval text-7xl sm:text-9xl'>Utility Functions</h1>
           <p className='max-w-2xl text-lg text-muted-foreground'>
             A collection of commonly used utility functions for formatting,
             validation, and other operations. These utilities are designed to be

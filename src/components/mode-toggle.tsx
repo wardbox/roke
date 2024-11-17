@@ -1,9 +1,9 @@
 import { MoonStars, Sun } from '@phosphor-icons/react'
 import { Button } from './ui/button'
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import { darkMode, lightMode } from './ui/motion'
 import { useTheme } from './theme-provider'
-import { motion } from 'motion/react'
+import { useMotion } from './motion-provider'
 
 export function ModeToggle({
   iconSize = 'sm',
@@ -11,6 +11,7 @@ export function ModeToggle({
   iconSize?: 'sm' | 'md' | 'lg' | 'xl'
 }) {
   const { theme, setTheme } = useTheme()
+  const { transition } = useMotion()
 
   return (
     <Button
@@ -28,6 +29,7 @@ export function ModeToggle({
             initial='initial'
             animate='animate'
             exit='exit'
+            transition={transition}
           >
             <MoonStars />
           </motion.div>
@@ -39,6 +41,7 @@ export function ModeToggle({
             initial='initial'
             animate='animate'
             exit='exit'
+            transition={transition}
           >
             <Sun />
           </motion.div>

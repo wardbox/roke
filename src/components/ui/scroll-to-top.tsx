@@ -6,12 +6,14 @@ import {
 } from 'motion/react'
 import { ArrowUp } from '@phosphor-icons/react'
 import { Button } from './button'
-import { scrollToTop as scrollToTopVariant } from './motion'
+import { scrollToTop } from './motion'
 import { useState } from 'react'
+import { useMotion } from '../motion-provider'
 
 export function ScrollToTop() {
   const { scrollY } = useScroll()
   const [isVisible, setIsVisible] = useState(false)
+  const { transition } = useMotion()
 
   useMotionValueEvent(scrollY, 'change', latest => {
     if (latest > 200) {
@@ -21,7 +23,7 @@ export function ScrollToTop() {
     }
   })
 
-  const scrollToTop = () => {
+  const scrollToTopAction = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -29,17 +31,18 @@ export function ScrollToTop() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className='z-100 fixed bottom-24 right-6 hidden md:block'
-          variants={scrollToTopVariant}
+          className='fixed bottom-24 right-6 z-50 hidden md:block'
+          variants={scrollToTop}
           initial='initial'
           animate='animate'
           exit='exit'
+          transition={transition}
         >
           <Button
             variant='outline'
             size='icon'
             iconSize='lg'
-            onClick={scrollToTop}
+            onClick={scrollToTopAction}
             className='border-muted-foreground/20 shadow-lg transition-colors hover:border-accent hover:bg-accent'
           >
             <ArrowUp />

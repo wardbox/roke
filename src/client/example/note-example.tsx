@@ -1,8 +1,13 @@
 import { motion } from 'motion/react'
-import { slideInUp, staggerContainer } from '../../components/ui/motion'
+import {
+  slideInUp,
+  staggerContainer,
+  staggerItem,
+} from '../../components/ui/motion'
 import { NoteForm } from './note-form'
 import { useQuery, getNotes } from 'wasp/client/operations'
 import { NoteList } from './note-list'
+import { useMotion } from '../../components/motion-provider'
 
 export interface NotesProps {
   notes: Awaited<ReturnType<typeof getNotes>>
@@ -10,20 +15,23 @@ export interface NotesProps {
 
 export default function NoteExample() {
   const { data: notes, isLoading, error } = useQuery(getNotes)
+  const { transition, key } = useMotion()
 
   return (
     <motion.div
+      key={key}
       variants={staggerContainer}
-      initial='initial'
-      animate='animate'
+      initial='hidden'
+      animate='show'
+      exit='exit'
+      transition={transition}
       className='space-y-8'
     >
       <div className='mb-16 space-y-4'>
         <h1 className='medieval text-7xl sm:text-9xl'>Notes Example</h1>
         <motion.p
           variants={slideInUp}
-          initial='initial'
-          animate='animate'
+          transition={transition}
           className='max-w-2xl text-lg text-muted-foreground'
         >
           A simple demonstration of Wasp&apos;s Queries and Actions for data
@@ -31,7 +39,11 @@ export default function NoteExample() {
         </motion.p>
       </div>
       <div className='grid gap-12 lg:grid-cols-5'>
-        <div className='col-span-3 space-y-6'>
+        <motion.div
+          variants={staggerItem}
+          transition={transition}
+          className='col-span-3 space-y-6'
+        >
           <div className='space-y-2'>
             <h2 className='text-2xl font-semibold tracking-tight'>
               Create Note
@@ -50,8 +62,12 @@ export default function NoteExample() {
             </p>
           </div>
           <NoteForm />
-        </div>
-        <div className='col-span-2 space-y-6'>
+        </motion.div>
+        <motion.div
+          variants={staggerItem}
+          transition={transition}
+          className='col-span-2 space-y-6'
+        >
           <div className='space-y-2'>
             <h2 className='text-2xl font-semibold tracking-tight'>
               Your Notes
@@ -70,7 +86,7 @@ export default function NoteExample() {
             </p>
           </div>
           <NoteList notes={notes} isLoading={isLoading} error={error} />
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   )

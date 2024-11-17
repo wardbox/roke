@@ -1,79 +1,37 @@
-import React from 'react'
 import { motion } from 'motion/react'
-import { fadeIn, staggerContainer, staggerItem } from '../components/ui/motion'
+import { fadeIn, staggerContainer } from '../components/ui/motion'
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card'
-import { CodeBlock } from '../components/ui/code-block'
 import {
   Lightning,
   Books,
   ArrowBendUpLeft,
   Lightbulb,
+  GithubLogo,
 } from '@phosphor-icons/react'
-import waspLogo from '../static/wasp.png'
-import motionLogo from '../static/motion.png'
-import tailwindLogo from '../static/tailwind.svg'
-import shadcnuiLogo from '../static/shadcnui.png'
-import { PrismaLogo } from '../static/prisma-logo'
-import type { Icon } from '@phosphor-icons/react'
 import { Button } from '../components/ui/button'
-import { GithubLogo } from '@phosphor-icons/react'
 import { SlidingBoi } from '../components/ui/sliding-boi'
-type ListItem = string | { href: string; text: string }
+import { SectionCard } from '../components/landing/section-card'
+import { TechStack } from '../components/landing/tech-stack'
+import { ListSection } from '../components/landing/list-section'
+import { CodeBlock } from '../components/ui/code-block'
+import { generateSlug } from '../lib/utils'
+import { useMotion } from '../components/motion-provider'
 
-const ListSection = ({
-  icon: Icon,
-  title,
-  items,
-}: {
-  icon: Icon
-  title: string
-  items: ListItem[]
-}) => (
-  <motion.div
-    variants={staggerContainer}
-    initial='initial'
-    animate='animate'
-    className='space-y-8'
-  >
-    <div className='mb-8 flex items-center gap-3'>
-      <Icon size={32} weight='fill' className='text-brand-accent' />
-      <motion.div
-        variants={fadeIn}
-        className='text-2xl font-medium tracking-tight'
-      >
-        {title}
-      </motion.div>
-    </div>
-    <motion.ul
+export default function Landing() {
+  const { transition, key } = useMotion()
+
+  return (
+    <motion.div
+      key={key}
       variants={staggerContainer}
       initial='hidden'
       animate='show'
-      className='space-y-4 text-lg text-foreground/90'
-    >
-      {items.map((item, i) => (
-        <motion.li key={i} variants={staggerItem} whileHover={{ x: 5 }}>
-          {typeof item === 'string' ? (
-            item
-          ) : (
-            <a href={item.href} target='_blank' rel='noopener noreferrer'>
-              {item.text}
-            </a>
-          )}
-        </motion.li>
-      ))}
-    </motion.ul>
-  </motion.div>
-)
-
-export default function Landing() {
-  return (
-    <motion.div
-      variants={staggerContainer}
-      initial='initial'
-      animate='animate'
+      exit='exit'
+      transition={transition}
+      custom={transition}
       className='space-y-24'
     >
-      <motion.div variants={fadeIn} className='space-y-4'>
+      <motion.section id='hero' variants={fadeIn} className='space-y-4'>
         <h1 className='flex gap-4 text-9xl sm:text-[10rem] lg:text-[12rem]'>
           <span className='medieval'>
             {import.meta.env.REACT_APP_NAME || 'Roke'}
@@ -116,9 +74,14 @@ export default function Landing() {
             </a>
           </Button>
         </div>
-      </motion.div>
-      <div className='grid grid-cols-1 gap-8 lg:grid-cols-3'>
-        <motion.div variants={fadeIn} className='lg:col-span-2'>
+      </motion.section>
+
+      <motion.section
+        id='quick-start'
+        variants={fadeIn}
+        className='grid grid-cols-1 gap-8 lg:grid-cols-3'
+      >
+        <motion.div className='lg:col-span-2'>
           <Card>
             <CardHeader>
               <div className='flex items-center gap-4'>
@@ -177,7 +140,7 @@ wasp start`}
             title='Resources'
             items={[
               { href: 'https://wasp-lang.dev/docs', text: 'Wasp →' },
-              { href: 'https://ui.shadcn.com/docs', text: 'shadcn/ui →' },
+              { href: 'https://ui.shadcn.com/docs', text: 'shadcn/ui ��' },
               {
                 href: 'https://tailwindcss.com/docs/installation',
                 text: 'Tailwind CSS →',
@@ -186,213 +149,114 @@ wasp start`}
             ]}
           />
         </div>
-      </div>
-      <motion.div variants={fadeIn}>
-        <Card>
-          <CardHeader>
-            <div className='flex items-center gap-4'>
-              <CardTitle className='text-4xl font-medium tracking-tight'>
-                Why Roke?
-              </CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className='space-y-8'>
-            <p className='text-pretty text-lg text-muted-foreground'>
-              Every time I started a new Wasp project, I found myself going
-              through the same ritual: changing the user schema, setting up the
-              root layout, wrestling with shadcn/ui paths, configuring auth
-              pages and routes, remembering Motion syntax... I realized I
-              wasn&apos;t just repeating steps - I was rebuilding my ideal
-              starting point over and over.
-            </p>
+      </motion.section>
 
-            <p className='text-pretty text-lg text-muted-foreground'>
-              That&apos;s when it hit me - why not create something that could
-              serve as a post-starting point? Not just another blank template,
-              but a thoughtfully crafted foundation that reflects how I actually
-              like to build websites.
-            </p>
+      <SectionCard sectionId={generateSlug('Why Roke?')} title='Why Roke?'>
+        <p className='text-pretty text-lg text-muted-foreground'>
+          Every time I started a new Wasp project, I found myself going through
+          the same ritual: changing the user schema, setting up the root layout,
+          wrestling with shadcn/ui paths, configuring auth pages and routes,
+          remembering Motion syntax... I realized I wasn&apos;t just repeating
+          steps - I was rebuilding my ideal starting point over and over.
+        </p>
 
-            <p className='text-pretty text-lg text-muted-foreground'>
-              By sharing Roke openly, I hope to create a space where we can
-              learn from each other. It&apos;s not about chasing metrics or
-              building yet another boilerplate - it&apos;s about making web
-              development more enjoyable and accessible for everyone who uses
-              it.
-            </p>
+        <p className='text-pretty text-lg text-muted-foreground'>
+          That&apos;s when it hit me - why not create something that could serve
+          as a post-starting point? Not just another blank template, but a
+          thoughtfully crafted foundation that reflects how I actually like to
+          build websites.
+        </p>
 
-            <div className='mt-8 border-t pt-8'>
-              <p className='text-pretty text-base italic text-muted-foreground'>
-                &ldquo;Remember: coding doesn&apos;t need to be about making
-                money and comparing your MRR on bird network. It can be a
-                creative and inspiring endeavor.&rdquo;
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-      <div className='flex w-full flex-col items-center'>
-        <motion.div variants={fadeIn}>
-          <h2 className='mb-16 text-balance text-center text-4xl font-thin tracking-tight sm:text-start'>
-            powered and inspired by
-          </h2>
-        </motion.div>
-        <motion.div
-          variants={staggerContainer}
-          initial='hidden'
-          whileInView='show'
-          className='grid grid-cols-2 items-center justify-items-center gap-8 sm:grid-cols-5'
-        >
-          <motion.a
-            href='https://wasp-lang.dev'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              variants={staggerItem}
-              src={waspLogo}
-              alt='wasp'
-              width={100}
-            />
-          </motion.a>
-          <motion.a
-            href='https://motion.dev/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              variants={staggerItem}
-              src={motionLogo}
-              alt='motion'
-              width={100}
-            />
-          </motion.a>
-          <motion.a
-            href='https://tailwindcss.com/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              variants={staggerItem}
-              src={tailwindLogo}
-              alt='tailwind'
-              width={100}
-              className='text-foreground'
-            />
-          </motion.a>
-          <motion.a
-            href='https://ui.shadcn.com/docs'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              variants={staggerItem}
-              src={shadcnuiLogo}
-              alt='shadcn/ui'
-              width={100}
-            />
-          </motion.a>
-          <motion.a
-            href='https://www.prisma.io/'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='col-span-2 sm:col-span-1'
-          >
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              variants={staggerItem}
-              className='w-[80px] text-foreground'
+        <p className='text-pretty text-lg text-muted-foreground'>
+          By sharing Roke openly, I hope to create a space where we can learn
+          from each other and make web development more enjoyable and accessible
+          for everyone.
+        </p>
+
+        <div className='mt-8 border-t pt-8'>
+          <p className='text-pretty text-base italic text-muted-foreground'>
+            &ldquo;Remember: coding doesn&apos;t need to be about making money
+            and comparing your MRR on bird network. It can be a creative and
+            inspiring endeavor.&rdquo;
+          </p>
+        </div>
+      </SectionCard>
+
+      <TechStack />
+
+      <SectionCard
+        sectionId='future-plans'
+        title="What's he building in there?"
+      >
+        <div className='space-y-4'>
+          <h3 className='text-xl font-medium'>Developer Experience</h3>
+          <p className='text-pretty text-muted-foreground'>
+            Creating helper scripts like <code>create-page</code> and{' '}
+            <code>fix-shadcn</code> to automate common tasks. These aren&apos;t
+            just shortcuts - they&apos;re about removing friction from the
+            development process.
+          </p>
+        </div>
+
+        <div className='space-y-4'>
+          <h3 className='text-xl font-medium'>Motion Made Simple</h3>
+          <p className='text-pretty text-muted-foreground'>
+            Making animations more accessible by providing pre-built variants
+            and clear examples. The goal isn&apos;t to turn everyone into
+            animation experts overnight, but to show that creating beautiful,
+            interactive UIs isn&apos;t as daunting as it might seem.
+          </p>
+        </div>
+
+        <div className='space-y-4'>
+          <h3 className='text-xl font-medium'>Real-World Examples</h3>
+          <p className='text-pretty text-muted-foreground'>
+            Building out practical examples beyond the basics - think admin
+            portals, purchase workflows, creative AI integrations, and more.
+            Taking inspiration from projects like
+            <a
+              href='https://opensaas.sh'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='ml-1 underline'
             >
-              <PrismaLogo />
-            </motion.div>
-          </motion.a>
-        </motion.div>
-      </div>
-      <motion.div variants={fadeIn}>
-        <Card>
-          <CardHeader>
-            <div className='flex items-center gap-4'>
-              <CardTitle className='text-4xl font-medium tracking-tight'>
-                What&apos;s he building in there?
-              </CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className='space-y-8'>
-            <div className='space-y-4'>
-              <h3 className='text-xl font-medium'>Developer Experience</h3>
-              <p className='text-pretty text-muted-foreground'>
-                Creating helper scripts like <code>create-page</code> and{' '}
-                <code>fix-shadcn</code> to automate common tasks. These
-                aren&apos;t just shortcuts - they&apos;re about removing
-                friction from the development process.
-              </p>
-            </div>
+              OpenSaaS
+            </a>{' '}
+            while focusing on modularity and composability.
+          </p>
+        </div>
 
-            <div className='space-y-4'>
-              <h3 className='text-xl font-medium'>Motion Made Simple</h3>
-              <p className='text-pretty text-muted-foreground'>
-                Making animations more accessible by providing pre-built
-                variants and clear examples. The goal isn&apos;t to turn
-                everyone into animation experts overnight, but to show that
-                creating beautiful, interactive UIs isn&apos;t as daunting as it
-                might seem.
-              </p>
-            </div>
+        <div className='space-y-4'>
+          <h3 className='text-xl font-medium'>Best Practices</h3>
+          <p className='text-pretty text-muted-foreground'>
+            Enhancing our <code>.cursorrules</code> to be an even better
+            resource for Wasp development, while maintaining a focus on clean,
+            maintainable code and modern development practices.
+          </p>
+        </div>
 
-            <div className='space-y-4'>
-              <h3 className='text-xl font-medium'>Real-World Examples</h3>
-              <p className='text-pretty text-muted-foreground'>
-                Building out practical examples beyond the basics - think admin
-                portals, purchase workflows, creative AI integrations, and more.
-                Taking inspiration from projects like
-                <a
-                  href='https://opensaas.sh'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='ml-1 underline'
-                >
-                  OpenSaaS
-                </a>{' '}
-                while focusing on modularity and composability.
-              </p>
-            </div>
+        <div className='mt-8 border-t pt-8'>
+          <p className='text-pretty text-sm text-muted-foreground'>
+            <Lightbulb
+              size={16}
+              weight='fill'
+              className='mr-1 inline-block text-brand-primary'
+            />
+            Want to contribute? Check out our
+            <a
+              href='https://github.com/wardbox/roke/issues'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='mx-1 underline'
+            >
+              GitHub issues
+            </a>
+            or submit a pull request. Let&apos;s build something beautiful
+            together.
+          </p>
+        </div>
+      </SectionCard>
 
-            <div className='space-y-4'>
-              <h3 className='text-xl font-medium'>Best Practices</h3>
-              <p className='text-pretty text-muted-foreground'>
-                Enhancing our <code>.cursorrules</code> to be an even better
-                resource for Wasp development, while maintaining a focus on
-                clean, maintainable code and modern development practices.
-              </p>
-            </div>
-
-            <div className='mt-8 border-t pt-8'>
-              <p className='text-pretty text-sm text-muted-foreground'>
-                <Lightbulb
-                  size={16}
-                  weight='fill'
-                  className='mr-1 inline-block text-brand-primary'
-                />
-                Want to contribute? Check out our
-                <a
-                  href='https://github.com/wardbox/roke/issues'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='mx-1 underline'
-                >
-                  GitHub issues
-                </a>
-                or submit a pull request. Let&apos;s build something beautiful
-                together.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
       <SlidingBoi />
     </motion.div>
   )
