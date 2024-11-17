@@ -1,7 +1,6 @@
 # Roke
 
-A Wasp starter with sensible defaults. Think shadcn/ui components, Motion
-animations, and TypeScript - but configured exactly how you'd want them.
+A Wasp starter with sensible defaults.
 
 ## What's he building in there?
 
