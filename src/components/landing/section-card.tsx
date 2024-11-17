@@ -9,10 +9,16 @@ import { useMotion } from '../motion-provider'
 interface SectionCardProps {
   sectionId: string
   title: string
+  subtitle?: string
   children: ReactNode
 }
 
-export function SectionCard({ sectionId, title, children }: SectionCardProps) {
+export function SectionCard({
+  sectionId,
+  title,
+  subtitle,
+  children,
+}: SectionCardProps) {
   const { key } = useMotion()
 
   return (
@@ -27,7 +33,14 @@ export function SectionCard({ sectionId, title, children }: SectionCardProps) {
       <Card>
         <CardHeader>
           <CardTitle className='group flex items-baseline text-4xl font-medium tracking-tight'>
-            <span>{title}</span>
+            <div className='flex flex-col'>
+              <span>{title}</span>
+              {subtitle && (
+                <span className='text-sm tracking-normal text-muted-foreground/50'>
+                  {subtitle}
+                </span>
+              )}
+            </div>
             <a
               href={`#${sectionId}`}
               aria-label={`Link to ${title} section`}
