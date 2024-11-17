@@ -196,16 +196,28 @@ wasp start`}
         >
           <Tabs defaultValue='env'>
             <TabsList>
-              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='env'>
+              <TabsTrigger
+                className='data-[state=active]:w-full md:data-[state=active]:w-auto'
+                value='env'
+              >
                 env vars
               </TabsTrigger>
-              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='theme'>
+              <TabsTrigger
+                className='data-[state=active]:w-full md:data-[state=active]:w-auto'
+                value='theme'
+              >
                 theme
               </TabsTrigger>
-              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='fonts'>
+              <TabsTrigger
+                className='data-[state=active]:w-full md:data-[state=active]:w-auto'
+                value='fonts'
+              >
                 fonts
               </TabsTrigger>
-              <TabsTrigger className='data-[state=active]:w-full md:data-[state=active]:w-auto' value='auth'>
+              <TabsTrigger
+                className='data-[state=active]:w-full md:data-[state=active]:w-auto'
+                value='auth'
+              >
                 auth
               </TabsTrigger>
             </TabsList>
