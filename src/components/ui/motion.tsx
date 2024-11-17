@@ -5,7 +5,16 @@ export const transitions = {
 
   // Quick and snappy
   snappy: {
-    type: 'tween',
+    type: 'spring',
+    damping: 8, // Strength of opposing force. If set to 0, spring will oscillate indefinitely.
+    mass: 0.2, // Mass of the moving object. Higher values will result in more lethargic movement.
+    stiffness: 200, // Stiffness of the spring. Higher values will create more sudden movement.
+    opacity: {
+      // We want this to be tween because we don't want it fading in and out like a spring, unless you do! You can decide to remove this if you want.
+      type: 'tween',
+      duration: 0.2,
+      ease: 'easeInOut',
+    },
   },
 
   // Friendly and bouncy
@@ -50,24 +59,21 @@ export const transitions = {
   },
 } as const
 
-// Default transition
-const defaultTransition = transitions.default
-
-// Basic Transitions
 export const fadeIn = {
-  initial: { opacity: 0 },
-  animate: {
-    opacity: 1,
-  },
-  exit: {
+  initial: {
     opacity: 0,
   },
+  animate: () => ({
+    opacity: 1,
+  }),
+  exit: () => ({
+    opacity: 0,
+  }),
 }
 
 export const hover = {
   whileHover: {
     scale: 1.2,
-    transition: defaultTransition,
   },
 }
 
@@ -76,16 +82,14 @@ export const slideInUp = {
     y: 20,
     opacity: 0,
   },
-  animate: {
+  animate: () => ({
     y: 0,
     opacity: 1,
-    transition: defaultTransition,
-  },
-  exit: {
+  }),
+  exit: () => ({
     y: 20,
     opacity: 0,
-    transition: defaultTransition,
-  },
+  }),
 }
 
 // Theme Toggle Animation
@@ -97,12 +101,10 @@ export const darkMode = {
   animate: {
     opacity: 1,
     rotate: 0,
-    transition: defaultTransition,
   },
   exit: {
     opacity: 0,
     rotate: 45,
-    transition: defaultTransition,
   },
 }
 
@@ -114,12 +116,10 @@ export const lightMode = {
   animate: {
     opacity: 1,
     rotate: 45,
-    transition: defaultTransition,
   },
   exit: {
     opacity: 0,
     rotate: 0,
-    transition: defaultTransition,
   },
 }
 
@@ -127,11 +127,9 @@ export const lightMode = {
 export const hoverScale = {
   whileHover: {
     scale: 1.2,
-    transition: defaultTransition,
   },
   whileTap: {
     scale: 1.1,
-    transition: defaultTransition,
   },
 }
 
@@ -139,7 +137,6 @@ export const hoverTilt = {
   whileHover: {
     rotate: 5,
     scale: 1.05,
-    transition: defaultTransition,
   },
 }
 
@@ -148,33 +145,30 @@ export const spinner = {
   animate: {
     rotate: 360,
     transition: {
-      ...defaultTransition,
       repeat: Infinity,
       duration: 1,
     },
   },
 }
 
-// Stagger Children
+// Stagger Children - Update to use functions
 export const staggerContainer = {
   hidden: { opacity: 0 },
-  show: {
+  show: () => ({
     opacity: 1,
     transition: {
-      ...defaultTransition,
       staggerChildren: 0.07,
       delayChildren: 0.1,
     },
-  },
-  exit: {
+  }),
+  exit: () => ({
     opacity: 0,
     transition: {
-      ...defaultTransition,
       staggerChildren: 0.05,
       staggerDirection: -1,
       when: 'afterChildren',
     },
-  },
+  }),
 }
 
 export const staggerItem = {
@@ -182,16 +176,14 @@ export const staggerItem = {
     y: 20,
     opacity: 0,
   },
-  show: {
+  show: () => ({
     y: 0,
     opacity: 1,
-    transition: defaultTransition,
-  },
-  exit: {
+  }),
+  exit: () => ({
     y: -20,
     opacity: 0,
-    transition: defaultTransition,
-  },
+  }),
 }
 
 // Scroll To Top

@@ -5,39 +5,43 @@ export function SlidingBoi() {
   const { scrollYProgress } = useScroll()
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 35,
-    damping: 15,
-    mass: 0.8,
-    restDelta: 0.0001,
-    restSpeed: 0.5,
+    stiffness: 100,
+    damping: 30,
+    mass: 1,
+    restDelta: 0.001,
   })
 
-  const translateY = useTransform(smoothProgress, [0.5, 1], [200, -90], {
-    ease: x => x,
-  })
+  const translateY = useTransform(
+    smoothProgress,
+    [0.7, 0.85, 1],
+    [200, 0, -90],
+    { clamp: true },
+  )
 
-  const rotate = useTransform(smoothProgress, [0.75, 1], [8, 0], {
-    ease: x => x,
+  const rotate = useTransform(smoothProgress, [0.7, 0.85, 1], [8, 2, 0], {
+    clamp: true,
   })
 
   return (
     <motion.div
-      className='pointer-events-none fixed bottom-0 right-24 z-40 md:right-32'
+      className='pointer-events-none fixed bottom-0 right-24 z-40 hidden md:right-32 lg:block'
       style={{
         translateY,
         rotate,
       }}
       animate={{
-        y: [0, -3, 3, 0],
-        rotate: [0, -2, 2, 0],
+        y: [0, -4, 4, 0],
       }}
       transition={{
-        duration: 4,
-        ease: 'easeInOut',
-        repeat: Infinity,
+        y: {
+          duration: 3,
+          repeat: Infinity,
+          repeatType: 'mirror',
+          ease: 'easeInOut',
+        },
       }}
     >
-      <img src={daBoi} alt='da boi' className='w-48 object-contain' />
+      <img src={daBoi} alt='da boi' className='w-48' />
     </motion.div>
   )
 }
