@@ -19,7 +19,12 @@ function TechLogo({ href, src, alt, width = 100, children }: TechLogoProps) {
   const { transition } = useMotion()
 
   return (
-    <motion.a href={href} target='_blank' rel='noopener noreferrer'>
+    <motion.a
+      href={href}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='group relative flex items-center gap-2'
+    >
       {src ? (
         <motion.img
           whileHover={{ scale: 1.1 }}

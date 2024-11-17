@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { fadeIn, staggerContainer, staggerItem } from '../ui/motion'
 import type { Icon } from '@phosphor-icons/react'
 import { useMotion } from '../motion-provider'
+import { ArrowRight } from '@phosphor-icons/react'
 
 type ListItem = string | { href: string; text: string }
 
@@ -50,8 +51,18 @@ export function ListSection({ icon: Icon, title, items }: ListSectionProps) {
             {typeof item === 'string' ? (
               item
             ) : (
-              <a href={item.href} target='_blank' rel='noopener noreferrer'>
+              <a
+                href={item.href}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='group flex items-center gap-2'
+              >
                 {item.text}
+                <ArrowRight
+                  weight='fill'
+                  className='text-muted-foreground transition-transform duration-200 group-hover:translate-x-1'
+                  size={20}
+                />
               </a>
             )}
           </motion.li>
