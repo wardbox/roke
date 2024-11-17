@@ -141,7 +141,10 @@ wasp start`}
             items={[
               { href: 'https://wasp-lang.dev/docs', text: 'Wasp' },
               { href: 'https://ui.shadcn.com/docs', text: 'shadcn/ui' },
-              { href: 'https://tailwindcss.com/docs/installation', text: 'Tailwind CSS' },
+              {
+                href: 'https://tailwindcss.com/docs/installation',
+                text: 'Tailwind CSS',
+              },
               { href: 'https://www.framer.com/motion/', text: 'Motion' },
             ]}
           />
