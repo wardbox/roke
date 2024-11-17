@@ -187,6 +187,7 @@ wasp start`}
       <SectionCard
         sectionId='future-plans'
         title="What's he building in there?"
+        subtitle="There's a glow from his console, and he hammers late into the night..."
       >
         <div className='space-y-4'>
           <h3 className='text-xl font-medium'>Developer Experience</h3>
