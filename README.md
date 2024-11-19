@@ -64,3 +64,5 @@ Feel free to open an issue or submit a pull request.
 ## License
 
 MIT License - feel free to use this in your own projects!
+
+no-op
