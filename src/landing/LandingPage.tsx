@@ -1,11 +1,19 @@
-import { motion } from 'motion/react'
+import { useMotion } from '../motion/motion-provider'
 import { fadeIn, staggerContainer } from '../motion/transitionPresets'
+import { motion } from 'motion/react'
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
 } from '../client/components/ui/card'
+import { Button } from '../client/components/ui/button'
+import { CodeBlock } from '../client/components/ui/code-block'
+import { SlidingBoi } from './components/sliding-boi'
+import { SectionCard } from './components/section-card'
+import { TechStack } from './components/tech-stack'
+import { ListSection } from './components/list-section'
+
 import {
   Lightning,
   Books,
@@ -13,14 +21,8 @@ import {
   Lightbulb,
   GithubLogo,
 } from '@phosphor-icons/react'
-import { Button } from '../client/components/ui/button'
-import { SlidingBoi } from './components/sliding-boi'
-import { SectionCard } from './components/section-card'
-import { TechStack } from './components/tech-stack'
-import { ListSection } from './components/list-section'
-import { CodeBlock } from '../client/components/ui/code-block'
+
 import { generateSlug } from '../lib/utils'
-import { useMotion } from '../motion/motion-provider'
 
 export default function Landing() {
   const { transition, key } = useMotion()

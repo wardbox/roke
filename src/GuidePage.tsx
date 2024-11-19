@@ -1,6 +1,7 @@
-import * as React from 'react'
+import type { Icon } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { staggerContainer, staggerItem } from './motion/transitionPresets'
+import { useMotion } from './motion/motion-provider'
 import { Card, CardContent } from './client/components/ui/card'
 import { CodeBlock } from './client/components/ui/code-block'
 import {
@@ -9,8 +10,7 @@ import {
   TabsList,
   TabsTrigger,
 } from './client/components/ui/tabs'
-import type { Icon } from '@phosphor-icons/react'
-
+import { Button } from './client/components/ui/button'
 import {
   FolderSimple,
   Lightbulb,
@@ -20,8 +20,6 @@ import {
   Confetti,
   Headphones,
 } from '@phosphor-icons/react'
-import { Button } from './client/components/ui/button'
-import { useMotion } from './motion/motion-provider'
 
 const GuideSection = ({
   icon: Icon,

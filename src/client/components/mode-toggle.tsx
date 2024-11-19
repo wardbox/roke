@@ -2,7 +2,7 @@ import { MoonStars, Sun } from '@phosphor-icons/react'
 import { Button } from './ui/button'
 import { AnimatePresence, motion } from 'motion/react'
 import { darkMode, lightMode } from '../../motion/transitionPresets'
-import { useTheme } from './theme-provider'
+import { useTheme } from '../../root/components/theme-provider'
 import { useMotion } from '../../motion/motion-provider'
 
 export function ModeToggle({

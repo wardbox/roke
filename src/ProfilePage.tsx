@@ -1,6 +1,6 @@
+import { useAuth } from 'wasp/client/auth'
 import { motion } from 'motion/react'
 import { fadeIn } from './motion/transitionPresets'
-import { useAuth } from 'wasp/client/auth'
 
 export default function Profile() {
   const { data: user } = useAuth()

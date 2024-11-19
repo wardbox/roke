@@ -1,19 +1,17 @@
-import './Root.css'
 import { Outlet } from 'react-router-dom'
-// Supports weights 100-900
-import '@fontsource-variable/grenze-gotisch'
-// Supports weights 100-900
-import '@fontsource-variable/public-sans'
-import { ThemeProvider } from '../client/components/theme-provider'
-import { MotionProvider } from '../motion/motion-provider'
-import { Toaster } from '../client/components/ui/toaster'
-import { Nav } from '../client/components/ui/nav'
 import { useAuth } from 'wasp/client/auth'
-import { Footer } from '../client/components/ui/footer'
 import { MotionConfig } from 'motion/react'
+import { MotionProvider } from '../motion/motion-provider'
+import { ThemeProvider } from './components/theme-provider'
+import { Footer } from './components/footer'
+import { Nav } from './components/nav'
 import { ScrollToTop } from './components/scroll-to-top'
+import { Toaster } from './components/toaster'
 import { TransitionPlayground } from './components/transition-playground'
 import { transitions } from '../motion/transitionPresets'
+import './Root.css'
+import '@fontsource-variable/grenze-gotisch'
+import '@fontsource-variable/public-sans'
 
 export default function Root() {
   const { data: user, isLoading } = useAuth()

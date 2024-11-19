@@ -1,4 +1,10 @@
 import { useState } from 'react'
+import type { Icon } from '@phosphor-icons/react'
+import { motion } from 'motion/react'
+import { fadeIn, staggerContainer } from './motion/transitionPresets'
+import { Input } from './client/components/ui/input'
+import { Button } from './client/components/ui/button'
+import { CodeBlock } from './client/components/ui/code-block'
 import {
   Calendar,
   Timer,
@@ -24,12 +30,6 @@ import {
   extractInitials,
   formatCompactNumber,
 } from './lib/utils'
-import { Input } from './client/components/ui/input'
-import { Button } from './client/components/ui/button'
-import { CodeBlock } from './client/components/ui/code-block'
-import { motion } from 'motion/react'
-import { fadeIn, staggerContainer } from './motion/transitionPresets'
-import type { Icon } from '@phosphor-icons/react'
 
 type NavItem = {
   id: string

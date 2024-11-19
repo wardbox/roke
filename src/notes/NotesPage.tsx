@@ -1,13 +1,13 @@
+import { useQuery, getNotes } from 'wasp/client/operations'
 import { motion } from 'motion/react'
 import {
   slideInUp,
   staggerContainer,
   staggerItem,
 } from '../motion/transitionPresets'
-import { NoteForm } from './components/note-form'
-import { useQuery, getNotes } from 'wasp/client/operations'
-import { NoteList } from './components/note-list'
 import { useMotion } from '../motion/motion-provider'
+import { NoteForm } from './components/note-form'
+import { NoteList } from './components/note-list'
 
 export interface NotesProps {
   notes: Awaited<ReturnType<typeof getNotes>>

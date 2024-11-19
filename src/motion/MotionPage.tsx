@@ -1,12 +1,12 @@
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ArrowsClockwise, Spinner } from '@phosphor-icons/react'
+import * as animations from '../motion/transitionPresets'
+import { useMotion } from './motion-provider'
 import { Button } from '../client/components/ui/button'
 import { CodeBlock } from '../client/components/ui/code-block'
-import * as animations from '../motion/transitionPresets'
-import { useState } from 'react'
 import { ModeToggle } from '../client/components/mode-toggle'
 import TypingAnimation from './components/typing-animation'
-import { useMotion } from './motion-provider'
+import { ArrowsClockwise, Spinner } from '@phosphor-icons/react'
 
 function ReplayButton({ onClick }: { onClick: () => void }) {
   return (

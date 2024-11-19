@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { cn, usePrefetch } from '../../../lib/utils'
+import { cn, usePrefetch } from '../../lib/utils'
 import { Link } from 'wasp/client/router'
 import {
   BookOpen,
@@ -11,11 +11,11 @@ import {
   Mountains,
   PersonSimpleRun,
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  Placeholder,
+  Placeholder, // We do this so the create-page script can use a placeholder icon
   Toolbox,
   User as UserIcon,
 } from '@phosphor-icons/react'
-import { ModeToggle } from '../mode-toggle'
+import { ModeToggle } from '../../client/components/mode-toggle'
 import {
   Sheet,
   SheetContent,
@@ -23,20 +23,20 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from './sheet'
-import { Button } from './button'
+} from '../../client/components/ui/sheet'
+import { Button } from '../../client/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './dropdown-menu'
+} from '../../client/components/ui/dropdown-menu'
 import { logout } from 'wasp/client/auth'
 import { type User } from 'wasp/entities'
-import { Skeleton } from './skeleton'
+import { Skeleton } from '../../client/components/ui/skeleton'
 import { motion } from 'motion/react'
-import { fadeIn } from '../../../motion/transitionPresets'
+import { fadeIn } from '../../motion/transitionPresets'
 
 interface NavProps extends React.HTMLAttributes<HTMLElement> {
   user?: User | null

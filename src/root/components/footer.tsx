@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { fadeIn } from '../../../motion/transitionPresets'
+import { fadeIn } from '../../motion/transitionPresets'
 import { Mountains, GithubLogo, TwitterLogo } from '@phosphor-icons/react'
-import { usePrefetch } from '../../../lib/utils'
+import { usePrefetch } from '../../lib/utils'
 
 const ScrollToTopLink = ({
   to,
