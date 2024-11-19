@@ -1,5 +1,10 @@
 import { motion } from 'motion/react'
-import { Card, CardHeader, CardTitle, CardContent } from '../../client/components/ui/card'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from '../../client/components/ui/card'
 import { fadeIn } from '../../motion/transitionPresets'
 import { ReactNode } from 'react'
 import { Link } from '@phosphor-icons/react'

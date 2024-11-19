@@ -1,5 +1,9 @@
 import { motion } from 'motion/react'
-import { fadeIn, staggerContainer, staggerItem } from '../../motion/transitionPresets'
+import {
+  fadeIn,
+  staggerContainer,
+  staggerItem,
+} from '../../motion/transitionPresets'
 import { PrismaLogo } from '../../static/prisma-logo'
 import waspLogo from '../../static/wasp.png'
 import motionLogo from '../../static/motion.png'

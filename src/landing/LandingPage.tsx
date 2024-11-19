@@ -1,6 +1,11 @@
 import { motion } from 'motion/react'
 import { fadeIn, staggerContainer } from '../motion/transitionPresets'
-import { Card, CardHeader, CardTitle, CardContent } from '../client/components/ui/card'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from '../client/components/ui/card'
 import {
   Lightning,
   Books,

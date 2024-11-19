@@ -1,5 +1,9 @@
 import { motion } from 'motion/react'
-import { fadeIn, staggerContainer, staggerItem } from '../../motion/transitionPresets'
+import {
+  fadeIn,
+  staggerContainer,
+  staggerItem,
+} from '../../motion/transitionPresets'
 import type { Icon } from '@phosphor-icons/react'
 import { useMotion } from '../../motion/motion-provider'
 import { ArrowRight } from '@phosphor-icons/react'
