@@ -507,7 +507,7 @@ npm run fix-shadcn  # Fix import paths`}
 > create-page
 > tsx scripts/create-page.ts About
 
-✅ Created page file: /Users/wardbox/git/roke/src/pages/about.tsx
+✅ Created page file: /Users/wardbox/git/roke/src/AboutPage.tsx
 ✅ Updated main.wasp with route and page entries
 ✅ Updated nav.tsx with navigation items
 

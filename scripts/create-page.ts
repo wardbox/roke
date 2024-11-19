@@ -12,11 +12,12 @@ if (!pageName) {
   process.exit(1)
 }
 
-// Convert "test page" to "TestPage"
-const pascalCase = pageName
-  .split(/[\s-]+/)
-  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-  .join('')
+// Convert "test" to "TestPage"
+const pascalCase =
+  pageName
+    .split(/[\s-]+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('') + 'Page'
 
 // Check and create page file
 const pagePath = path.join(process.cwd(), 'src', `${pascalCase}.tsx`)
@@ -64,8 +65,8 @@ let waspUpdated = false
 
 try {
   const mainWaspContent = fs.readFileSync(mainWaspPath, 'utf8')
-  const routeEntry = `route ${pascalCase}Route { path: "/${pascalCase.toLowerCase()}", to: ${pascalCase}Page }`
-  const pageEntry = `page ${pascalCase}Page {
+  const routeEntry = `route ${pascalCase}Route { path: "/${pageName.toLowerCase()}", to: ${pascalCase} }`
+  const pageEntry = `page ${pascalCase} {
   component: import ${pascalCase} from "@src/${pascalCase}",
 }`
 
@@ -107,32 +108,32 @@ try {
   const navContent = fs.readFileSync(navPath, 'utf8')
 
   // Check if navigation items already exist
-  const hasNav = navContent.includes(`to="/${pascalCase.toLowerCase()}"`)
+  const hasNav = navContent.includes(`to="/${pageName.toLowerCase()}"`)
 
   if (hasNav) {
     console.log(`ℹ️ Navigation items already exist in nav.tsx`)
   } else {
     // Add nav link to the desktop menu after Utils link
     const desktopNavItem = `            <Link
-              to="/${pascalCase.toLowerCase()}"
+              to="/${pageName.toLowerCase()}"
               className={cn(
                 'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
-                location.pathname === '/${pascalCase.toLowerCase()}' && 'text-primary',
+                location.pathname === '/${pageName.toLowerCase()}' && 'text-primary',
               )}
-              onMouseEnter={() => prefetch('/${pascalCase.toLowerCase()}')}
+              onMouseEnter={() => prefetch('/${pageName.toLowerCase()}')}
             >
               <span>${pageName}</span>
             </Link>`
 
     // Add nav link to the mobile menu after Utils link
     const mobileNavItem = `                <Link
-                  to="/${pascalCase.toLowerCase()}"
+                  to="/${pageName.toLowerCase()}"
                   className={cn(
                     'text-md flex items-center space-x-4 font-medium transition-colors hover:text-primary',
-                    location.pathname === '/${pascalCase.toLowerCase()}' && 'text-primary',
+                    location.pathname === '/${pageName.toLowerCase()}' && 'text-primary',
                   )}
                   onClick={handleNavigation}
-                  onMouseEnter={() => prefetch('/${pascalCase.toLowerCase()}')}
+                  onMouseEnter={() => prefetch('/${pageName.toLowerCase()}')}
                 >
                   <Button size='icon' className='rounded-full' iconSize='lg'>
                     <Placeholder size={24} weight='fill' />
