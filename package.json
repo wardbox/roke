@@ -7,9 +7,6 @@
     "@fontsource-variable/public-sans": "^5.1.1",
     "@hookform/resolvers": "^3.9.1",
     "@phosphor-icons/react": "^2.1.7",
-    "@radix-ui/react-accordion": "^1.2.1",
-    "@radix-ui/react-alert-dialog": "^1.1.2",
-    "@radix-ui/react-aspect-ratio": "^1.1.0",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-collapsible": "^1.1.1",
     "@radix-ui/react-context-menu": "^2.2.2",
@@ -87,7 +84,7 @@
     "vite": "^4.3.9"
   },
   "scripts": {
-    "fix-shadcn": "node scripts/fix-shadcn-imports.js",
+    "fix-shadcn": "tsx scripts/fix-shadcn-imports.ts",
     "create-page": "tsx scripts/create-page.ts",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",

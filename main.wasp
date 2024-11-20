@@ -42,8 +42,8 @@ app roke {
     onAuthFailedRedirectTo: "/login"
   },
   client: {
-    rootComponent: import Root from "@src/Root",
-    setupFn: import setupClient from "@src/setup"
+    rootComponent: import Root from "@src/root/RootPage",
+    setupFn: import setupClient from "@src/lib/setup"
   },
   emailSender: {
     provider: Dummy,
@@ -67,27 +67,27 @@ route NotFoundRoute { path: "*", to: NotFoundPage }
 
 //#region Pages
 page Landing {
-  component: import Landing from "@src/client/landing",
+  component: import Landing from "@src/landing/LandingPage",
 }
 
 page Guide {
-  component: import Guide from "@src/client/guide",
+  component: import Guide from "@src/GuidePage",
 }
 
 page NoteExample {
-  component: import NoteExample from "@src/client/example/note-example",
+  component: import NoteExample from "@src/notes/NotesPage",
 }
 
 page Motion {
-  component: import Motion from "@src/client/motion",
+  component: import Motion from "@src/motion/MotionPage",
 }
 
 page Utils {
-  component: import Utils from "@src/client/utils",
+  component: import Utils from "@src/UtilsPage",
 }
 
 page ProfilePage {
-  component: import Profile from "@src/client/profile",
+  component: import Profile from "@src/ProfilePage",
   authRequired: true,
 }
 
@@ -112,28 +112,28 @@ page EmailVerificationPage {
 }
 
 page NotFoundPage {
-  component: import NotFound from "@src/client/404",
+  component: import NotFound from "@src/404Page"
 }
 //#endregion
 
 //#region Notes
 action createNote {
-  fn: import { createNote } from "@src/client/example/operations",
+  fn: import { createNote } from "@src/notes/operations",
   entities: [User, Note],
 }
 
 query getNotes {
-  fn: import { getNotes } from "@src/client/example/operations",
+  fn: import { getNotes } from "@src/notes/operations",
   entities: [User, Note],
 }
 
 action updateNote {
-  fn: import { updateNote } from "@src/client/example/operations",
+  fn: import { updateNote } from "@src/notes/operations",
   entities: [User, Note],
 }
 
 action deleteNote {
-  fn: import { deleteNote } from "@src/client/example/operations",
+  fn: import { deleteNote } from "@src/notes/operations",
   entities: [User, Note],
 }
 //#endregion
