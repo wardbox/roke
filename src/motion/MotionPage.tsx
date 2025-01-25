@@ -134,7 +134,7 @@ export default function Root() {
                 whileHover={{ scale: 1.1 }}
                 transition={transition}
               >
-                Click to replay
+                Hover to replay
               </motion.div>
             </AnimationExample>
           ))}
