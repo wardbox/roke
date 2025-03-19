@@ -7,6 +7,8 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",
+    "composite": true,
+    "skipLibCheck": true,
     // We're bundling all code in the end so this is the most appropriate option,
     // it's also important for autocomplete to work properly.
     "moduleResolution": "bundler",
@@ -32,6 +34,7 @@
     // compilation, the following directory doesn't exist. We need to specify
     // it to prevent this error:
     // https://stackoverflow.com/questions/42609768/typescript-error-cannot-write-file-because-it-would-overwrite-input-file
-    "outDir": ".wasp/phantom"
-  }
+    "outDir": ".wasp/out/user"
+  },
+  "include": ["src"]
 }
