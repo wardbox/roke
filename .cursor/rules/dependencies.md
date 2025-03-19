@@ -1,0 +1,10 @@
+# Dependencies & Package Management
+
+**Applies to**: `package.json`
+
+## Installation
+
+- Do NOT add dependencies to 'main.wasp'
+- Install dependencies via 'npm install'
+- Use exact versions for critical dependencies
+- Don't manually edit @file('package.json'), rely on npm to handle it

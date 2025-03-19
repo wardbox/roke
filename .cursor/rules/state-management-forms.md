@@ -1,0 +1,73 @@
+# State Management & Forms
+
+**Applies to**: `src/**/*.{ts,tsx}`
+
+## State Management
+
+- Use Wasp's built-in auth state management
+- Use Wasp's built-in useQuery for server state
+- Use local state (useState) for UI state
+- Use context sparingly and only for truly global state
+- Use appropriate hooks for state management
+- Keep state as local as possible
+- Avoid prop drilling with context when needed
+- Implement proper error boundaries
+
+## Forms
+
+- Use React Hook Form for form actions like useForm and zodresolver
+- Use Zod to validate form schemas
+- Type validate all form inputs
+- Example form structure:
+
+```tsx
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+})
+
+export function ProfileForm() {
+  // ...
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <FormField
+          control={form.control}
+          name='username'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder='shadcn' {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type='submit'>Submit</Button>
+      </form>
+    </Form>
+  )
+}
+```

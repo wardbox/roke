@@ -1,0 +1,8 @@
+# Guidelines for routing in Wasp applications
+
+**Applies to**: `src/**/*.{ts,tsx}`
+
+## Rules
+
+- Use Wasp's built-in Link component from wasp/client/router for internal links
+- Use `<a>` elements for external links and anchor links

@@ -1,0 +1,125 @@
+# Wasp Documentation Reference
+
+**Description**: Key documentation references for Wasp development **Applies
+to**: `main.wasp`, `src/**/*.{ts,tsx}`
+
+## Official Documentation Links
+
+- [Wasp Documentation](https://wasp.sh/docs)
+
+## Key Concepts
+
+### Application Structure
+
+Sunderer uses a feature-based organization:
+
+- `main.wasp`: Core definition file for routes, pages, entities, queries and
+  actions
+- `src/`: Feature-based organization:
+  - `src/auth/`: Authentication related pages and operations
+  - `src/events/`: Event management feature
+  - `src/landing/`: Landing page and marketing
+  - `src/root/`: App shell, layout components
+  - `src/shared/`: Shared utilities and components
+
+Within each feature folder:
+
+```
+src/feature/
+  ├── FeaturePage.tsx      # Main page component
+  ├── operations.ts        # Feature-specific queries and actions
+  └── components/          # Feature-specific components
+      └── FeatureComponent.tsx
+```
+
+### Entity Declaration
+
+In Wasp, entities are defined in the `schema.prisma` file using Prisma's schema
+language:
+
+```prisma
+// schema.prisma
+model User {
+  id         String   @id @default(uuid())
+  username   String   @unique
+  email      String   @unique
+  role       UserRole @default(FAN)
+  artist     Artist?
+  venue      Venue?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Artist {
+  id          String      @id @default(uuid())
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String      @unique
+  genre       String?
+  socialLinks SocialLink[]
+  events      Event[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// More models...
+```
+
+#### Working with Entities
+
+1. **Define models in schema.prisma** - Create or update your models in the
+   schema.prisma file
+2. **Run migrations** - Apply changes to your database with
+   `wasp db migrate-dev`
+3. **Import entities** - Access them in your code:
+
+```typescript
+import { User, Artist, Event } from 'wasp/entities'
+```
+
+4. **Use in operations** - Reference them in your actions and queries
+
+### Operations (Queries & Actions)
+
+Wasp uses a declarative approach for backend operations. These are defined in
+`main.wasp` and implemented in feature-specific `operations.ts` files.
+
+For detailed guidelines on implementing operations, see
+@file('.cursor/rules/wasp-operations.md').
+
+#### Defining Operations in main.wasp
+
+```typescript
+// In main.wasp
+app.query('getEvents', {
+  fn: { import: 'getEvents', from: '@src/events/operations' },
+  entities: ['Event', 'Artist', 'Venue'],
+})
+
+app.action('createEvent', {
+  fn: { import: 'createEvent', from: '@src/events/operations' },
+  entities: ['Event', 'Artist', 'Venue'],
+})
+```
+
+#### Client Usage
+
+```tsx
+// src/events/EventsPage.tsx
+import { getEvents, useQuery } from 'wasp/client/operations'
+
+export function EventsPage() {
+  const { data: events, isLoading, error } = useQuery(getEvents)
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+
+  return (
+    <div>
+      <h1>Events</h1>
+      {events.map(event => (
+        <EventCard key={event.id} event={event} />
+      ))}
+    </div>
+  )
+}
+```

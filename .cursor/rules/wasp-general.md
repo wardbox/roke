@@ -1,0 +1,16 @@
+# Wasp General Guidelines
+
+**Description**: General Wasp configuration and setup guidelines **Applies to**:
+`main.wasp`
+
+## Configuration
+
+- Roke uses the standard Wasp configuration approach with `main.wasp`
+
+## Rules
+
+- Wasp is on ^0.16.x
+- Don't remove existing configuration in main.wasp unless specifically requested
+- When adding new routes, pages, actions, or queries, ensure you also create the
+  corresponding implementation files
+- Follow proper import patterns for Wasp entities and functions (see imports.md)
