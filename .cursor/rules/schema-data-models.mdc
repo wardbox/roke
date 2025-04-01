@@ -1,3 +1,8 @@
+---
+description: Schema & Data Models
+globs: 
+alwaysApply: false
+---
 # Schema & Data Models
 
 **Description**: Guidelines for Prisma schema and data modeling **Applies to**:

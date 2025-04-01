@@ -1,3 +1,8 @@
+---
+description: Dependencies & Package Management
+globs: 
+alwaysApply: false
+---
 # Dependencies & Package Management
 
 **Applies to**: `package.json`

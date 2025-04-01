@@ -1,3 +1,8 @@
+---
+description: Import rules and conventions for the project
+globs: 
+alwaysApply: false
+---
 # Import rules and conventions for the project
 
 **Description**: Guidelines for proper imports throughout the codebase **Applies

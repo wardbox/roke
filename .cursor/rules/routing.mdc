@@ -1,3 +1,8 @@
+---
+description: Guidelines for routing in Wasp applications
+globs: 
+alwaysApply: false
+---
 # Guidelines for routing in Wasp applications
 
 **Applies to**: `src/**/*.{ts,tsx}`

@@ -1,3 +1,8 @@
+---
+description: Wasp General Guidelines
+globs: 
+alwaysApply: false
+---
 # Wasp General Guidelines
 
 **Description**: General Wasp configuration and setup guidelines **Applies to**:
