@@ -1,3 +1,8 @@
+---
+description: Error Handling & Accessibility
+globs: 
+alwaysApply: false
+---
 # Error Handling & Accessibility
 
 **Applies to**: `src/**/*.{ts,tsx}`

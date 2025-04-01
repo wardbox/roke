@@ -1,3 +1,8 @@
+---
+description: Wasp Documentation Reference
+globs: 
+alwaysApply: false
+---
 # Wasp Documentation Reference
 
 **Description**: Key documentation references for Wasp development **Applies
@@ -5,7 +10,7 @@ to**: `main.wasp`, `src/**/*.{ts,tsx}`
 
 ## Official Documentation Links
 
-- [Wasp Documentation](https://wasp.sh/docs)
+- [Wasp Documentation](mdc:https:/wasp.sh/docs)
 
 ## Key Concepts
 

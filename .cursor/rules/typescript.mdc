@@ -1,3 +1,8 @@
+---
+description: 
+globs: *.tsx,*.ts
+alwaysApply: false
+---
 # TypeScript
 
 **Description**: Guidelines for TypeScript usage and type safety **Applies to**:

@@ -1,3 +1,8 @@
+---
+description: Styling and UI/UX Design
+globs: 
+alwaysApply: false
+---
 # Styling
 
 **Description**: Guidelines for styling with Tailwind CSS and component
