@@ -22,7 +22,7 @@ jobs:
 
       - name: Setup Wasp
         run: |
-          curl -sSL https://get.wasp-lang.dev/installer.sh | sh
+          curl -sSL https://get.wasp.dev/installer.sh | sh
           wasp compile
 
       - name: Install dependencies

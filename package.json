@@ -72,6 +72,6 @@
   },
   "scripts": {
     "fix-shadcn": "tsx scripts/fix-shadcn-imports.ts",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,css,md,json}\""
   }
 }
