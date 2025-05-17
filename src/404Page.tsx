@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 import { fadeIn } from './motion/transitionPresets'
 import { Button } from './client/components/ui/button'
 import { Link } from 'wasp/client/router'
-import { ArrowLeft, Sparkle } from '@phosphor-icons/react'
+import { ArrowLeftIcon, SparkleIcon } from '@phosphor-icons/react'
 
 export default function NotFound() {
   return (
@@ -26,7 +26,7 @@ export default function NotFound() {
           }}
           className='absolute -right-12 -top-4'
         >
-          <Sparkle size={32} className='text-brand-accent' weight='fill' />
+          <SparkleIcon size={32} className='text-brand-accent' weight='fill' />
         </motion.div>
       </div>
       <p className='text-2xl font-medium'>By Ged&apos;s beard!</p>
@@ -37,7 +37,7 @@ export default function NotFound() {
       </p>
       <Link to='/'>
         <Button variant='outline' className='gap-2'>
-          <ArrowLeft size={16} />
+          <ArrowLeftIcon size={16} />
           Return to the mortal realm
         </Button>
       </Link>

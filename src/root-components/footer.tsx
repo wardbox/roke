@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { fadeIn } from '../../motion/transitionPresets'
-import { Mountains, GithubLogo, TwitterLogo } from '@phosphor-icons/react'
-import { usePrefetch } from '../../lib/utils'
+import { fadeIn } from '../motion/transitionPresets'
+import {
+  MountainsIcon,
+  GithubLogoIcon,
+  TwitterLogoIcon,
+} from '@phosphor-icons/react'
+import { usePrefetch } from '../lib/utils'
 
 const ScrollToTopLink = ({
   to,
@@ -31,13 +35,6 @@ const ScrollToTopLink = ({
 }
 
 const navigation = {
-  main: [
-    { name: 'Home', href: '/' },
-    { name: 'Guide', href: '/guide' },
-    { name: 'Notes', href: '/note-example' },
-    { name: 'Motion', href: '/motion' },
-    { name: 'Utils', href: '/utils' },
-  ],
   social: [
     {
       name: 'GitHub',
@@ -66,7 +63,7 @@ export function Footer() {
           {/* Logo & Social */}
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
-              <Mountains size={20} weight='fill' />
+              <MountainsIcon size={20} weight='fill' />
               <span className='text-sm text-muted-foreground'>
                 &copy; {new Date().getFullYear()}{' '}
                 {import.meta.env.REACT_APP_NAME || 'Roke'}
@@ -83,9 +80,9 @@ export function Footer() {
                   aria-label={item.name}
                 >
                   {item.icon === 'GithubLogo' ? (
-                    <GithubLogo size={20} weight='fill' />
+                    <GithubLogoIcon size={20} weight='fill' />
                   ) : (
-                    <TwitterLogo size={20} weight='fill' />
+                    <TwitterLogoIcon size={20} weight='fill' />
                   )}
                 </a>
               ))}
@@ -95,15 +92,12 @@ export function Footer() {
           {/* Navigation - Horizontal Scrolling */}
           <div className='overflow-x-auto'>
             <nav className='flex min-w-max gap-4 py-1' aria-label='Footer'>
-              {navigation.main.map(item => (
-                <ScrollToTopLink
-                  key={item.name}
-                  to={item.href}
-                  className='whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground'
-                >
-                  {item.name}
-                </ScrollToTopLink>
-              ))}
+              <ScrollToTopLink
+                to='/'
+                className='whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground'
+              >
+                Home
+              </ScrollToTopLink>
             </nav>
           </div>
         </div>
@@ -114,7 +108,7 @@ export function Footer() {
             {/* Logo & Title */}
             <div className='flex items-center space-x-3'>
               <h2 className='flex items-center gap-2 text-lg font-semibold'>
-                <Mountains size={20} weight='fill' />
+                <MountainsIcon size={20} weight='fill' />
                 {import.meta.env.REACT_APP_NAME || 'Roke'}
               </h2>
               <span className='text-muted-foreground'>|</span>
@@ -134,15 +128,12 @@ export function Footer() {
 
             {/* Navigation */}
             <nav className='flex gap-x-6' aria-label='Footer'>
-              {navigation.main.map(item => (
-                <ScrollToTopLink
-                  key={item.name}
-                  to={item.href}
-                  className='text-sm text-muted-foreground transition-colors hover:text-foreground'
-                >
-                  {item.name}
-                </ScrollToTopLink>
-              ))}
+              <ScrollToTopLink
+                to='/'
+                className='text-sm text-muted-foreground transition-colors hover:text-foreground'
+              >
+                Home
+              </ScrollToTopLink>
             </nav>
           </div>
 
@@ -159,9 +150,9 @@ export function Footer() {
                   aria-label={item.name}
                 >
                   {item.icon === 'GithubLogo' ? (
-                    <GithubLogo size={20} weight='fill' />
+                    <GithubLogoIcon size={20} weight='fill' />
                   ) : (
-                    <TwitterLogo size={20} weight='fill' />
+                    <TwitterLogoIcon size={20} weight='fill' />
                   )}
                 </a>
               ))}

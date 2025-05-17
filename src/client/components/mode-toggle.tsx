@@ -1,53 +1,37 @@
-import { MoonStars, Sun } from '@phosphor-icons/react'
-import { Button } from './ui/button'
-import { AnimatePresence, motion } from 'motion/react'
-import { darkMode, lightMode } from '../../motion/transitionPresets'
-import { useTheme } from '../../root/components/theme-provider'
-import { useMotion } from '../../motion/motion-provider'
+import { Moon, Sun } from 'lucide-react'
 
-export function ModeToggle({
-  iconSize = 'sm',
-}: {
-  iconSize?: 'sm' | 'md' | 'lg' | 'xl'
-}) {
-  const { theme, setTheme } = useTheme()
-  const { transition } = useMotion()
+import { Button } from './ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu'
+import { useTheme } from '../../root-components/theme-provider'
+
+export function ModeToggle() {
+  const { setTheme } = useTheme()
 
   return (
-    <Button
-      variant='outline'
-      size='icon'
-      iconSize={iconSize}
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-    >
-      <AnimatePresence>
-        {theme === 'dark' ? (
-          <motion.div
-            key='dark'
-            className='absolute'
-            variants={darkMode}
-            initial='initial'
-            animate='animate'
-            exit='exit'
-            transition={transition}
-          >
-            <MoonStars />
-          </motion.div>
-        ) : (
-          <motion.div
-            key='light'
-            className='absolute'
-            variants={lightMode}
-            initial='initial'
-            animate='animate'
-            exit='exit'
-            transition={transition}
-          >
-            <Sun />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <span className='sr-only'>Toggle theme</span>
-    </Button>
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <Button variant='outline' size='icon'>
+          <Sun className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+          <Moon className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
+          <span className='sr-only'>Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end'>
+        <DropdownMenuItem onClick={() => setTheme('light')}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark')}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('system')}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

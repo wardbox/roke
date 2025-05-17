@@ -4,9 +4,6 @@ globs:
 alwaysApply: false
 ---
 # State Management & Forms
-
-**Applies to**: `src/**/*.{ts,tsx}`
-
 ## State Management
 
 - Use Wasp's built-in auth state management

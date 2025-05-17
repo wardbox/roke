@@ -5,17 +5,21 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-} from '../../client/components/ui/card'
-import { Button } from '../../client/components/ui/button'
-import { Slider } from '../../client/components/ui/slider'
-import { Label } from '../../client/components/ui/label'
-import { FadersHorizontal, PlayCircle, X } from '@phosphor-icons/react'
+} from '../client/components/ui/card'
+import { Button } from '../client/components/ui/button'
+import { Slider } from '../client/components/ui/slider'
+import { Label } from '../client/components/ui/label'
+import {
+  FadersHorizontalIcon,
+  PlayCircleIcon,
+  XIcon,
+} from '@phosphor-icons/react'
 import { motion } from 'motion/react'
-import { transitions } from '../../motion/transitionPresets'
-import { cn } from '../../lib/utils'
-import debounce from 'lodash/debounce'
-import type { SpringTransition } from '../../motion/transitionPresets'
-import { useMotion } from '../../motion/motion-provider'
+import { transitions } from '../motion/transitionPresets'
+import { cn } from '../lib/utils'
+import { debounce } from 'lodash'
+import type { SpringTransition } from '../motion/transitionPresets'
+import { useMotion } from '../motion/motion-provider'
 
 const playgroundTransition = {
   type: 'spring',
@@ -102,11 +106,10 @@ export function TransitionPlayground() {
         <Button
           variant='outline'
           size='icon'
-          iconSize='xl'
           onClick={() => setIsOpen(true)}
           className='h-12 w-12 border-muted-foreground/20 shadow-lg transition-colors hover:border-accent hover:bg-accent'
         >
-          <FadersHorizontal size={32} weight='fill' />
+          <FadersHorizontalIcon size={32} weight='fill' />
         </Button>
       ) : (
         <motion.div
@@ -126,7 +129,7 @@ export function TransitionPlayground() {
                 className='h-8 w-8'
                 onClick={() => setIsOpen(false)}
               >
-                <X size={16} />
+                <XIcon size={16} />
               </Button>
             </CardHeader>
             <CardContent className='space-y-4'>
@@ -178,7 +181,7 @@ export function TransitionPlayground() {
                 />
               </div>
               <Button className='w-full select-none' onClick={triggerReplay}>
-                <PlayCircle className='mr-2' size={16} weight='fill' />
+                <PlayCircleIcon className='mr-2' size={16} weight='fill' />
                 Replay Animations
               </Button>
             </CardContent>

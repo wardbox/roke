@@ -6,7 +6,7 @@ alwaysApply: false
 # Styling
 
 **Description**: Guidelines for styling with Tailwind CSS and component
-organization **Applies to**: `src/**/*.{ts,tsx,css}`
+organization
 
 ## Icon library
 

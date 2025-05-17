@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useToast } from '../../hooks/use-toast'
+import { useToast } from '../hooks/use-toast'
 import {
   Toast,
   ToastClose,

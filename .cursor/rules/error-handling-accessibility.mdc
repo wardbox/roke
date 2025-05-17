@@ -5,8 +5,6 @@ alwaysApply: false
 ---
 # Error Handling & Accessibility
 
-**Applies to**: `src/**/*.{ts,tsx}`
-
 ## Error Handling
 
 - Implement proper error boundaries

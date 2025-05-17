@@ -5,8 +5,7 @@ alwaysApply: false
 ---
 # TypeScript
 
-**Description**: Guidelines for TypeScript usage and type safety **Applies to**:
-`src/**/*.{ts,tsx}`
+**Description**: Guidelines for TypeScript usage and type safety
 
 ## General
 

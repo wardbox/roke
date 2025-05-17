@@ -4,11 +4,11 @@ import {
   useMotionValueEvent,
   AnimatePresence,
 } from 'motion/react'
-import { ArrowUp } from '@phosphor-icons/react'
-import { Button } from '../../client/components/ui/button'
-import { scrollToTop } from '../../motion/transitionPresets'
+import { ArrowUpIcon } from '@phosphor-icons/react'
+import { Button } from '../client/components/ui/button'
+import { scrollToTop } from '../motion/transitionPresets'
 import { useState } from 'react'
-import { useMotion } from '../../motion/motion-provider'
+import { useMotion } from '../motion/motion-provider'
 
 export function ScrollToTop() {
   const { scrollY } = useScroll()
@@ -41,11 +41,10 @@ export function ScrollToTop() {
           <Button
             variant='outline'
             size='icon'
-            iconSize='lg'
             onClick={scrollToTopAction}
             className='border-muted-foreground/20 shadow-lg transition-colors hover:border-accent hover:bg-accent'
           >
-            <ArrowUp />
+            <ArrowUpIcon />
           </Button>
         </motion.div>
       )}

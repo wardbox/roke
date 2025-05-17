@@ -1,17 +1,16 @@
 import { Outlet } from 'react-router-dom'
 import { useAuth } from 'wasp/client/auth'
 import { MotionConfig } from 'motion/react'
-import { MotionProvider } from '../motion/motion-provider'
-import { ThemeProvider } from './components/theme-provider'
-import { Footer } from './components/footer'
-import { Nav } from './components/nav'
-import { ScrollToTop } from './components/scroll-to-top'
-import { Toaster } from './components/toaster'
-import { TransitionPlayground } from './components/transition-playground'
-import { transitions } from '../motion/transitionPresets'
+import { MotionProvider } from './motion/motion-provider'
+import { ThemeProvider } from './root-components/theme-provider'
+import { Footer } from './root-components/footer'
+import { Nav } from './root-components/nav'
+import { ScrollToTop } from './root-components/scroll-to-top'
+import { Toaster } from './root-components/toaster'
+import { TransitionPlayground } from './root-components/transition-playground'
+import { transitions } from './motion/transitionPresets'
 import './Root.css'
-import '@fontsource-variable/grenze-gotisch'
-import '@fontsource-variable/public-sans'
+import '@fontsource-variable/inter'
 
 export default function Root() {
   const { data: user, isLoading } = useAuth()
@@ -20,7 +19,7 @@ export default function Root() {
     <MotionConfig reducedMotion='user' transition={transitions.snappy}>
       <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
         <MotionProvider>
-          <div className='flex h-screen flex-col'>
+          <div className='flex h-screen flex-col bg-background text-foreground'>
             <header className='border-b'>
               <Nav user={user} userLoading={isLoading} />
             </header>

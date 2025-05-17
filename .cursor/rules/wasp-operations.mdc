@@ -5,8 +5,7 @@ alwaysApply: false
 ---
 # Rules for Wasp operations (actions and queries)
 
-**Description**: Guidelines for implementing and using Wasp operations **Applies
-to**: `src/**/*operations.ts`
+**Description**: Guidelines for implementing and using Wasp operations
 
 ## Workflow
 
