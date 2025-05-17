@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import './auth.css'
 
 import type { CustomizationOptions } from 'wasp/client/auth'
-import { Mountains } from '@phosphor-icons/react'
+import { MountainsIcon } from '@phosphor-icons/react'
 
 export const authAppearance: CustomizationOptions['appearance'] = {
   colors: {
@@ -30,7 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export function Login() {
   return (
     <Layout>
-      <Mountains size={100} weight='thin' />
+      <MountainsIcon size={100} weight='thin' />
       <div className='login'>
         <LoginForm appearance={authAppearance} />
       </div>
@@ -57,7 +57,7 @@ export function Login() {
 export function Signup() {
   return (
     <Layout>
-      <Mountains size={100} weight='thin' />
+      <MountainsIcon size={100} weight='thin' />
       <div className='login login-text'>
         <SignupForm appearance={authAppearance} />
       </div>
@@ -76,7 +76,7 @@ export function Signup() {
 export function EmailVerification() {
   return (
     <Layout>
-      <Mountains size={100} weight='thin' />
+      <MountainsIcon size={100} weight='thin' />
       <div className='login'>
         <VerifyEmailForm appearance={authAppearance} />
       </div>
@@ -94,7 +94,7 @@ export function EmailVerification() {
 export function RequestPasswordReset() {
   return (
     <Layout>
-      <Mountains size={100} weight='thin' />
+      <MountainsIcon size={100} weight='thin' />
       <div className='login login-text'>
         <ForgotPasswordForm appearance={authAppearance} />
       </div>
@@ -105,7 +105,7 @@ export function RequestPasswordReset() {
 export function PasswordReset() {
   return (
     <Layout>
-      <Mountains size={100} weight='thin' />
+      <MountainsIcon size={100} weight='thin' />
       <div className='login login-text'>
         <ResetPasswordForm appearance={authAppearance} />
       </div>

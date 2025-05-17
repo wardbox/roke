@@ -1,6 +1,6 @@
 app roke {
   wasp: {
-    version: "^0.16.2"
+    version: "^0.16.4"
   },
   title: "Roke: A Full-Stack Wasp Starter with Modern UI Components",
   head: [
@@ -38,11 +38,11 @@ app roke {
         userSignupFields: import { getEmailUserFields } from "@src/auth/user-signup-fields",
       }
     },
-    onAuthSucceededRedirectTo: "/note-example",
+    onAuthSucceededRedirectTo: "/",
     onAuthFailedRedirectTo: "/login"
   },
   client: {
-    rootComponent: import Root from "@src/root/RootPage",
+    rootComponent: import Root from "@src/RootPage",
     setupFn: import setupClient from "@src/lib/setup"
   },
   emailSender: {
@@ -52,11 +52,7 @@ app roke {
 
 //#region Routes
 route Landing { path: "/", to: Landing }
-route Guide { path: "/guide", to: Guide }
-route NoteExample { path: "/note-example", to: NoteExample }
-route Motion { path: "/motion", to: Motion }
-route Utils { path: "/utils", to: Utils }
-route Profile { path: "/profile/:id", to: ProfilePage }
+route Profile { path: "/profile", to: ProfilePage }
 route LoginRoute { path: "/login", to: LoginPage }
 route SignupRoute { path: "/signup", to: SignupPage }
 route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
@@ -68,22 +64,6 @@ route NotFoundRoute { path: "*", to: NotFoundPage }
 //#region Pages
 page Landing {
   component: import Landing from "@src/landing/LandingPage",
-}
-
-page Guide {
-  component: import Guide from "@src/GuidePage",
-}
-
-page NoteExample {
-  component: import NoteExample from "@src/notes/NotesPage",
-}
-
-page Motion {
-  component: import Motion from "@src/motion/MotionPage",
-}
-
-page Utils {
-  component: import Utils from "@src/UtilsPage",
 }
 
 page ProfilePage {
@@ -113,40 +93,5 @@ page EmailVerificationPage {
 
 page NotFoundPage {
   component: import NotFound from "@src/404Page"
-}
-//#endregion
-
-//#region Notes
-action createNote {
-  fn: import { createNote } from "@src/notes/operations",
-  entities: [User, Note],
-}
-
-query getNotes {
-  fn: import { getNotes } from "@src/notes/operations",
-  entities: [User, Note],
-}
-
-action updateNote {
-  fn: import { updateNote } from "@src/notes/operations",
-  entities: [User, Note],
-}
-
-action deleteNote {
-  fn: import { deleteNote } from "@src/notes/operations",
-  entities: [User, Note],
-}
-//#endregion
-
-//#region Jobs
-job exampleJob {
-  executor: PgBoss,
-  perform: {
-    fn: import { exampleJob } from "@src/jobs/example-job",
-  },
-  entities: [User, Note],
-  schedule: {
-    cron: "0 0 * * 0"
-  }
 }
 //#endregion

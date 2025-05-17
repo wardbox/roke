@@ -5,9 +5,6 @@ alwaysApply: false
 ---
 # Schema & Data Models
 
-**Description**: Guidelines for Prisma schema and data modeling **Applies to**:
-`schema.prisma`
-
 ## Entity Definition
 
 - Entities are defined in `schema.prisma` as Prisma models (not in main.wasp)

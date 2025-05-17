@@ -5,8 +5,7 @@ alwaysApply: false
 ---
 # Wasp Documentation Reference
 
-**Description**: Key documentation references for Wasp development **Applies
-to**: `main.wasp`, `src/**/*.{ts,tsx}`
+**Description**: Key documentation references for Wasp development
 
 ## Official Documentation Links
 

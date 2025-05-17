@@ -8,15 +8,6 @@ I built Roke because I was tired of repeating the same setup ritual for every
 new Wasp project. Instead of continuing that cycle, I created the starting point
 I always wished I had.
 
-This isn't just another blank slate. It's a thoughtfully crafted foundation that
-includes:
-
-- Preconfigured shadcn/ui components
-- Motion animation presets
-- Helper scripts for common tasks
-- Real-world examples beyond the basics
-- Best practices baked in
-
 ## Philosophy
 
 While most starters give you an empty canvas, Roke provides opinionated defaults

@@ -5,8 +5,7 @@ alwaysApply: false
 ---
 # Project Structure Guidelines
 
-**Description**: Feature-based organization pattern for the Roke app **Applies
-to**: `src/**/*`
+**Description**: Feature-based organization pattern for the Roke app
 
 ## Feature-Based Organization
 

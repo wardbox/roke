@@ -5,9 +5,6 @@ alwaysApply: false
 ---
 # Import rules and conventions for the project
 
-**Description**: Guidelines for proper imports throughout the codebase **Applies
-to**: `src/**/*.{ts,tsx}`, `main.wasp`
-
 ## Wasp Imports
 
 - Always import Wasp functions from 'wasp' package, not '@wasp' Do this:

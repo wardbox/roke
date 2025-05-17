@@ -1,4 +1,1 @@
-# Ignore artifacts:
-build
-coverage
-.cursorrules
+.cursor/*
