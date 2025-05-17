@@ -8,11 +8,14 @@ generator client {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  username   String      @unique
-  email      String      @unique
-  isAdmin    Boolean     @default(false)
+  id                 String    @id @default(uuid())
+  username           String    @unique
+  email              String    @unique
+  isAdmin            Boolean   @default(false)
+  stripeCustomerId   String?   @unique
+  subscriptionStatus String?
+  trialEndsAt        DateTime?
 
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

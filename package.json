@@ -53,6 +53,7 @@
     "react-router-dom": "^6.26.2",
     "recharts": "^2.15.3",
     "sonner": "^2.0.3",
+    "stripe": "^18.1.0",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.19.4",

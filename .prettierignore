@@ -1,1 +1,3 @@
-.cursor/*
+.cursor/
+node_modules/
+.wasp/

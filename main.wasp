@@ -53,6 +53,8 @@ app roke {
 //#region Routes
 route Landing { path: "/", to: Landing }
 route Profile { path: "/profile", to: ProfilePage }
+route SubscriptionRoute { path: "/subscription", to: SubscriptionPage }
+route CheckoutResultRoute { path: "/checkout", to: CheckoutResultPage }
 route LoginRoute { path: "/login", to: LoginPage }
 route SignupRoute { path: "/signup", to: SignupPage }
 route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
@@ -91,7 +93,37 @@ page EmailVerificationPage {
   component: import { EmailVerification } from "@src/auth/auth",
 }
 
+page SubscriptionPage {
+  component: import SubscriptionPage from "@src/payment/SubscriptionPage",
+  authRequired: true
+}
+
+page CheckoutResultPage {
+  component: import CheckoutResult from "@src/payment/CheckoutResultPage"
+}
+
 page NotFoundPage {
   component: import NotFound from "@src/404Page"
+}
+//#endregion
+
+//#region Stripe Actions
+action createCheckoutSession {
+  fn: import { createCheckoutSession } from "@src/payment/stripe/operations.ts",
+  entities: [User]
+}
+
+action createCustomerPortalSession {
+  fn: import { createCustomerPortalSession } from "@src/payment/stripe/operations.ts",
+  entities: [User]
+}
+//#endregion
+
+//#region Stripe API
+api stripeWebhook {
+  fn: import { handleStripeWebhook } from "@src/payment/stripe/webhooks.ts",
+  middlewareConfigFn: import { stripeWebhookMiddlewareConfigFn } from "@src/payment/stripe/webhooks",
+  httpRoute: (POST, "/stripe-webhooks"),
+  entities: [User]
 }
 //#endregion
