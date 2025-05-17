@@ -13,7 +13,7 @@ type ForwardedLinkProps = ComponentProps<typeof WaspLink> & {
 const ForwardedLink = forwardRef<HTMLAnchorElement, ForwardedLinkProps>(
   (props, ref) => {
     return <WaspLink {...props} ref={ref} />
-  }
+  },
 )
 ForwardedLink.displayName = 'ForwardedLink'
 

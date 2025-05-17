@@ -155,7 +155,7 @@ export default function SubscriptionPage() {
             <span className='font-medium'>
               {user.subscriptionStatus
                 ? user.subscriptionStatus.charAt(0).toUpperCase() +
-                user.subscriptionStatus.slice(1)
+                  user.subscriptionStatus.slice(1)
                 : 'Not Subscribed'}
             </span>
             {user.subscriptionStatus === 'canceled' &&
