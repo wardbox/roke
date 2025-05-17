@@ -109,12 +109,12 @@ page NotFoundPage {
 
 //#region Stripe Actions
 action createCheckoutSession {
-  fn: import { createCheckoutSession } from "@src/payment/stripe/operations.ts",
+  fn: import { createCheckoutSession } from "@src/payment/stripe/operations",
   entities: [User]
 }
 
 action createCustomerPortalSession {
-  fn: import { createCustomerPortalSession } from "@src/payment/stripe/operations.ts",
+  fn: import { createCustomerPortalSession } from "@src/payment/stripe/operations",
   entities: [User]
 }
 //#endregion

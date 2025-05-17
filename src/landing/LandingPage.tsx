@@ -10,7 +10,7 @@ export default function Landing() {
         </h1>
       </section>
       <section id='subscription'>
-        <Button asChild>
+        <Button>
           <Link to='/subscription'>Subscribe</Link>
         </Button>
       </section>
