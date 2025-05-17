@@ -9,7 +9,11 @@ import {
 import { Button } from '../client/components/ui/button'
 import { Slider } from '../client/components/ui/slider'
 import { Label } from '../client/components/ui/label'
-import { FadersHorizontalIcon, PlayCircleIcon, XIcon } from '@phosphor-icons/react'
+import {
+  FadersHorizontalIcon,
+  PlayCircleIcon,
+  XIcon,
+} from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { transitions } from '../motion/transitionPresets'
 import { cn } from '../lib/utils'
