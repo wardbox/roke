@@ -2,144 +2,100 @@
 
 ## Stripe Payment Integration
 
-This directory contains the Stripe integration for handling user subscriptions.
+Handles user subscriptions using Stripe.
 
 ### Overview
 
-The integration allows users to subscribe to a plan via Stripe Checkout. It also
-provides a way for users to manage their existing subscriptions through the
-Stripe Customer Portal. Webhooks are used to keep the application's user
-subscription status in sync with Stripe.
+Users subscribe via Stripe Checkout and manage subscriptions via the Stripe
+Customer Portal. Webhooks sync subscription statuses with the app.
 
 ### Key Components
 
-1.  **Stripe Client (`stripe/client.ts`)**
+- **`stripe/client.ts`**: Initializes Stripe SDK (secret key, API version).
+- **`stripe/service.ts`**: Core logic:
+  - `_findOrCreateStripeCustomer`: Gets/creates Stripe customer, updates local
+    User.
+  - `_createStripeCheckoutSession`: Creates Stripe Checkout session for new
+    subscriptions.
+  - `_createStripeCustomerPortalSession`: Creates Stripe Customer Portal session
+    for management.
+- **`stripe/operations.ts`**: Wasp actions (callable from frontend):
+  - `createCheckoutSession`: Initiates subscription.
+  - `createCustomerPortalSession`: Opens customer portal.
+- **`stripe/webhooks.ts`**: Handles incoming Stripe events (`/stripe-webhooks`
+  API route).
+  - **Signature Verification**: Secures webhook endpoint using
+    `STRIPE_WEBHOOK_SECRET`.
+  - **Middleware (`stripeWebhookMiddlewareConfigFn`)**: Ensures raw request body
+    for verification.
+  - **Event Processing**: Updates `User.subscriptionStatus` based on events like
+    `checkout.session.completed`, `customer.subscription.updated`,
+    `customer.subscription.deleted`.
+  - `mapStripeStatusToUserStatus`: Translates Stripe statuses to app-specific
+    statuses.
+- **Frontend (`SubscriptionPage.tsx`, `CheckoutResultPage.tsx`)**: UI for
+  subscription and results.
 
-    - Initializes the Stripe SDK with the secret key.
-    - API version is pinned for consistency.
+### Environment Variables (Required)
 
-2.  **Service Logic (`stripe/service.ts`)**
+- `STRIPE_SECRET_KEY`: Your Stripe API secret key.
+- `STRIPE_WEBHOOK_SECRET`: Stripe webhook signing secret.
+- `STRIPE_PRICE_ID`: Default subscription plan's Stripe Price ID.
+- `CLIENT_URL`: Your app's base URL (e.g., `http://localhost:3000`).
 
-    - `_findOrCreateStripeCustomer`: Retrieves an existing Stripe customer or
-      creates a new one. It checks by `stripeCustomerId` on the `User` entity
-      first, then by email, before creating a new customer in Stripe. Updates
-      the `User` entity with the Stripe customer ID.
-    - `_createStripeCheckoutSession`: Creates a Stripe Checkout session for a
-      user to start a new subscription.
-    - `_createStripeCustomerPortalSession`: Creates a Stripe Customer Portal
-      session for an existing subscriber to manage their subscription.
+### Setup Steps
 
-3.  **Wasp Operations (`stripe/operations.ts`)**
+1.  **Stripe Account**: Required.
+2.  **Stripe Product & Price**: Create a product and a recurring price in Stripe
+    Dashboard. Note the Price ID.
+3.  **Stripe Webhook Endpoint**:
+    - **Production/Staging**:
+      1.  In Stripe Dashboard (Developers > Webhooks), click "Add endpoint".
+      2.  URL: `YOUR_PRODUCTION_APP_URL/stripe-webhooks`.
+      3.  Events: `checkout.session.completed`, `customer.subscription.updated`,
+          `customer.subscription.deleted` (or all).
+      4.  Get the **Signing secret** (`whsec_...`) for `STRIPE_WEBHOOK_SECRET`
+          env var.
+    - **Local Development (using Stripe CLI)**:
+      1.  Install & login: `stripe login`
+      2.  Forward events:
+          `stripe listen --forward-to localhost:3001/stripe-webhooks`
+      3.  The CLI provides a temporary `whsec_...` for your local
+          `STRIPE_WEBHOOK_SECRET`.
+4.  **Configure Env Vars**: Set the above variables (e.g., in `.env.server`
+    locally; in hosting provider for prod/staging).
 
-    - `createCheckoutSession`: A Wasp action that users call from the frontend
-      to initiate a subscription. It calls `_createStripeCheckoutSession`.
-    - `createCustomerPortalSession`: A Wasp action for users to manage their
-      subscription. It calls `_createStripeCustomerPortalSession`.
+### User Schema (Prisma)
 
-4.  **Webhook Handler (`stripe/webhooks.ts`)**
-
-    - `handleStripeWebhook`: An Express route handler exposed as a Wasp API
-      (`/stripe-webhooks`). It listens for events from Stripe.
-    - **Webhook Signature Verification**: Crucially, this handler verifies the
-      `stripe-signature` header to ensure events are genuinely from Stripe,
-      using the `STRIPE_WEBHOOK_SECRET`.
-    - `stripeWebhookMiddlewareConfigFn`: Configures Wasp's Express middleware to
-      parse the request body as `raw` JSON. This is **required** for Stripe's
-      signature verification to work correctly.
-    - **Event Handling**: Processes events like `checkout.session.completed`,
-      `customer.subscription.updated`, and `customer.subscription.deleted` to
-      update the `subscriptionStatus` field on the `User` entity in the local
-      database.
-    - `mapStripeStatusToUserStatus`: A helper function to translate Stripe's
-      detailed subscription statuses into a simpler set of statuses used by the
-      application (e.g., 'active', 'canceled', 'past_due').
-
-5.  **Frontend Components**
-    - `SubscriptionPage.tsx`: UI for users to subscribe or manage their
-      subscription.
-    - `CheckoutResultPage.tsx`: Displays success or cancellation messages after
-      a Stripe Checkout session.
-
-### Environment Variables
-
-The following environment variables must be set for the Stripe integration to
-function correctly:
-
-- `STRIPE_SECRET_KEY`: Your Stripe API secret key (e.g., `sk_test_...` or
-  `sk_live_...`).
-- `STRIPE_WEBHOOK_SECRET`: The signing secret for your Stripe webhook endpoint
-  (e.g., `whsec_...`). This is used to verify that webhook events are actually
-  from Stripe.
-- `STRIPE_PRICE_ID`: The ID of the Stripe Price object for the default
-  subscription plan (e.g., `price_...`).
-- `CLIENT_URL`: The base URL of your client application (e.g.,
-  `http://localhost:3000` for development, or your production frontend URL).
-  Used for constructing success/cancel URLs for Stripe Checkout and return URLs
-  for the Customer Portal.
-
-### Setup
-
-1.  **Stripe Account**: You need a Stripe account.
-2.  **Product and Price**: In your Stripe Dashboard, create a Product and at
-    least one recurring Price for that product. Note the Price ID (`price_...`).
-3.  **Webhook Endpoint**:
-    - In your Stripe Dashboard, go to Developers > Webhooks.
-    - Click "Add endpoint".
-    - Set the "Endpoint URL" to `YOUR_APP_URL/stripe-webhooks` (e.g.,
-      `http://localhost:3001/stripe-webhooks` if your Wasp server runs on 3001
-      locally, or your production API URL).
-    - Select the following events to listen for (or select all events if
-      unsure):
-      - `checkout.session.completed`
-      - `customer.subscription.updated`
-      - `customer.subscription.deleted`
-    - Add the endpoint. Stripe will reveal a "Signing secret" (e.g.,
-      `whsec_...`). This is your `STRIPE_WEBHOOK_SECRET`.
-4.  **Environment Variables**: Configure the environment variables listed above
-    in your Wasp project (e.g., in a `.env.server` file for local development).
-
-### User Schema
-
-The `User` entity in `main.wasp` (or your Prisma schema if defined separately)
-should have the following fields to support the Stripe integration:
+Ensure `User` model has:
 
 ```prisma
 model User {
   // ... other fields
-  stripeCustomerId    String?   @unique // Stores the Stripe Customer ID
-  subscriptionStatus  String?            // e.g., 'active', 'canceled', 'past_due', 'incomplete'
+  stripeCustomerId    String?   @unique // Stripe Customer ID
+  subscriptionStatus  String?            // e.g., 'active', 'canceled'
 }
 ```
 
-### Flow
+### Subscription Flow
 
-1.  A user clicks "Subscribe" on `SubscriptionPage.tsx`.
-2.  `createCheckoutSession` action is called.
-3.  `_findOrCreateStripeCustomer` ensures a Stripe customer exists for the user.
-4.  `_createStripeCheckoutSession` creates a session and redirects the user to
-    Stripe Checkout.
-5.  User completes payment on Stripe.
-6.  Stripe sends a `checkout.session.completed` webhook event to
-    `/stripe-webhooks`.
-7.  `handleStripeWebhook` verifies the signature, processes the event, and
-    updates the user's `subscriptionStatus` in the database.
-8.  For ongoing subscription management (e.g., renewals, cancellations made in
-    Stripe), Stripe sends `customer.subscription.updated` or
-    `customer.subscription.deleted` events, which are processed similarly.
-9.  Users can click "Manage Subscription" which calls
-    `createCustomerPortalSession` and redirects them to the Stripe Customer
-    Portal.
+1.  User clicks "Subscribe".
+2.  `createCheckoutSession` action called → Stripe customer ensured/created →
+    user redirected to Stripe Checkout.
+3.  User pays on Stripe.
+4.  Stripe sends `checkout.session.completed` webhook.
+5.  Webhook handler updates `User.subscriptionStatus`.
+6.  Ongoing changes (renewals, cancellations) trigger other webhooks
+    (`customer.subscription.updated/deleted`) updating status.
+7.  "Manage Subscription" button calls `createCustomerPortalSession` → redirects
+    to Stripe Portal.
 
-### Security Considerations
+### Security
 
-- **Secret Keys**: `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` are
-  sensitive. Store them securely as environment variables and never commit them
-  to your repository.
-- **Webhook Verification**: Always verify webhook signatures. This integration
-  does so using `stripe.webhooks.constructEvent`.
-- **HTTPS**: Ensure your webhook endpoint is served over HTTPS in production.
-- **Idempotency**: While not explicitly handled in this version of the code for
-  event processing, Stripe retries webhooks. Design your event handlers to be
-  idempotent (i.e., processing the same event multiple times has the same effect
-  as processing it once) if necessary, though the current `prisma.user.update`
-  operations are generally safe.
+- **Secrets**: Store `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` as secure
+  environment variables. Do not commit.
+- **Webhook Verification**: Essential. Done via
+  `stripe.webhooks.constructEvent`.
+- **HTTPS**: Use for webhook endpoint in production.
+- **Idempotency**: Stripe webhooks can retry. Current updates are generally
+  safe, but consider for complex handlers.
