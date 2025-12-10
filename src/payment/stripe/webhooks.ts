@@ -1,8 +1,7 @@
 import { type MiddlewareConfigFn } from 'wasp/server'
-import { type Request, type Response } from 'express'
+import { type StripeWebhook } from 'wasp/server/api'
 import express from 'express'
 import stripe from './client.js'
-import { prisma } from 'wasp/server'
 import { type Stripe } from 'stripe'
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET
@@ -57,20 +56,8 @@ function mapStripeStatusToUserStatus(
   }
 }
 
-/**
- * Express request handler for Stripe webhooks.
- * It verifies the webhook signature, then processes different event types
- * to update user subscription statuses in the database.
- *
- * Supported event types:
- * - `checkout.session.completed`: Updates user status when a subscription checkout is complete.
- * - `customer.subscription.updated`: Updates user status when a subscription changes (e.g., payment success, renewal).
- * - `customer.subscription.deleted`: Sets user status to 'canceled' when a subscription is canceled.
- *
- * @param req - The Express request object. Expected to have a raw body for signature verification.
- * @param res - The Express response object.
- */
-export async function handleStripeWebhook(req: Request, res: Response) {
+export const handleStripeWebhook: StripeWebhook = async (req, res, context) => {
+  const { entities } = context
   if (!STRIPE_WEBHOOK_SECRET) {
     console.error('Stripe webhook secret is not configured.')
     return res.status(500).send('Webhook secret not configured.')
@@ -104,7 +91,7 @@ export async function handleStripeWebhook(req: Request, res: Response) {
             await stripe.subscriptions.retrieve(subscriptionId)
           const userStatus = mapStripeStatusToUserStatus(subscription.status)
 
-          await prisma.user.update({
+          await entities.User.update({
             where: { stripeCustomerId: customerId },
             data: { subscriptionStatus: userStatus },
           })
@@ -128,7 +115,7 @@ export async function handleStripeWebhook(req: Request, res: Response) {
         const customerId = subscription.customer as string
         const userStatus = mapStripeStatusToUserStatus(subscription.status)
 
-        await prisma.user.update({
+        await entities.User.update({
           where: { stripeCustomerId: customerId },
           data: { subscriptionStatus: userStatus },
         })
@@ -143,7 +130,7 @@ export async function handleStripeWebhook(req: Request, res: Response) {
         const customerId = subscription.customer as string
         const userStatus = 'canceled'
 
-        await prisma.user.update({
+        await entities.User.update({
           where: { stripeCustomerId: customerId },
           data: { subscriptionStatus: userStatus },
         })

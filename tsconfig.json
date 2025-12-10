@@ -20,6 +20,8 @@
     // JSX support
     "jsx": "preserve",
     "strict": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
     // Allow default imports.
     "esModuleInterop": true,
     "lib": ["dom", "dom.iterable", "esnext"],

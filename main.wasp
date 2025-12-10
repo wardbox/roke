@@ -1,6 +1,6 @@
 app roke {
   wasp: {
-    version: "^0.16.4"
+    version: "^0.19.1"
   },
   title: "Roke: A Full-Stack Wasp Starter with Modern UI Components",
   head: [
@@ -121,7 +121,7 @@ action createCustomerPortalSession {
 
 //#region Stripe API
 api stripeWebhook {
-  fn: import { handleStripeWebhook } from "@src/payment/stripe/webhooks.ts",
+  fn: import { handleStripeWebhook } from "@src/payment/stripe/webhooks",
   middlewareConfigFn: import { stripeWebhookMiddlewareConfigFn } from "@src/payment/stripe/webhooks",
   httpRoute: (POST, "/stripe-webhooks"),
   entities: [User]
