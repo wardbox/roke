@@ -7,14 +7,38 @@ import {
   CardDescription,
 } from '../client/components/ui/card'
 import {
-  Lightning,
-  ShieldCheck,
-  CreditCard,
-  Sparkle,
+  LightningIcon,
+  ShieldCheckIcon,
+  CreditCardIcon,
+  SparkleIcon,
+  type Icon,
 } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { useMotion } from '../motion/motion-provider'
 import { staggerContainer, staggerItem } from '../motion/transitionPresets'
+
+const features: { icon: Icon; title: string; description: string }[] = [
+  {
+    icon: LightningIcon,
+    title: 'Feature One',
+    description: 'Describe this feature and its benefit to users.',
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: 'Feature Two',
+    description: 'Describe this feature and its benefit to users.',
+  },
+  {
+    icon: CreditCardIcon,
+    title: 'Feature Three',
+    description: 'Describe this feature and its benefit to users.',
+  },
+  {
+    icon: SparkleIcon,
+    title: 'Feature Four',
+    description: 'Describe this feature and its benefit to users.',
+  },
+]
 
 export default function Landing() {
   const { transition, key } = useMotion()
@@ -77,58 +101,17 @@ export default function Landing() {
           variants={staggerContainer}
           className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'
         >
-          {/* Feature 1 - Replace icon, title, and description */}
-          {/* Each card uses staggerItem variant */}
-          <motion.div variants={staggerItem}>
-            <Card>
-              <CardHeader>
-                <Lightning size={32} className='mb-2 text-primary' />
-                <CardTitle>Feature One</CardTitle>
-                <CardDescription>
-                  Describe this feature and its benefit to users.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </motion.div>
-
-          {/* Feature 2 */}
-          <motion.div variants={staggerItem}>
-            <Card>
-              <CardHeader>
-                <ShieldCheck size={32} className='mb-2 text-primary' />
-                <CardTitle>Feature Two</CardTitle>
-                <CardDescription>
-                  Describe this feature and its benefit to users.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </motion.div>
-
-          {/* Feature 3 */}
-          <motion.div variants={staggerItem}>
-            <Card>
-              <CardHeader>
-                <CreditCard size={32} className='mb-2 text-primary' />
-                <CardTitle>Feature Three</CardTitle>
-                <CardDescription>
-                  Describe this feature and its benefit to users.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </motion.div>
-
-          {/* Feature 4 */}
-          <motion.div variants={staggerItem}>
-            <Card>
-              <CardHeader>
-                <Sparkle size={32} className='mb-2 text-primary' />
-                <CardTitle>Feature Four</CardTitle>
-                <CardDescription>
-                  Describe this feature and its benefit to users.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </motion.div>
+          {features.map(({ icon: Icon, title, description }) => (
+            <motion.div key={title} variants={staggerItem}>
+              <Card>
+                <CardHeader>
+                  <Icon size={32} className='mb-2 text-primary' />
+                  <CardTitle>{title}</CardTitle>
+                  <CardDescription>{description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </motion.div>
+          ))}
         </motion.div>
       </motion.section>
 
