@@ -12,7 +12,8 @@ import {
   CreditCard,
   Sparkle,
 } from '@phosphor-icons/react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
+import { useReducedMotion } from '../motion/components/use-reduced-motion'
 import { useMotion } from '../motion/motion-provider'
 import { staggerContainer, staggerItem } from '../motion/transitionPresets'
 
