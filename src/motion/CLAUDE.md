@@ -24,7 +24,7 @@ Spring-based animations using Motion (motion.dev).
 - `fadeIn` - Simple opacity fade
 - `slideInUp` - Slide up with fade
 - `staggerContainer` / `staggerItem` - Staggered children animations
-- `pageTransition` - Full page transitions
+- `pageTransition` - Full-page transitions
 - `hoverScale` / `hoverTilt` - Hover effects
 - `darkMode` / `lightMode` - Theme toggle animations
 

@@ -14,11 +14,7 @@ import {
 } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
 import { useMotion } from '../motion/motion-provider'
-import {
-  fadeIn,
-  staggerContainer,
-  staggerItem,
-} from '../motion/transitionPresets'
+import { staggerContainer, staggerItem } from '../motion/transitionPresets'
 
 export default function Landing() {
   // useMotion provides the global transition settings and a key for re-renders
@@ -79,11 +75,9 @@ export default function Landing() {
           </p>
         </div>
 
-        {/* Use staggerContainer on the grid for staggered card animations */}
+        {/* Nested staggerContainer inherits animation state from parent */}
         <motion.div
           variants={reduceMotion ? undefined : staggerContainer}
-          initial={reduceMotion ? 'show' : 'hidden'}
-          animate='show'
           className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'
         >
           {/* Feature 1 - Replace icon, title, and description */}
@@ -142,13 +136,9 @@ export default function Landing() {
       </motion.section>
 
       {/* CTA Section - Final call to action */}
-      {/* fadeIn variant for simple fade animation */}
       <motion.section
         id='cta'
-        variants={reduceMotion ? undefined : fadeIn}
-        initial={reduceMotion ? 'animate' : 'initial'}
-        animate='animate'
-        transition={reduceMotion ? { duration: 0 } : undefined}
+        variants={reduceMotion ? undefined : staggerItem}
         className='flex flex-col items-center gap-6 rounded-lg bg-muted/50 p-8 text-center lg:p-12'
       >
         <h2 className='text-2xl font-semibold tracking-tight lg:text-3xl'>
