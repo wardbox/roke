@@ -85,4 +85,4 @@ import { HouseIcon, UserIcon } from '@phosphor-icons/react'
 ;<HouseIcon size={24} weight='fill' />
 ```
 
-Browse icons: https://phosphoricons.com
+Browse icons: [https://phosphoricons.com](https://phosphoricons.com)
