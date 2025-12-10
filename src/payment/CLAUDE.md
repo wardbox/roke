@@ -35,13 +35,15 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 
 1. Create a Product with a recurring Price
 2. Copy the Price ID to `STRIPE_PRICE_ID`
-3. For production: Set up webhook endpoint `https://your-domain.com/stripe-webhooks`
+3. For production: Set up webhook endpoint
+   `https://your-domain.com/stripe-webhooks`
 4. Subscribe to events: `checkout.session.completed`,
    `customer.subscription.updated`, `customer.subscription.deleted`
 
 ### Local Development (Stripe CLI)
 
-To test webhooks locally, use the Stripe CLI to forward events to your dev server:
+To test webhooks locally, use the Stripe CLI to forward events to your dev
+server:
 
 ```bash
 # Install Stripe CLI (macOS)

@@ -33,7 +33,6 @@ Spring-based animations using Motion (motion.dev).
 ```tsx
 import { motion } from 'motion/react'
 import { fadeIn, transitions } from '../motion/transitionPresets'
-
 ;<motion.div
   variants={fadeIn}
   initial='initial'
