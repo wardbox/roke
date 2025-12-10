@@ -12,7 +12,7 @@ import {
   CreditCard,
   Sparkle,
 } from '@phosphor-icons/react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { useMotion } from '../motion/motion-provider'
 import {
   fadeIn,
@@ -23,23 +23,24 @@ import {
 export default function Landing() {
   // useMotion provides the global transition settings and a key for re-renders
   const { transition, key } = useMotion()
+  const reduceMotion = useReducedMotion()
 
   return (
     // Wrap the page in motion.div with staggerContainer for staggered children
     <motion.div
       key={key}
-      variants={staggerContainer}
-      initial='hidden'
+      variants={reduceMotion ? undefined : staggerContainer}
+      initial={reduceMotion ? 'show' : 'hidden'}
       animate='show'
-      exit='exit'
-      transition={transition}
+      exit={reduceMotion ? undefined : 'exit'}
+      transition={reduceMotion ? { duration: 0 } : transition}
       className='flex flex-col gap-16 py-8 lg:gap-24 lg:py-16'
     >
       {/* Hero Section - Replace with your value proposition */}
       {/* Use motion.section with staggerItem variant for staggered animation */}
       <motion.section
         id='hero'
-        variants={staggerItem}
+        variants={reduceMotion ? undefined : staggerItem}
         className='flex flex-col gap-6'
       >
         <h1 className='text-4xl font-bold tracking-tight lg:text-6xl'>
@@ -64,7 +65,7 @@ export default function Landing() {
       {/* Features Section - Replace with your features */}
       <motion.section
         id='features'
-        variants={staggerItem}
+        variants={reduceMotion ? undefined : staggerItem}
         className='flex flex-col gap-8'
       >
         <div className='flex flex-col gap-2'>
@@ -80,14 +81,14 @@ export default function Landing() {
 
         {/* Use staggerContainer on the grid for staggered card animations */}
         <motion.div
-          variants={staggerContainer}
-          initial='hidden'
+          variants={reduceMotion ? undefined : staggerContainer}
+          initial={reduceMotion ? 'show' : 'hidden'}
           animate='show'
           className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'
         >
           {/* Feature 1 - Replace icon, title, and description */}
           {/* Each card uses staggerItem variant */}
-          <motion.div variants={staggerItem}>
+          <motion.div variants={reduceMotion ? undefined : staggerItem}>
             <Card>
               <CardHeader>
                 <Lightning size={32} className='mb-2 text-primary' />
@@ -100,7 +101,7 @@ export default function Landing() {
           </motion.div>
 
           {/* Feature 2 */}
-          <motion.div variants={staggerItem}>
+          <motion.div variants={reduceMotion ? undefined : staggerItem}>
             <Card>
               <CardHeader>
                 <ShieldCheck size={32} className='mb-2 text-primary' />
@@ -113,7 +114,7 @@ export default function Landing() {
           </motion.div>
 
           {/* Feature 3 */}
-          <motion.div variants={staggerItem}>
+          <motion.div variants={reduceMotion ? undefined : staggerItem}>
             <Card>
               <CardHeader>
                 <CreditCard size={32} className='mb-2 text-primary' />
@@ -126,7 +127,7 @@ export default function Landing() {
           </motion.div>
 
           {/* Feature 4 */}
-          <motion.div variants={staggerItem}>
+          <motion.div variants={reduceMotion ? undefined : staggerItem}>
             <Card>
               <CardHeader>
                 <Sparkle size={32} className='mb-2 text-primary' />
@@ -144,9 +145,10 @@ export default function Landing() {
       {/* fadeIn variant for simple fade animation */}
       <motion.section
         id='cta'
-        variants={fadeIn}
-        initial='initial'
+        variants={reduceMotion ? undefined : fadeIn}
+        initial={reduceMotion ? 'animate' : 'initial'}
         animate='animate'
+        transition={reduceMotion ? { duration: 0 } : undefined}
         className='flex flex-col items-center gap-6 rounded-lg bg-muted/50 p-8 text-center lg:p-12'
       >
         <h2 className='text-2xl font-semibold tracking-tight lg:text-3xl'>
