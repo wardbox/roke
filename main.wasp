@@ -1,17 +1,17 @@
 app roke {
   wasp: {
-    version: "^0.16.4"
+    version: "^0.19.1"
   },
   title: "Roke: A Full-Stack Wasp Starter with Modern UI Components",
   head: [
     "<meta name='description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
-    
+
     "<meta property='og:url' content='https://example.com'>",
     "<meta property='og:type' content='website'>",
     "<meta property='og:title' content='Roke: A Full-Stack Wasp Starter with Modern UI Components'>",
     "<meta property='og:description' content='A comprehensive Wasp starter template featuring shadcn/ui components, Motion animations, and TypeScript support for building modern full-stack web applications.'>",
     "<meta property='og:image' content='https://example.com/example.png'>",
-    
+
     "<meta name='twitter:card' content='summary_large_image'>",
     "<meta property='twitter:domain' content='example.com'>",
     "<meta property='twitter:url' content='https://example.com'>",
@@ -50,7 +50,6 @@ app roke {
   }
 }
 
-//#region Routes
 route Landing { path: "/", to: Landing }
 route Profile { path: "/profile", to: ProfilePage }
 route SubscriptionRoute { path: "/subscription", to: SubscriptionPage }
@@ -61,9 +60,7 @@ route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPa
 route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
 route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
 route NotFoundRoute { path: "*", to: NotFoundPage }
-//#endregion
 
-//#region Pages
 page Landing {
   component: import Landing from "@src/landing/LandingPage",
 }
@@ -105,9 +102,7 @@ page CheckoutResultPage {
 page NotFoundPage {
   component: import NotFound from "@src/404Page"
 }
-//#endregion
 
-//#region Stripe Actions
 action createCheckoutSession {
   fn: import { createCheckoutSession } from "@src/payment/stripe/operations",
   entities: [User]
@@ -117,13 +112,10 @@ action createCustomerPortalSession {
   fn: import { createCustomerPortalSession } from "@src/payment/stripe/operations",
   entities: [User]
 }
-//#endregion
 
-//#region Stripe API
 api stripeWebhook {
-  fn: import { handleStripeWebhook } from "@src/payment/stripe/webhooks.ts",
+  fn: import { handleStripeWebhook } from "@src/payment/stripe/webhooks",
   middlewareConfigFn: import { stripeWebhookMiddlewareConfigFn } from "@src/payment/stripe/webhooks",
   httpRoute: (POST, "/stripe-webhooks"),
   entities: [User]
 }
-//#endregion

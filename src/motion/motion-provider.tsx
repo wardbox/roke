@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react'
 import { defaultTransition } from './config'
 import type { SpringTransition } from './transitionPresets'
 import { MotionConfig } from 'motion/react'
+import { useReducedMotion } from './components/use-reduced-motion'
 
 type MotionProviderProps = {
   children: React.ReactNode
@@ -26,6 +27,7 @@ export function MotionProvider({
 }: MotionProviderProps) {
   const [transition, setTransition] = useState<SpringTransition>(customDefault)
   const [key, setKey] = useState(0)
+  const reduceMotion = useReducedMotion()
 
   const updateTransitionAndReplay = (newTransition: SpringTransition) => {
     setTransition(newTransition)
@@ -40,7 +42,12 @@ export function MotionProvider({
         key,
       }}
     >
-      <MotionConfig transition={transition}>{children}</MotionConfig>
+      <MotionConfig
+        transition={transition}
+        reducedMotion={reduceMotion ? 'always' : 'never'}
+      >
+        {children}
+      </MotionConfig>
     </MotionProviderContext.Provider>
   )
 }

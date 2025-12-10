@@ -2,56 +2,107 @@
 
 A Wasp starter with sensible defaults.
 
-## What's he building in there?
+## What's Included
 
-I built Roke because I was tired of repeating the same setup ritual for every
-new Wasp project. Instead of continuing that cycle, I created the starting point
-I always wished I had.
-
-## Philosophy
-
-While most starters give you an empty canvas, Roke provides opinionated defaults
-that reflect how modern web apps are actually built. It embraces shadcn/ui's
-principles of being "Accessible. Customizable. Open Source." and extends them to
-the entire project structure.
-
-The goal isn't just to give you boilerplate - it's to provide a foundation that
-makes web development more enjoyable and accessible. Batteries included, but
-replaceable.
+- **Authentication** - Email/password with verification and password reset
+- **Payments** - Stripe subscriptions with checkout and customer portal
+- **UI Components** - shadcn/ui components (Button, Card, Dropdown, Sheet, etc.)
+- **Animations** - Motion spring animations with presets (snappy, bouncy, heavy)
+- **Dark Mode** - Theme toggle with system preference support
+- **TypeScript** - Full type safety throughout
 
 ## Getting Started
 
-Click "Use this template" button at the top of the repository
+1. Click "Use this template" button at the top of the repository
+2. Clone your new repository
+3. Install dependencies and start:
 
 ```bash
-# Start the development server
+npm install
 wasp db start
 wasp db migrate-dev
 wasp start
 ```
 
-Visit [roke.dev](https://roke.dev) for comprehensive documentation.  
-<br /> ![Format & Lint pipeline status](https://github.com/wardbox/roke/actions/workflows/format.yml/badge.svg)  
-![Deployment pipeline status](https://github.com/wardbox/roke/actions/workflows/deploy.yml/badge.svg?branch=deploy)
+## Project Structure
 
-## Contributing
+```
+src/
+├── auth/           # Login, signup, password reset
+├── payment/        # Stripe subscriptions
+├── motion/         # Animation presets and provider
+├── landing/        # Home page (customize this!)
+├── client/components/  # shadcn/ui components
+└── root-components/    # Nav, footer, theme
+```
 
-We welcome contributions! Whether it's:
+Each directory has a `CLAUDE.md` file explaining its purpose and how to
+customize it.
 
-- 🐛 Bug fixes
-- ✨ New features
-- 📝 Documentation improvements
-- 💡 Suggestions
+## Customization Checklist
 
-Feel free to open an issue or submit a pull request.
+1. **Landing page** - Edit `src/landing/LandingPage.tsx`
+2. **App name** - Set `REACT_APP_NAME` in `.env.client`
+3. **Meta tags** - Update `head` section in `main.wasp`
+4. **Auth emails** - Edit templates in `src/auth/email.ts`
+5. **Stripe** - Add keys to `.env.server` (see `src/payment/CLAUDE.md`)
+6. **Email provider** - Change from `Dummy` to SendGrid/Mailgun in `main.wasp`
+
+## Key Files
+
+| File                               | Purpose                                |
+| ---------------------------------- | -------------------------------------- |
+| `main.wasp`                        | Routes, pages, auth config, operations |
+| `schema.prisma`                    | Database models                        |
+| `src/landing/LandingPage.tsx`      | Home page content                      |
+| `src/auth/email.ts`                | Email templates                        |
+| `src/motion/transitionPresets.tsx` | Animation variants                     |
+
+## Adding Features
+
+### New Page
+
+1. Add route and page in `main.wasp`
+2. Create component in `src/`
+3. Add to nav if needed in `src/root-components/nav.tsx`
+
+### New Database Model
+
+1. Add model to `schema.prisma`
+2. Run `wasp db migrate-dev`
+3. Create operations in `main.wasp` and implement in `src/`
+
+### New UI Component
+
+```bash
+npx shadcn@latest add [component-name]
+```
+
+## Environment Variables
+
+### Client (`.env.client`)
+
+```
+REACT_APP_NAME=Your App Name
+```
+
+### Server (`.env.server`)
+
+```
+DATABASE_URL=postgresql://...
+STRIPE_SECRET_KEY=sk_...
+STRIPE_PUBLISHABLE_KEY=pk_...
+STRIPE_PRICE_ID=price_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
 
 ## Learn More
 
-- [Documentation](https://roke.dev)
 - [Wasp Documentation](https://wasp-lang.dev)
 - [shadcn/ui](https://ui.shadcn.com)
 - [Motion](https://motion.dev)
+- [Phosphor Icons](https://phosphoricons.com)
 
 ## License
 
-MIT License - feel free to use this in your own projects!
+MIT License - use this in your own projects!
