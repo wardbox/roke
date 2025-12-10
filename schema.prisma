@@ -1,3 +1,7 @@
+// ============================================================================
+// DATABASE CONFIGURATION
+// Using PostgreSQL. Start with: wasp db start
+// ============================================================================
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -7,15 +11,45 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// ============================================================================
+// ENTITIES
+// Add your models here. After changes, run: wasp db migrate-dev
+// ============================================================================
+
+// User entity - required by Wasp auth
+// Add your own fields below the existing ones
 model User {
-  id                 String    @id @default(uuid())
-  username           String    @unique
-  email              String    @unique
-  isAdmin            Boolean   @default(false)
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
+  isAdmin  Boolean @default(false)
+
+  // Stripe subscription fields - see src/payment/CLAUDE.md
   stripeCustomerId   String?   @unique
-  subscriptionStatus String?
+  subscriptionStatus String?   // active, past_due, canceled, incomplete
   trialEndsAt        DateTime?
 
+  // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Add your relations here, e.g.:
+  // posts Post[]
+  // comments Comment[]
 }
+
+// ============================================================================
+// ADD YOUR MODELS BELOW
+// Example:
+//
+// model Post {
+//   id        String   @id @default(uuid())
+//   title     String
+//   content   String
+//   published Boolean  @default(false)
+//   author    User     @relation(fields: [authorId], references: [id])
+//   authorId  String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+// ============================================================================

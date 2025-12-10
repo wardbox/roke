@@ -1,7 +1,10 @@
 {
   "name": "roke",
   "type": "module",
-  "workspaces": [".wasp/build/*", ".wasp/out/*"],
+  "workspaces": [
+    ".wasp/build/*",
+    ".wasp/out/*"
+  ],
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
     "@fontsource-variable/inter": "^5.2.5",

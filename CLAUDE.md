@@ -60,6 +60,7 @@ Each feature folder typically contains:
 When adding new queries/actions:
 
 1. Define in `main.wasp` first:
+
 ```wasp
 query getSomething {
   fn: import { getSomething } from "@src/feature/operations",
@@ -68,6 +69,7 @@ query getSomething {
 ```
 
 2. Implement in `feature/operations.ts`:
+
 ```typescript
 import { HttpError } from 'wasp/server'
 import type { GetSomething } from 'wasp/server/operations'
@@ -85,6 +87,7 @@ export type GetSomethingResponse = Awaited<ReturnType<typeof getSomething>>
 ```
 
 **Critical points:**
+
 - Use `satisfies GetSomething` pattern (not `GetSomething = async`)
 - Export response type with `Awaited<ReturnType<...>>` for component props
 - Include authorization checks when needed
