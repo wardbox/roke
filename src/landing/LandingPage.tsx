@@ -13,31 +13,27 @@ import {
   Sparkle,
 } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
-import { useReducedMotion } from '../motion/components/use-reduced-motion'
 import { useMotion } from '../motion/motion-provider'
 import { staggerContainer, staggerItem } from '../motion/transitionPresets'
 
 export default function Landing() {
-  // useMotion provides the global transition settings and a key for re-renders
   const { transition, key } = useMotion()
-  const reduceMotion = useReducedMotion()
 
   return (
-    // Wrap the page in motion.div with staggerContainer for staggered children
     <motion.div
       key={key}
-      variants={reduceMotion ? undefined : staggerContainer}
-      initial={reduceMotion ? 'show' : 'hidden'}
+      variants={staggerContainer}
+      initial='hidden'
       animate='show'
-      exit={reduceMotion ? undefined : 'exit'}
-      transition={reduceMotion ? { duration: 0 } : transition}
+      exit='exit'
+      transition={transition}
       className='flex flex-col gap-16 py-8 lg:gap-24 lg:py-16'
     >
       {/* Hero Section - Replace with your value proposition */}
       {/* Use motion.section with staggerItem variant for staggered animation */}
       <motion.section
         id='hero'
-        variants={reduceMotion ? undefined : staggerItem}
+        variants={staggerItem}
         className='flex flex-col gap-6'
       >
         <h1 className='text-4xl font-bold tracking-tight lg:text-6xl'>
@@ -62,7 +58,7 @@ export default function Landing() {
       {/* Features Section - Replace with your features */}
       <motion.section
         id='features'
-        variants={reduceMotion ? undefined : staggerItem}
+        variants={staggerItem}
         className='flex flex-col gap-8'
       >
         <div className='flex flex-col gap-2'>
@@ -78,12 +74,12 @@ export default function Landing() {
 
         {/* Nested staggerContainer inherits animation state from parent */}
         <motion.div
-          variants={reduceMotion ? undefined : staggerContainer}
+          variants={staggerContainer}
           className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'
         >
           {/* Feature 1 - Replace icon, title, and description */}
           {/* Each card uses staggerItem variant */}
-          <motion.div variants={reduceMotion ? undefined : staggerItem}>
+          <motion.div variants={staggerItem}>
             <Card>
               <CardHeader>
                 <Lightning size={32} className='mb-2 text-primary' />
@@ -96,7 +92,7 @@ export default function Landing() {
           </motion.div>
 
           {/* Feature 2 */}
-          <motion.div variants={reduceMotion ? undefined : staggerItem}>
+          <motion.div variants={staggerItem}>
             <Card>
               <CardHeader>
                 <ShieldCheck size={32} className='mb-2 text-primary' />
@@ -109,7 +105,7 @@ export default function Landing() {
           </motion.div>
 
           {/* Feature 3 */}
-          <motion.div variants={reduceMotion ? undefined : staggerItem}>
+          <motion.div variants={staggerItem}>
             <Card>
               <CardHeader>
                 <CreditCard size={32} className='mb-2 text-primary' />
@@ -122,7 +118,7 @@ export default function Landing() {
           </motion.div>
 
           {/* Feature 4 */}
-          <motion.div variants={reduceMotion ? undefined : staggerItem}>
+          <motion.div variants={staggerItem}>
             <Card>
               <CardHeader>
                 <Sparkle size={32} className='mb-2 text-primary' />
@@ -139,7 +135,7 @@ export default function Landing() {
       {/* CTA Section - Final call to action */}
       <motion.section
         id='cta'
-        variants={reduceMotion ? undefined : staggerItem}
+        variants={staggerItem}
         className='flex flex-col items-center gap-6 rounded-lg bg-muted/50 p-8 text-center lg:p-12'
       >
         <h2 className='text-2xl font-semibold tracking-tight lg:text-3xl'>
