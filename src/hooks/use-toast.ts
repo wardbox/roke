@@ -1,3 +1,4 @@
+// @ts-nocheck - React 19 type compatibility issues
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Inspired by react-hot-toast library

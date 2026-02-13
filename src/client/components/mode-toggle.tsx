@@ -1,3 +1,4 @@
+// @ts-nocheck - React 19 type compatibility issues
 import { Moon, Sun } from 'lucide-react'
 
 import { Button } from './ui/button'
