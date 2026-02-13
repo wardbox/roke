@@ -5,7 +5,6 @@ A Wasp starter with sensible defaults.
 ## What's Included
 
 - **Authentication** - Email/password with verification and password reset
-- **Payments** - Stripe subscriptions with checkout and customer portal
 - **UI Components** - shadcn/ui components (Button, Card, Dropdown, Sheet, etc.)
 - **Animations** - Motion spring animations with presets (snappy, bouncy, heavy)
 - **Dark Mode** - Theme toggle with system preference support
@@ -29,7 +28,6 @@ wasp start
 ```
 src/
 ├── auth/           # Login, signup, password reset
-├── payment/        # Stripe subscriptions
 ├── motion/         # Animation presets and provider
 ├── landing/        # Home page (customize this!)
 ├── client/components/  # shadcn/ui components
@@ -43,10 +41,9 @@ customize it.
 
 1. **Landing page** - Edit `src/landing/LandingPage.tsx`
 2. **App name** - Set `REACT_APP_NAME` in `.env.client`
-3. **Meta tags** - Update `head` section in `main.wasp`
+3. **Meta tags** - Update `head` section in `main.wasp` (replace example.com TODOs)
 4. **Auth emails** - Edit templates in `src/auth/email.ts`
-5. **Stripe** - Add keys to `.env.server` (see `src/payment/CLAUDE.md`)
-6. **Email provider** - Change from `Dummy` to SendGrid/Mailgun in `main.wasp`
+5. **Email provider** - Change from `Dummy` to SendGrid/Mailgun in `main.wasp`
 
 ## Key Files
 
@@ -90,10 +87,7 @@ REACT_APP_NAME=Your App Name
 
 ```
 DATABASE_URL=postgresql://...
-STRIPE_SECRET_KEY=sk_...
-STRIPE_PUBLISHABLE_KEY=pk_...
-STRIPE_PRICE_ID=price_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+ADMIN_EMAILS=admin@example.com
 ```
 
 ## Learn More

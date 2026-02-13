@@ -24,11 +24,6 @@ model User {
   email    String @unique
   isAdmin  Boolean @default(false)
 
-  // Stripe subscription fields - see src/payment/CLAUDE.md
-  stripeCustomerId   String?   @unique
-  subscriptionStatus String?   // active, past_due, canceled, incomplete
-  trialEndsAt        DateTime?
-
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

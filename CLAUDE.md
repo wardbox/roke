@@ -40,8 +40,6 @@ npm run format
 src/
 ├── auth/              # Authentication pages and logic
 ├── landing/           # Landing page
-├── payment/           # Stripe integration
-│   └── stripe/        # Stripe operations, webhooks, service
 ├── root-components/   # Global components (nav, footer, theme)
 ├── client/components/ui/  # shadcn/ui components
 ├── motion/            # Motion animation config and components
