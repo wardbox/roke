@@ -41,7 +41,8 @@ customize it.
 
 1. **Landing page** - Edit `src/landing/LandingPage.tsx`
 2. **App name** - Set `REACT_APP_NAME` in `.env.client`
-3. **Meta tags** - Update `head` section in `main.wasp` (replace placeholder domain TODOs like roke.dev)
+3. **Meta tags** - Update `head` section in `main.wasp` (replace placeholder
+   domain TODOs like roke.dev)
 4. **Auth emails** - Edit templates in `src/auth/email.ts`
 5. **Email provider** - Change from `Dummy` to SendGrid/Mailgun in `main.wasp`
 

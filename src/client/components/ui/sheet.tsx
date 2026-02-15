@@ -132,7 +132,9 @@ const SheetDescription = React.forwardRef(
       className,
       ...props
     }: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>,
-    ref: React.ForwardedRef<React.ElementRef<typeof SheetPrimitive.Description>>,
+    ref: React.ForwardedRef<
+      React.ElementRef<typeof SheetPrimitive.Description>
+    >,
   ) => (
     <SheetPrimitive.Description
       ref={ref as any}
