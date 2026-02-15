@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { motion } from 'motion/react'
 import { fadeIn } from '../motion/transitionPresets'
 import {

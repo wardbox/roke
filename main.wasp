@@ -1,6 +1,6 @@
 app roke {
   wasp: {
-    version: "^0.20.0"
+    version: "^0.21.0"
   },
   title: "Roke: A Full-Stack Wasp Starter with Modern UI Components",
   head: [

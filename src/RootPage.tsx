@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import { useAuth } from 'wasp/client/auth'
 import { MotionConfig } from 'motion/react'
 import { MotionProvider } from './motion/motion-provider'
