@@ -21,9 +21,7 @@ jobs:
           cache: 'npm'
 
       - name: Setup Wasp
-        run: |
-          curl -sSL https://get.wasp.sh/installer.sh | sh
-          wasp compile
+        run: npm i -g @wasp.sh/wasp-cli@0.21
 
       - name: Install dependencies
         run: npm ci
