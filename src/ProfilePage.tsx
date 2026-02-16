@@ -26,12 +26,12 @@ const Profile = ({ user }: { user: AuthUser }) => {
       className='mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:px-8'
     >
       <h1 className='text-4xl font-thin tracking-tight'>Profile</h1>
-      <p className='text-lg text-muted-foreground'>
+      <p className='text-muted-foreground text-lg'>
         {greeting}, {user?.username || 'there'}!
       </p>
-      <div className='space-y-6 rounded-lg border bg-card p-6 text-card-foreground shadow-sm'>
+      <div className='bg-card text-card-foreground space-y-6 rounded-lg border p-6 shadow-sm'>
         <div className='space-y-2'>
-          <p className='text-sm font-medium text-muted-foreground'>Email</p>
+          <p className='text-muted-foreground text-sm font-medium'>Email</p>
           <p className='text-lg'>{user?.email || 'N/A'}</p>
         </div>
       </div>

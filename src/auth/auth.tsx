@@ -21,7 +21,7 @@ export const authAppearance: CustomizationOptions['appearance'] = {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='mx-auto flex max-w-xl flex-col px-12 py-24 pt-12 font-sans animate-in fade-in sm:px-0 2xl:py-48'>
+    <div className='animate-in fade-in mx-auto flex max-w-xl flex-col px-12 py-24 pt-12 font-sans sm:px-0 2xl:py-48'>
       {children}
     </div>
   )
