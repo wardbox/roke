@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import {
   Card,
@@ -96,7 +95,7 @@ export function TransitionPlayground() {
   return (
     <motion.div
       className={cn(
-        'fixed bottom-12 right-5 z-50 hidden md:block',
+        'fixed right-5 bottom-12 z-50 hidden md:block',
         !isOpen && 'transition-transform hover:scale-110',
       )}
       animate={isOpen ? { scale: 1 } : { scale: 0.8 }}
@@ -107,7 +106,7 @@ export function TransitionPlayground() {
           variant='outline'
           size='icon'
           onClick={() => setIsOpen(true)}
-          className='h-12 w-12 border-muted-foreground/20 shadow-lg transition-colors hover:border-accent hover:bg-accent'
+          className='border-muted-foreground/20 hover:border-accent hover:bg-accent h-12 w-12 shadow-lg transition-colors'
         >
           <FadersHorizontalIcon size={32} weight='fill' />
         </Button>
@@ -120,7 +119,7 @@ export function TransitionPlayground() {
         >
           <Card className='w-80'>
             <CardHeader className='flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='select-none text-sm font-medium'>
+              <CardTitle className='text-sm font-medium select-none'>
                 Transition Playground
               </CardTitle>
               <Button
@@ -134,9 +133,9 @@ export function TransitionPlayground() {
             </CardHeader>
             <CardContent className='space-y-4'>
               <div className='space-y-2'>
-                <div className='flex select-none items-center justify-between'>
+                <div className='flex items-center justify-between select-none'>
                   <Label className='text-sm'>Stiffness</Label>
-                  <span className='text-xs text-muted-foreground'>
+                  <span className='text-muted-foreground text-xs'>
                     {config.stiffness}
                   </span>
                 </div>
@@ -151,9 +150,9 @@ export function TransitionPlayground() {
                 />
               </div>
               <div className='space-y-2'>
-                <div className='flex select-none items-center justify-between'>
+                <div className='flex items-center justify-between select-none'>
                   <Label className='text-sm'>Damping</Label>
-                  <span className='text-xs text-muted-foreground'>
+                  <span className='text-muted-foreground text-xs'>
                     {config.damping}
                   </span>
                 </div>
@@ -166,9 +165,9 @@ export function TransitionPlayground() {
                 />
               </div>
               <div className='space-y-2'>
-                <div className='flex select-none items-center justify-between'>
+                <div className='flex items-center justify-between select-none'>
                   <Label className='text-sm'>Mass</Label>
-                  <span className='text-xs text-muted-foreground'>
+                  <span className='text-muted-foreground text-xs'>
                     {config.mass}
                   </span>
                 </div>

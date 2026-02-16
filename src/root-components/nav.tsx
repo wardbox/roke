@@ -1,6 +1,5 @@
-import * as React from 'react'
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { forwardRef, useState, type HTMLAttributes } from 'react'
+import { useLocation } from 'react-router'
 import { cn, usePrefetch } from '../lib/utils'
 import { Link } from 'wasp/client/router'
 import {
@@ -32,12 +31,12 @@ import { Skeleton } from '../client/components/ui/skeleton'
 import { motion } from 'motion/react'
 import { fadeIn } from '../motion/transitionPresets'
 
-interface NavProps extends React.HTMLAttributes<HTMLElement> {
+interface NavProps extends HTMLAttributes<HTMLElement> {
   user?: User | null
   userLoading?: boolean
 }
 
-const Nav = React.forwardRef<HTMLElement, NavProps>(
+const Nav = forwardRef<HTMLElement, NavProps>(
   ({ user, userLoading, ...props }, ref) => {
     const [open, setOpen] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -52,7 +51,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
       <nav
         ref={ref}
         className={cn(
-          'sticky top-0 z-50 mx-auto flex w-full max-w-7xl items-center justify-between bg-background p-3 px-4 lg:px-6',
+          'bg-background sticky top-0 z-50 mx-auto flex w-full max-w-7xl items-center justify-between p-3 px-4 lg:px-6',
           props.className,
         )}
         {...props}
@@ -68,11 +67,11 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
               {import.meta.env.REACT_APP_NAME || 'Roke'}
             </span>
           </Link>
-          <div className='hidden items-center space-x-4 text-muted-foreground md:flex lg:space-x-6'>
+          <div className='text-muted-foreground hidden items-center space-x-4 md:flex lg:space-x-6'>
             <Link
               to='/'
               className={cn(
-                'text-md flex items-center space-x-2 font-medium transition-colors hover:text-primary',
+                'text-md hover:text-primary flex items-center space-x-2 font-medium transition-colors',
                 location.pathname === '/' && 'text-primary',
               )}
               onMouseEnter={() => prefetch('/', undefined, { assets: true })}
@@ -91,7 +90,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 <Skeleton className='h-10 w-10' />
               </div>
             ) : (
-              <div className='flex items-center animate-in fade-in'>
+              <div className='animate-in fade-in flex items-center'>
                 {user ? (
                   <DropdownMenu
                     open={dropdownOpen}
@@ -195,7 +194,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                 <Link
                   to='/'
                   className={cn(
-                    'text-md flex items-center space-x-4 font-medium transition-colors hover:text-primary',
+                    'text-md hover:text-primary flex items-center space-x-4 font-medium transition-colors',
                     location.pathname === '/' && 'text-primary',
                   )}
                   onClick={handleNavigation}
@@ -225,7 +224,7 @@ const Nav = React.forwardRef<HTMLElement, NavProps>(
                         <Link
                           to='/profile'
                           className={cn(
-                            'text-md flex items-center space-x-4 font-medium transition-colors hover:text-primary',
+                            'text-md hover:text-primary flex items-center space-x-4 font-medium transition-colors',
                             location.pathname.startsWith('/profile') &&
                               'text-primary',
                           )}

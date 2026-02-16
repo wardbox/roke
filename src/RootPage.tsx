@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import { useAuth } from 'wasp/client/auth'
 import { MotionConfig } from 'motion/react'
 import { MotionProvider } from './motion/motion-provider'
@@ -19,7 +19,7 @@ export default function Root() {
     <MotionConfig reducedMotion='user' transition={transitions.snappy}>
       <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
         <MotionProvider>
-          <div className='flex h-screen flex-col bg-background text-foreground'>
+          <div className='bg-background text-foreground flex h-screen flex-col'>
             <header className='border-b'>
               <Nav user={user} userLoading={isLoading} />
             </header>
@@ -30,7 +30,7 @@ export default function Root() {
             </main>
             <Toaster />
             <ScrollToTop />
-            <footer className='relative z-50 border-t border-input bg-background'>
+            <footer className='border-input bg-background relative z-50 border-t'>
               <div className='relative z-50 mx-auto max-w-7xl'>
                 <Footer />
               </div>

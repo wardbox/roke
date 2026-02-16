@@ -31,7 +31,7 @@ export function ScrollToTop() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className='fixed bottom-24 right-6 z-50 hidden md:block'
+          className='fixed right-6 bottom-24 z-50 hidden md:block'
           variants={scrollToTop}
           initial='initial'
           animate='animate'
@@ -42,7 +42,7 @@ export function ScrollToTop() {
             variant='outline'
             size='icon'
             onClick={scrollToTopAction}
-            className='border-muted-foreground/20 shadow-lg transition-colors hover:border-accent hover:bg-accent'
+            className='border-muted-foreground/20 hover:border-accent hover:bg-accent shadow-lg transition-colors'
           >
             <ArrowUpIcon />
           </Button>

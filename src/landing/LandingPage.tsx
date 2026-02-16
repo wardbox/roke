@@ -64,7 +64,7 @@ export default function Landing() {
           {/* Replace with your app name */}
           Your App Name
         </h1>
-        <p className='max-w-2xl text-lg text-muted-foreground lg:text-xl'>
+        <p className='text-muted-foreground max-w-2xl text-lg lg:text-xl'>
           {/* Replace with your tagline */}A brief, compelling description of
           what your app does and why users should care. Keep it to one or two
           sentences.
@@ -105,7 +105,7 @@ export default function Landing() {
             <motion.div key={title} variants={staggerItem}>
               <Card>
                 <CardHeader>
-                  <Icon size={32} className='mb-2 text-primary' />
+                  <Icon size={32} className='text-primary mb-2' />
                   <CardTitle>{title}</CardTitle>
                   <CardDescription>{description}</CardDescription>
                 </CardHeader>
@@ -119,13 +119,13 @@ export default function Landing() {
       <motion.section
         id='cta'
         variants={staggerItem}
-        className='flex flex-col items-center gap-6 rounded-lg bg-muted/50 p-8 text-center lg:p-12'
+        className='bg-muted/50 flex flex-col items-center gap-6 rounded-lg p-8 text-center lg:p-12'
       >
         <h2 className='text-2xl font-semibold tracking-tight lg:text-3xl'>
           {/* Replace with your CTA headline */}
           Ready to get started?
         </h2>
-        <p className='max-w-xl text-muted-foreground'>
+        <p className='text-muted-foreground max-w-xl'>
           {/* Replace with your CTA description */}
           Join thousands of users who are already building with our platform.
         </p>

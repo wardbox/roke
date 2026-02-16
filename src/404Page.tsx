@@ -24,13 +24,13 @@ export default function NotFound() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className='absolute -right-12 -top-4'
+          className='absolute -top-4 -right-12'
         >
           <SparkleIcon size={32} className='text-brand-accent' weight='fill' />
         </motion.div>
       </div>
       <p className='text-2xl font-medium'>By Ged&apos;s beard!</p>
-      <p className='max-w-md text-muted-foreground'>
+      <p className='text-muted-foreground max-w-md'>
         Looks like this page got lost in the Ninety Isles. Perhaps it summoned
         its own shadow, or maybe it&apos;s just locked up in the Isolate Tower.
         Who knows? But it ain&apos;t here!

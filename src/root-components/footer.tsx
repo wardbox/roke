@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { motion } from 'motion/react'
 import { fadeIn } from '../motion/transitionPresets'
 import {
@@ -64,7 +64,7 @@ export function Footer() {
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
               <MountainsIcon size={20} weight='fill' />
-              <span className='text-sm text-muted-foreground'>
+              <span className='text-muted-foreground text-sm'>
                 &copy; {new Date().getFullYear()}{' '}
                 {import.meta.env.REACT_APP_NAME || 'Roke'}
               </span>
@@ -76,7 +76,7 @@ export function Footer() {
                   href={item.href}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-muted-foreground transition-colors hover:text-foreground'
+                  className='text-muted-foreground hover:text-foreground transition-colors'
                   aria-label={item.name}
                 >
                   {item.icon === 'GithubLogo' ? (
@@ -94,7 +94,7 @@ export function Footer() {
             <nav className='flex min-w-max gap-4 py-1' aria-label='Footer'>
               <ScrollToTopLink
                 to='/'
-                className='whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground'
+                className='text-muted-foreground hover:text-foreground text-sm whitespace-nowrap transition-colors'
               >
                 Home
               </ScrollToTopLink>
@@ -112,13 +112,13 @@ export function Footer() {
                 {import.meta.env.REACT_APP_NAME || 'Roke'}
               </h2>
               <span className='text-muted-foreground'>|</span>
-              <p className='text-sm text-muted-foreground'>
+              <p className='text-muted-foreground text-sm'>
                 A{' '}
                 <a
                   href='https://wasp-lang.dev'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-foreground transition-colors hover:text-primary'
+                  className='text-foreground hover:text-primary transition-colors'
                 >
                   Wasp
                 </a>{' '}
@@ -130,7 +130,7 @@ export function Footer() {
             <nav className='flex gap-x-6' aria-label='Footer'>
               <ScrollToTopLink
                 to='/'
-                className='text-sm text-muted-foreground transition-colors hover:text-foreground'
+                className='text-muted-foreground hover:text-foreground text-sm transition-colors'
               >
                 Home
               </ScrollToTopLink>
@@ -146,7 +146,7 @@ export function Footer() {
                   href={item.href}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-muted-foreground transition-colors hover:text-foreground'
+                  className='text-muted-foreground hover:text-foreground transition-colors'
                   aria-label={item.name}
                 >
                   {item.icon === 'GithubLogo' ? (
@@ -157,7 +157,7 @@ export function Footer() {
                 </a>
               ))}
             </div>
-            <p className='text-xs text-muted-foreground'>
+            <p className='text-muted-foreground text-xs'>
               &copy; {new Date().getFullYear()}{' '}
               {import.meta.env.REACT_APP_NAME || 'Roke'}
             </p>

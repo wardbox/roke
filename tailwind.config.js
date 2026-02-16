@@ -1,11 +1,9 @@
-import { resolveProjectPath } from 'wasp/dev'
 import animate from 'tailwindcss-animate'
 import typography from '@tailwindcss/typography'
 
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class'],
-  content: [resolveProjectPath('./src/**/*.{js,jsx,ts,tsx}')],
   theme: {
     extend: {
       borderRadius: {
