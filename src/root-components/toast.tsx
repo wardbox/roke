@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react'
-// @ts-expect-error - React 19 type compatibility with Radix UI
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { X as XIcon } from '@phosphor-icons/react'

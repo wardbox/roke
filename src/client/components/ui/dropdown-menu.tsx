@@ -5,7 +5,6 @@ import {
   type ElementRef,
   type HTMLAttributes,
 } from 'react'
-// @ts-expect-error
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { CheckIcon, CaretRightIcon, CircleIcon } from '@phosphor-icons/react'
 

@@ -1,5 +1,4 @@
 import * as React from 'react'
-// @ts-expect-error
 import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { XIcon } from '@phosphor-icons/react'
