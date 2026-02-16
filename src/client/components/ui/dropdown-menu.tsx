@@ -1,5 +1,5 @@
-// @ts-expect-error - React 19 type compatibility issues with Radix UI
 import * as React from 'react'
+// @ts-expect-error
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { CheckIcon, CaretRightIcon, CircleIcon } from '@phosphor-icons/react'
 
@@ -43,7 +43,7 @@ const DropdownMenuSubTrigger = React.forwardRef(
       {...(props as any)}
     >
       {children}
-      <CaretRightIcon className='ml-auto' size={16} />
+      <CaretRightIcon className='ml-auto' size={16} weight='bold' />
     </DropdownMenuPrimitive.SubTrigger>
   ),
 )
@@ -150,7 +150,7 @@ const DropdownMenuCheckboxItem = React.forwardRef(
     >
       <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
         <DropdownMenuPrimitive.ItemIndicator>
-          <CheckIcon size={16} />
+          <CheckIcon size={16} weight='bold' />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}

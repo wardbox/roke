@@ -1,6 +1,4 @@
-// @ts-nocheck - React 19 type compatibility issues
-import * as React from 'react'
-import { useState } from 'react'
+import { forwardRef, useState, type HTMLAttributes } from 'react'
 import { useLocation } from 'react-router'
 import { cn, usePrefetch } from '../lib/utils'
 import { Link } from 'wasp/client/router'
@@ -33,12 +31,12 @@ import { Skeleton } from '../client/components/ui/skeleton'
 import { motion } from 'motion/react'
 import { fadeIn } from '../motion/transitionPresets'
 
-interface NavProps extends React.HTMLAttributes<HTMLElement> {
+interface NavProps extends HTMLAttributes<HTMLElement> {
   user?: User | null
   userLoading?: boolean
 }
 
-const Nav = React.forwardRef<HTMLElement, NavProps>(
+const Nav = forwardRef<HTMLElement, NavProps>(
   ({ user, userLoading, ...props }, ref) => {
     const [open, setOpen] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false)

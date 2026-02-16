@@ -5,7 +5,7 @@ import {
   ForgotPasswordForm,
   ResetPasswordForm,
 } from 'wasp/client/auth'
-import { Link } from 'react-router'
+import { Link } from 'wasp/client/router'
 import './auth.css'
 
 import type { CustomizationOptions } from 'wasp/client/auth'
