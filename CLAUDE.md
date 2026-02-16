@@ -126,6 +126,13 @@ export type GetSomethingResponse = Awaited<ReturnType<typeof getSomething>>
 - No comments unless describing complex logic
 - Dependencies via `npm install` (not in main.wasp)
 
+### Dependency Versioning
+
+- Wasp enforces caret (`^`) ranges for packages it manages: `react`,
+  `react-dom`, `react-router`, `vite`, and `@types/react`. These **must** keep
+  the `^` prefix or `wasp start` will fail. Do not pin them to exact versions.
+- Other dependencies can be pinned to exact versions for stability.
+
 ### Database Changes
 
 - Forward-only migrations (never rename fields directly)
